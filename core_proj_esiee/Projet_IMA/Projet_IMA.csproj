@@ -63,6 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractShape.cs" />
+    <Compile Include="Coord3D.cs" />
     <Compile Include="Couleur.cs" />
     <Compile Include="Ecran.cs" />
     <Compile Include="Form1.cs">
@@ -71,6 +73,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parallelogram.cs" />
+    <Compile Include="IShape.cs" />
+    <Compile Include="Sphere.cs" />
+    <Compile Include="Triangle.cs" />
     <Compile Include="Trigo_InvertCoordSpherique.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjetEleve.cs" />
