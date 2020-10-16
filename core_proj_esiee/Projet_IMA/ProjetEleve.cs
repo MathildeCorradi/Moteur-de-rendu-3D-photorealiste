@@ -57,16 +57,29 @@ namespace Projet_IMA
             Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
             Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
             Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));*/
-            V3 a = new V3(0, 50, 0);
-            V3 b = new V3(200, 50, 100);
-            V3 c = new V3(200, 50, 300);
-            Parallelogram para = new Parallelogram(a, b, c, new Couleur(0.8f, 0f, 0f));
-            Triangle tri = new Triangle(a, b, c, new Couleur(1f, 1f, 0f));
+            Parallelogram para = new Parallelogram(new V3(0, 50, 0), new V3(BitmapEcran.GetWidth(), 0, 0), new V3(100, 0, 100), new Couleur(0.55f, 0.27f, 0.07f));
+            Parallelogram para2 = new Parallelogram(new V3(BitmapEcran.GetWidth(), 0, 0), new V3(BitmapEcran.GetWidth(), 0, BitmapEcran.GetHeight()), new V3(BitmapEcran.GetWidth() - 100, 0, 100), new Couleur(0.96f, 0.76f, 0.96f));
+            Parallelogram para3 = new Parallelogram(new V3(BitmapEcran.GetWidth(), 0, BitmapEcran.GetHeight()), new V3(0, 0, BitmapEcran.GetHeight()), new V3(BitmapEcran.GetWidth()-100, 0, BitmapEcran.GetHeight()-100), new Couleur(0.8f, 0.1f, 0.1f));
+            Parallelogram para4 = new Parallelogram(new V3(0, 0, BitmapEcran.GetHeight()), new V3(0, 0, 0), new V3(100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.2f, 0f, 0.7f));
+            Parallelogram para5 = new Parallelogram(new V3(0, 50, 0), new V3(BitmapEcran.GetWidth()/2, 0, 0), new V3(100, 0, 100), new Couleur(0.55f, 0.27f, 0.07f));
+            Parallelogram para6 = new Parallelogram(new V3(100, 50, 100), new V3(BitmapEcran.GetWidth()-100, 0, 100), new V3(100, 0, BitmapEcran.GetHeight()-100), new Couleur(0.05f, 0.7f, 1f));
+            Sphere sphr = new Sphere(150, 0, 150, 70, new Couleur(0.77f, 1f, 0.52f));
+            Sphere sphr2 = new Sphere(BitmapEcran.GetWidth()/2 + 50, 0, 175, 80, new Couleur(0.8f, 0f, 0f));
+            Sphere sphr3 = new Sphere(BitmapEcran.GetWidth() / 2 - 50, 0, 250, 120, new Couleur(0f, 0f, 9f));
 
-            //sphr.draw();
-            //para.draw();
-            tri.draw();
-      
+            //Triangle tri = new Triangle(a, b, c, new Couleur(1f, 1f, 0f));
+
+            para.draw();
+            para2.draw();
+            para3.draw();
+            para4.draw();
+            para5.draw();
+            para6.draw();
+            sphr.draw();
+            sphr3.draw();
+            sphr2.draw();
+            //tri.draw();
+
         }
     }
 }

@@ -56,9 +56,9 @@ namespace Projet_IMA
 
         public new void draw()
         {
-            for(float u = 0; u <= IMA.DPI; u += 0.01f)
+            for(float u = 0; u <= IMA.DPI; u += 0.005f)
             {
-                for(float v = -(IMA.PI2); v <= IMA.PI2; v += 0.01f)
+                for(float v = -(IMA.PI2); v <= IMA.PI2; v += 0.005f)
                 {
                     V3 pt = spherePoint(u, v);
                     BitmapEcran.DrawPixel((int)pt.X, (int)pt.Z, this.ShapeColor);

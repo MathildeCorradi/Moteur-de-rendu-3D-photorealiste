@@ -36,9 +36,9 @@ namespace Projet_IMA
 
         public new void draw()
         {
-            for (float u = 0; u <= 1; u += 0.002f)
+            for (float u = 0; u <= 1; u += 0.001f)
             {
-                for (float v = 0; v <= 1; v += 0.002f)
+                for (float v = 0; v <= 1; v += 0.001f)
                 {
                     V3 pt = paraPoint(u, v);
                     BitmapEcran.DrawPixel((int)pt.X, (int)pt.Z, this.ShapeColor);
