@@ -11,7 +11,7 @@ namespace Projet_IMA
         Coord3D B;
         Coord3D C;
 
-        public Parallelogram(Coord3D a, Coord3D b, Coord3D c, float u, float v) : base(u, v)
+        public Parallelogram(Coord3D a, Coord3D b, Coord3D c, float u, float v, Couleur shapeColor) : base(u, v, shapeColor)
         {
             A = a;
             B = b;

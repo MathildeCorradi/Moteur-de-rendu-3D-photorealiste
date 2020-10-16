@@ -10,7 +10,7 @@ namespace Projet_IMA
         public static void Go()
         {
 
-            Texture T1 = new Texture("brick01.jpg");
+            /*Texture T1 = new Texture("brick01.jpg");
            
             int larg = 600;
             int haut = 300;
@@ -47,8 +47,9 @@ namespace Projet_IMA
             V3 k = t + r;
             float p = k * t * 2;
             V3 n = t ^ r;
-            V3 m = -t;
+            V3 m = -t;*/
 
+            Sphere sphr = new Sphere(10, 10, 10, 50, 90, 40, new Couleur(0.3f, 0.3f, 0.3f));
       
         }
     }
