@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 
@@ -49,36 +51,31 @@ namespace Projet_IMA
             V3 n = t ^ r;
             V3 m = -t;*/
 
-            //Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
-            /*Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
-            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
-            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
-            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
-            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
-            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
-            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));*/
+            List<IShape> ObjectsScene = new List<IShape>();
+            int Width = BitmapEcran.GetWidth();
+            int Height = BitmapEcran.GetHeight();
+            V3 PositionCamera = new V3(Width/2, -Width, Height/2);
+
+
             Parallelogram para = new Parallelogram(new V3(0, 50, 0), new V3(BitmapEcran.GetWidth(), 0, 0), new V3(100, 0, 100), new Couleur(0.55f, 0.27f, 0.07f));
             Parallelogram para2 = new Parallelogram(new V3(BitmapEcran.GetWidth(), 0, 0), new V3(BitmapEcran.GetWidth(), 0, BitmapEcran.GetHeight()), new V3(BitmapEcran.GetWidth() - 100, 0, 100), new Couleur(0.96f, 0.76f, 0.96f));
-            Parallelogram para3 = new Parallelogram(new V3(BitmapEcran.GetWidth(), 0, BitmapEcran.GetHeight()), new V3(0, 0, BitmapEcran.GetHeight()), new V3(BitmapEcran.GetWidth()-100, 0, BitmapEcran.GetHeight()-100), new Couleur(0.8f, 0.1f, 0.1f));
+            Parallelogram para3 = new Parallelogram(new V3(BitmapEcran.GetWidth(), 0, BitmapEcran.GetHeight()), new V3(0, 0, BitmapEcran.GetHeight()), new V3(BitmapEcran.GetWidth() - 100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.8f, 0.1f, 0.1f));
             Parallelogram para4 = new Parallelogram(new V3(0, 0, BitmapEcran.GetHeight()), new V3(0, 0, 0), new V3(100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.2f, 0f, 0.7f));
-            Parallelogram para5 = new Parallelogram(new V3(0, 50, 0), new V3(BitmapEcran.GetWidth()/2, 0, 0), new V3(100, 0, 100), new Couleur(0.55f, 0.27f, 0.07f));
-            Parallelogram para6 = new Parallelogram(new V3(100, 50, 100), new V3(BitmapEcran.GetWidth()-100, 0, 100), new V3(100, 0, BitmapEcran.GetHeight()-100), new Couleur(0.05f, 0.7f, 1f));
+            Parallelogram para5 = new Parallelogram(new V3(0, 50, 0), new V3(BitmapEcran.GetWidth() / 2, 0, 0), new V3(100, 0, 100), new Couleur(0.55f, 0.27f, 0.07f));
+            Parallelogram para6 = new Parallelogram(new V3(100, 50, 100), new V3(BitmapEcran.GetWidth() - 100, 0, 100), new V3(100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.05f, 0.7f, 1f));
             Sphere sphr = new Sphere(150, 0, 150, 70, new Couleur(0.77f, 1f, 0.52f));
-            Sphere sphr2 = new Sphere(BitmapEcran.GetWidth()/2 + 50, 0, 175, 80, new Couleur(0.8f, 0f, 0f));
+            Sphere sphr2 = new Sphere(BitmapEcran.GetWidth() / 2 + 50, 0, 175, 80, new Couleur(0.8f, 0f, 0f));
             Sphere sphr3 = new Sphere(BitmapEcran.GetWidth() / 2 - 50, 0, 250, 120, new Couleur(0f, 0f, 9f));
 
-            //Triangle tri = new Triangle(a, b, c, new Couleur(1f, 1f, 0f));
-
-            para.draw();
-            para2.draw();
-            para3.draw();
-            para4.draw();
-            para5.draw();
-            para6.draw();
-            sphr.draw();
-            sphr3.draw();
-            sphr2.draw();
-            //tri.draw();
+            for (int x_ecran = 0; x_ecran <= Width; x_ecran++) {
+                for (int y_ecran = 0; y_ecran <= Height; y_ecran++)
+                {
+                    V3 PositionPixelScene = new V3(x_ecran, 0, y_ecran);
+                    V3 DirectionRayon = PositionPixelScene - PositionCamera;
+                    Couleur PixelColor = BitmapEcran.RayCast(PositionCamera, DirectionRayon, ObjectsScene);
+                    BitmapEcran.DrawPixel(x_ecran, y_ecran, PixelColor);
+                } 
+            }
 
         }
     }

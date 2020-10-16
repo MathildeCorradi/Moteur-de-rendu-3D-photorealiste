@@ -99,6 +99,23 @@ namespace Projet_IMA
             Program.MyForm.PictureBoxInvalidate();
         }
 
+        public static Couleur RayCast(V3 positionCamera, V3 directionRayon, List<IShape> objectsScene)
+        {
+            Couleur pixelColor = new Couleur(0,0,0);
+            V3 intersection = new V3(0,0,0);
+            float mostClosestY = float.MaxValue;
+            foreach (IShape shape in objectsScene)
+            {
+                intersection = shape.getIntersection();
+                if (!intersection.Equals(null) && intersection.Y < mostClosestY )
+                {
+                    mostClosestY = intersection.Y;
+                    pixelColor = shape.Color; // Propriete color pls
+                }
+            }
+            return pixelColor;
+        }
+
         static public int GetWidth() { return Largeur; }
         static public int GetHeight() { return Hauteur; }
     }
