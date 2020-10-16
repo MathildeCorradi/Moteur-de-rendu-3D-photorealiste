@@ -76,7 +76,7 @@
     <Compile Include="IShape.cs" />
     <Compile Include="Sphere.cs" />
     <Compile Include="Triangle.cs" />
-    <Compile Include="Trigo_InvertCoordSpherique.cs" />
+    <Compile Include="IMA.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjetEleve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

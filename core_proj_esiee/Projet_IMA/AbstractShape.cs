@@ -5,25 +5,17 @@ using System.Text;
 
 namespace Projet_IMA
 {
-    class AbstractShape : IShape
+    public abstract class AbstractShape : IShape
     {
-        Couleur shapeColor;
+        public Couleur ShapeColor { get => ShapeColor; set => ShapeColor = value; }
 
         public AbstractShape(Couleur shapeColor)
         {
-            this.ShapeColor = shapeColor;
+            ShapeColor = shapeColor;
         }
 
-        public Couleur ShapeColor { get => shapeColor; set => shapeColor = value; }
+        public abstract V3 GetIntersection();
 
-        public void draw()
-        {
-            throw new NotImplementedException();
-        }
-
-        public V3 getIntersection()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Draw();
     }
 }
