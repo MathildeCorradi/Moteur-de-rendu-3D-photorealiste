@@ -25,17 +25,17 @@ namespace Projet_IMA
         static public  void Invert_Coord_Spherique(V3 P, float r, out float u, out float v)
         {
             P = P / r;
-            if (P.z >= 1) { u =(float) IMA.PI2 ; v = 0; }
-            else if (P.z <= -1) { u = (float)-IMA.PI2 ; v = 0; }
+            if (P.Z >= 1) { u =(float) IMA.PI2 ; v = 0; }
+            else if (P.Z <= -1) { u = (float)-IMA.PI2 ; v = 0; }
             else
             {
-                v = (float) Math.Asin(P.z);
-                float t = (float) (P.x / IMA.Cosf(v));
+                v = (float) Math.Asin(P.Z);
+                float t = (float) (P.X / IMA.Cosf(v));
                 if (t <= -1) { u = (float) IMA.PI; }
                 else if (t >= 1) { u = 0; }
                 else
                 {
-                    if (P.y < 0) u = (float) ( 2 * IMA.PI - Math.Acos(t));
+                    if (P.Y < 0) u = (float) ( 2 * IMA.PI - Math.Acos(t));
                     else u = (float) Math.Acos(t);
                 }
             }

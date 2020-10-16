@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractShape.cs" />
-    <Compile Include="Coord3D.cs" />
     <Compile Include="Couleur.cs" />
     <Compile Include="Ecran.cs" />
     <Compile Include="Form1.cs">

@@ -7,7 +7,7 @@ namespace Projet_IMA
 {
     interface IShape
     {
-        Coord3D getIntersection();
+        V3 getIntersection();
         void draw();
     }
 }

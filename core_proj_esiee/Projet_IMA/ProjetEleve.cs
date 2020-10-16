@@ -49,7 +49,23 @@ namespace Projet_IMA
             V3 n = t ^ r;
             V3 m = -t;*/
 
-            Sphere sphr = new Sphere(10, 10, 10, 50, 90, 40, new Couleur(0.3f, 0.3f, 0.3f));
+            //Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
+            /*Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
+            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
+            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
+            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
+            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
+            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));
+            Sphere sphr = new Sphere(500, 400, 10, 100, new Couleur(0.8f, 0f, 0f));*/
+            V3 a = new V3(0, 50, 0);
+            V3 b = new V3(200, 50, 100);
+            V3 c = new V3(200, 50, 300);
+            Parallelogram para = new Parallelogram(a, b, c, new Couleur(0.8f, 0f, 0f));
+            Triangle tri = new Triangle(a, b, c, new Couleur(1f, 1f, 0f));
+
+            //sphr.draw();
+            //para.draw();
+            tri.draw();
       
         }
     }

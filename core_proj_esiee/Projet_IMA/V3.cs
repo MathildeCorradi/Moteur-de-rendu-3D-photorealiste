@@ -7,18 +7,22 @@ namespace Projet_IMA
 {
     struct V3
     {
-        public float x;		// coordonnées du vecteur
-        public float y;
-        public float z;
+        private float x;		// coordonnées du vecteur
+        private float y;
+        private float z;
+
+        public float X { get => x; set => x = value; }
+        public float Y { get => y; set => y = value; }
+        public float Z { get => z; set => z = value; }
 
         public float Norm()		// retourne la norme du vecteur
         {
-            return (float) IMA.Sqrtf(x * x + y * y + z * z);
+            return (float) IMA.Sqrtf(X * X + Y * Y + Z * Z);
         }
 
         public float Norme2()
         {
-            return x * x + y * y + z * z;
+            return X * X + Y * Y + Z * Z;
         }
 
         public void Normalize()	// normalise le vecteur
@@ -32,9 +36,9 @@ namespace Projet_IMA
 
         public V3(V3 t)
         {
-            x = t.x;
-            y = t.y;
-            z = t.z;
+            x = t.X;
+            y = t.Y;
+            z = t.Z;
         }
 
         public V3(float _x, float _y, float _z)
@@ -53,77 +57,77 @@ namespace Projet_IMA
 
         public static V3 operator +(V3 a, V3 b)
         {
-            V3 t;
-            t.x = a.x + b.x;
-            t.y = a.y + b.y;
-            t.z = a.z + b.z;
+            V3 t = new V3(0, 0, 0);
+            t.X = a.X + b.X;
+            t.Y = a.Y + b.Y;
+            t.Z = a.Z + b.Z;
             return t;
         }
 
         public static V3 operator -(V3 a, V3 b)
         {
-            V3 t;
-            t.x = a.x - b.x;
-            t.y = a.y - b.y;
-            t.z = a.z - b.z;
+            V3 t = new V3(0, 0, 0);
+            t.X = a.X - b.X;
+            t.Y = a.Y - b.Y;
+            t.Z = a.Z - b.Z;
             return t;
         }
 
         public static V3 operator -(V3 a)
         {
-            V3 t;
-            t.x = -a.x;
-            t.y = -a.y;
-            t.z = -a.z;
+            V3 t = new V3(0, 0, 0);
+            t.X = -a.X;
+            t.Y = -a.Y;
+            t.Z = -a.Z;
             return t;
         }
 
         public static V3 operator ^ (V3 a, V3 b)  // produit vectoriel
         {
-            V3 t;
-            t.x = a.y * b.z - a.z * b.y;
-            t.y = a.z * b.x - a.x * b.z;
-            t.z = a.x * b.y - a.y * b.x;
+            V3 t = new V3(0, 0, 0);
+            t.X = a.Y * b.Z - a.Z * b.Y;
+            t.Y = a.Z * b.X - a.X * b.Z;
+            t.Z = a.X * b.Y - a.Y * b.X;
             return t;
         }
 
         public static float operator * (V3 a,V3 b)         // produit scalaire
         {
-            return a.x*b.x+a.y*b.y+a.z*b.z;
+            return a.X*b.X+a.Y*b.Y+a.Z*b.Z;
         }
 
        
 
         public static V3 operator *(float a, V3 b)
         {
-            V3 t;
-            t.x = b.x*a;
-            t.y = b.y*a;
-            t.z=  b.z*a;
+            V3 t = new V3(0, 0, 0);
+            t.X = b.X*a;
+            t.Y = b.Y*a;
+            t.Z=  b.Z*a;
             return t;
         }
 
         public static V3 operator *(V3 b, float a)
         {
-            V3 t;
-            t.x = b.x*a;
-            t.y = b.y*a;
-            t.z=  b.z*a;
+            V3 t = new V3(0, 0, 0);
+            t.X = b.X*a;
+            t.Y = b.Y*a;
+            t.Z=  b.Z*a;
             return t;
         }
 
         public static V3 operator /(V3 b, float a)
         {
-            V3 t;
-            t.x = b.x/a;
-            t.y = b.y/a;
-            t.z=  b.z/a;
+            V3 t = new V3(0, 0, 0);
+            t.X = b.X/a;
+            t.Y = b.Y/a;
+            t.Z=  b.Z/a;
             return t;
         }
 
         public static float prod_scal(ref V3 u, ref V3 v)
         {
-            return u.x * v.x + u.y * v.y + u.z * v.z;
+            return u.X * v.X + u.Y * v.Y + u.Z * v.Z;
         }
     }
 }

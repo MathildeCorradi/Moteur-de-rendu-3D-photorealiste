@@ -7,3 +7,12 @@ C:\Users\Mathilde\Desktop\Projet E4\core_proj_esiee\Projet_IMA\obj\x86\Debug\Pro
 C:\Users\Mathilde\Desktop\Projet E4\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.csproj.CoreCompileInputs.cache
 C:\Users\Mathilde\Desktop\Projet E4\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.exe
 C:\Users\Mathilde\Desktop\Projet E4\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.pdb
+D:\Moteur-de-rendu-3D-photorealiste\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.csprojAssemblyReference.cache
+D:\Moteur-de-rendu-3D-photorealiste\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.Form1.resources
+D:\Moteur-de-rendu-3D-photorealiste\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.Properties.Resources.resources
+D:\Moteur-de-rendu-3D-photorealiste\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.csproj.GenerateResource.cache
+D:\Moteur-de-rendu-3D-photorealiste\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.csproj.CoreCompileInputs.cache
+D:\Moteur-de-rendu-3D-photorealiste\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.exe
+D:\Moteur-de-rendu-3D-photorealiste\core_proj_esiee\Projet_IMA\obj\x86\Debug\Projet_IMA.pdb
+D:\Moteur-de-rendu-3D-photorealiste\core_proj_esiee\Projet_IMA\bin\Debug\Projet_IMA.exe
+D:\Moteur-de-rendu-3D-photorealiste\core_proj_esiee\Projet_IMA\bin\Debug\Projet_IMA.pdb
