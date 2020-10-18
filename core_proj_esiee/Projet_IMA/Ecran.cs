@@ -35,7 +35,7 @@ namespace Projet_IMA
             unsafe
             {
                 byte RR, VV, BB; 
-                c.check();
+                c.Check();
                 c.To255(out RR, out  VV, out  BB);
                 
                 byte* ptr = (byte*)data.Scan0;
@@ -106,12 +106,14 @@ namespace Projet_IMA
             float mostClosestY = float.MaxValue;
             foreach (IShape shape in objectsScene)
             {
+                /*
                 intersection = shape.getIntersection();
                 if (!intersection.Equals(null) && intersection.Y < mostClosestY )
                 {
                     mostClosestY = intersection.Y;
                     pixelColor = shape.Color; // Propriete color pls
                 }
+                */
             }
             return pixelColor;
         }

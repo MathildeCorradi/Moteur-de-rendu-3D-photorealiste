@@ -1,21 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Projet_IMA
+﻿namespace Projet_IMA
 {
+    /// <summary>
+    /// Classe abstraite pour mettre en commun les elements
+    /// de chaque forme
+    /// </summary>
     public abstract class AbstractShape : IShape
     {
-        public Couleur ShapeColor { get => ShapeColor; set => ShapeColor = value; }
+        #region attributs
 
+        /// <summary>
+        /// La couleur de la forme
+        /// </summary>
+        public Couleur ShapeColor { get; set; }
+
+        #endregion
+
+        #region constructeurs
+
+        /// <summary>
+        /// Constructeur de la 
+        /// </summary>
+        /// <param name="shapeColor"></param>
         public AbstractShape(Couleur shapeColor)
         {
             ShapeColor = shapeColor;
         }
 
+        #endregion
+
+        #region methodes
+
         public abstract V3 GetIntersection();
 
         public abstract void Draw();
+
+        #endregion
     }
 }

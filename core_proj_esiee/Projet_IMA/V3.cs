@@ -11,7 +11,7 @@
         /// Position x du vecteur
         /// </summary>
         public float X { get; set; }
-        
+
         /// <summary>
         /// Position y du vecteur
         /// </summary>
@@ -168,7 +168,12 @@
         }
 
 
-
+        /// <summary>
+        /// Multiplication d un vecteur selon un scalaire
+        /// </summary>
+        /// <param name="a">La valeur</param>
+        /// <param name="b">Le vecteur</param>
+        /// <returns></returns>
         public static V3 operator *(float a, V3 b)
         {
             V3 v = new V3(0, 0, 0);
@@ -178,15 +183,12 @@
             return v;
         }
 
-        public static V3 operator *(V3 b, float a)
-        {
-            V3 v = new V3(0, 0, 0);
-            v.X = b.X * a;
-            v.Y = b.Y * a;
-            v.Z = b.Z * a;
-            return v;
-        }
-
+        /// <summary>
+        /// Division d un vecteur selon un scalaire
+        /// </summary>
+        /// <param name="b">Le vecteur</param>
+        /// <param name="a">La valeur</param>
+        /// <returns>Le nouveau vecteur</returns>
         public static V3 operator /(V3 b, float a)
         {
             V3 v = new V3(0, 0, 0);
@@ -196,7 +198,13 @@
             return v;
         }
 
-        public static float prod_scal(ref V3 u, ref V3 v)
+        /// <summary>
+        /// Calcul le produit scalaire entre 2 vecteurs
+        /// </summary>
+        /// <param name="a">Vecteur 1</param>
+        /// <param name="b">Vecteur 2</param>
+        /// <returns>Le produit scalaire</returns>
+        public static float produitScalaire(ref V3 u, ref V3 v)
         {
             return u.X * v.X + u.Y * v.Y + u.Z * v.Z;
         }

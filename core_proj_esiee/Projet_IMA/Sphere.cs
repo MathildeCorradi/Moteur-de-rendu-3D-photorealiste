@@ -12,22 +12,22 @@ namespace Projet_IMA
         /// <summary>
         /// La rayon de la sphere
         /// </summary>
-        public int Radius { get => Radius; set => Radius = value; }
+        public int Radius { get; set; }
 
         /// <summary>
         /// Le point au centre du cercle
         /// </summary>
-        public V3 Center { get => Center; set => Center = value; }
+        public V3 Center { get; set; }
 
         /// <summary>
         /// Coordonnees 2D x de la sphere
         /// </summary>
-        public int X2D { get => X2D; set => X2D = value; }
+        public int X2D { get; set; }
 
         /// <summary>
         /// Coordonnees 2D y de la sphere
         /// </summary>
-        public int Y2D { get => Y2D; set => Y2D = value; }
+        public int Y2D { get; set; }
 
         #endregion
 
@@ -43,8 +43,8 @@ namespace Projet_IMA
         {
             center = new V3(center.X, center.Y, center.Z);
             Radius = radius;
-            X2D = (int) center.X;
-            Y2D = (int) center.Z;
+            X2D = (int)center.X;
+            Y2D = (int)center.Z;
         }
 
         /// <summary>
@@ -92,13 +92,13 @@ namespace Projet_IMA
         /// <param name="u">L angle u</param>
         /// <param name="v">L angle v</param>
         /// <returns></returns>
-        private V3 SpherePoints(float u, float v) => new V3(Radius * FindPoint(u,v) + Center);
+        private V3 SpherePoints(float u, float v) => new V3(Radius * FindPoint(u, v) + Center);
 
         public override void Draw()
         {
-            for(float u = 0; u <= IMA.DPI; u += 0.005f)
+            for (float u = 0; u <= IMA.DPI; u += 0.005f)
             {
-                for(float v = -(IMA.PI2); v <= IMA.PI2; v += 0.005f)
+                for (float v = -(IMA.PI2); v <= IMA.PI2; v += 0.005f)
                 {
                     V3 pt = SpherePoints(u, v);
                     BitmapEcran.DrawPixel((int)pt.X, (int)pt.Z, this.ShapeColor);

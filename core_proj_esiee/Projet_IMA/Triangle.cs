@@ -13,13 +13,13 @@ namespace Projet_IMA
 
         public V3 paraPoint(float u, float v)
         {
-            V3 AB = B - A;
-            V3 AC = C - A;
-            V3 pt = new V3(A + u * AB + v * AC);
+            V3 AB = PointB - PointA;
+            V3 AC = PointC - PointA;
+            V3 pt = new V3(PointA + u * AB + v * AC);
             return pt;
         }
 
-        public new void draw()
+        public override void Draw()
         {
             for (float u = 0; u <= 1; u += 0.001f)
             {

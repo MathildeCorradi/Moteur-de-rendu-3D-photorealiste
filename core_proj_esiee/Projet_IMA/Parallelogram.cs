@@ -1,54 +1,83 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Projet_IMA
 {
+    /// <summary>
+    /// Parallelogram former a l aide de deux vecteurs
+    /// Un vecteur AB pour la premiere base
+    /// Un vecteur AC pour la secondde base
+    /// </summary>
     class Parallelogram : AbstractShape
     {
-        protected V3 A;
-        protected V3 B;
-        protected V3 C;
+        #region attributs
 
-        //int xA, yA, xB, yB, xC, yC;
+        /// <summary>
+        /// Le point en bas a gauche
+        /// </summary>
+        public V3 PointA { get; set; }
 
-        public Parallelogram(V3 a, V3 b, V3 c, Couleur shapeColor) : base(shapeColor)
+        /// <summary>
+        /// Le point en bas a droite
+        /// </summary>
+        public V3 PointB { get; set; }
+
+        /// <summary>
+        /// Le point en haut a gauche
+        /// </summary>
+        public V3 PointC { get; set; }
+
+        #endregion
+
+        #region constructeurs
+
+        /// <summary>
+        /// Constructeur de la classe
+        /// </summary>
+        /// <param name="pointA">Le point A</param>
+        /// <param name="pointB">Le point B</param>
+        /// <param name="pointC">Le point C</param>
+        /// <param name="shapeColor">La color d objet</param>
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor) : base(shapeColor)
         {
-            A = a;
-            /*this.xA = (int)a.X;
-            this.yA = (int)a.Z;
-            this.xB = (int)b.X;
-            this.yB = (int)b.Z;
-            this.xC = (int)c.X;
-            this.yC = (int)c.Z;*/
-            B = b;
-            C = c;
+            PointA = pointA;
+            PointB = pointB;
+            PointC = pointC;
         }
 
-        public V3 paraPoint(float u, float v)
+        #endregion
+
+        #region methodes
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="u">L angle u</param>
+        /// <param name="v">L angle v</param>
+        /// <returns></returns>
+        public V3 ParaPoint(float u, float v)
         {
-            V3 AB = B - A;
-            V3 AC = C - A;
-            V3 pt = new V3(A + u * AB + v * AC);
-            return pt;
+            V3 AB = PointB - PointA;
+            V3 AC = PointC - PointA;
+            return new V3(PointA + u * AB + v * AC);
         }
 
-        public new void draw()
+        public override void Draw()
         {
             for (float u = 0; u <= 1; u += 0.001f)
             {
                 for (float v = 0; v <= 1; v += 0.001f)
                 {
-                    V3 pt = paraPoint(u, v);
-                    BitmapEcran.DrawPixel((int)pt.X, (int)pt.Z, this.ShapeColor);
+                    V3 pt = ParaPoint(u, v);
+                    BitmapEcran.DrawPixel((int)pt.X, (int)pt.Z, ShapeColor);
                 }
             }
         }
 
-        public V3 getIntersection()
+        public override V3 GetIntersection()
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }
