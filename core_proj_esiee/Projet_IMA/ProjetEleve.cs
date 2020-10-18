@@ -67,6 +67,9 @@ namespace Projet_IMA
             Sphere sphr2 = new Sphere(BitmapEcran.GetWidth() / 2 + 50, 0, 175, 80, new Couleur(0.8f, 0f, 0f));
             Sphere sphr3 = new Sphere(BitmapEcran.GetWidth() / 2 - 50, 0, 250, 120, new Couleur(0f, 0f, 9f));
 
+            para.Draw();
+
+            /* A decommenter a la fin de refactoring
             for (int x_ecran = 0; x_ecran <= Width; x_ecran++) {
                 for (int y_ecran = 0; y_ecran <= Height; y_ecran++)
                 {
@@ -76,6 +79,7 @@ namespace Projet_IMA
                     BitmapEcran.DrawPixel(x_ecran, y_ecran, PixelColor);
                 } 
             }
+            */
 
         }
     }
