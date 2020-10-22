@@ -34,6 +34,12 @@
 
         public abstract void Draw();
 
+
+        public Couleur GetColor()
+        {
+            return ShapeColor;
+        }
+
         #endregion
     }
 }

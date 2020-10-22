@@ -16,5 +16,11 @@
         /// Permet de dessiner la forme
         /// </summary>
         void Draw();
+
+        /// <summary>
+        /// Permet d obtenir la couleur de la forme
+        /// </summary>
+        /// <returns>Un objet Couleur</returns>
+        Couleur GetColor();
     }
 }
