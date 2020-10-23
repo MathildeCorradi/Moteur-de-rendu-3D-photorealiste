@@ -57,19 +57,30 @@ namespace Projet_IMA
             V3 PositionCamera = new V3(Width/2, -Width, Height/2);
 
 
-            Parallelogram para = new Parallelogram(new V3(0, 50, 0), new V3(BitmapEcran.GetWidth(), 0, 0), new V3(100, 0, 100), new Couleur(0.55f, 0.27f, 0.07f));
-            Parallelogram para2 = new Parallelogram(new V3(BitmapEcran.GetWidth(), 0, 0), new V3(BitmapEcran.GetWidth(), 0, BitmapEcran.GetHeight()), new V3(BitmapEcran.GetWidth() - 100, 0, 100), new Couleur(0.96f, 0.76f, 0.96f));
-            Parallelogram para3 = new Parallelogram(new V3(BitmapEcran.GetWidth(), 0, BitmapEcran.GetHeight()), new V3(0, 0, BitmapEcran.GetHeight()), new V3(BitmapEcran.GetWidth() - 100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.8f, 0.1f, 0.1f));
-            Parallelogram para4 = new Parallelogram(new V3(0, 0, BitmapEcran.GetHeight()), new V3(0, 0, 0), new V3(100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.2f, 0f, 0.7f));
-            Parallelogram para5 = new Parallelogram(new V3(0, 50, 0), new V3(BitmapEcran.GetWidth() / 2, 0, 0), new V3(100, 0, 100), new Couleur(0.55f, 0.27f, 0.07f));
-            Parallelogram para6 = new Parallelogram(new V3(100, 50, 100), new V3(BitmapEcran.GetWidth() - 100, 0, 100), new V3(100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.05f, 0.7f, 1f));
-            Sphere sphr = new Sphere(150, 0, 150, 70, new Couleur(0.77f, 1f, 0.52f));
-            Sphere sphr2 = new Sphere(BitmapEcran.GetWidth() / 2 + 50, 0, 175, 80, new Couleur(0.8f, 0f, 0f));
-            Sphere sphr3 = new Sphere(BitmapEcran.GetWidth() / 2 - 50, 0, 250, 120, new Couleur(0f, 0f, 9f));
+            //Parallelogram para = new Parallelogram(new V3(0, 50, 0), new V3(BitmapEcran.GetWidth(), 0, 0), new V3(100, 0, 100), new Couleur(0.55f, 0.27f, 0.07f));
+            //Parallelogram para2 = new Parallelogram(new V3(BitmapEcran.GetWidth(), 0, 0), new V3(BitmapEcran.GetWidth(), 0, BitmapEcran.GetHeight()), new V3(BitmapEcran.GetWidth() - 100, 0, 100), new Couleur(0.96f, 0.76f, 0.96f));
+            //Parallelogram para3 = new Parallelogram(new V3(BitmapEcran.GetWidth(), 0, BitmapEcran.GetHeight()), new V3(0, 0, BitmapEcran.GetHeight()), new V3(BitmapEcran.GetWidth() - 100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.8f, 0.1f, 0.1f));
+            //Parallelogram para4 = new Parallelogram(new V3(0, 0, BitmapEcran.GetHeight()), new V3(0, 0, 0), new V3(100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.2f, 0f, 0.7f));
+            //Parallelogram para5 = new Parallelogram(new V3(0, 50, 0), new V3(BitmapEcran.GetWidth() / 2, 0, 0), new V3(100, 0, 100), new Couleur(0.55f, 0.27f, 0.07f));
+            //Parallelogram para6 = new Parallelogram(new V3(100, 50, 100), new V3(BitmapEcran.GetWidth() - 100, 0, 100), new V3(100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.05f, 0.7f, 1f));
+            Sphere sphr = new Sphere(500, 100, 150, 70, new Couleur(0.77f, 1f, 0.52f)); // vert pomme
+            Sphere sphr2 = new Sphere(500, 200, 150, 150, new Couleur(0.8f, 0f, 0f)); // rouge
+            Sphere sphr3 = new Sphere(500, 300, 150, 230, new Couleur(0f, 0f, 0.9f)); // bleu
+            ObjectsScene.Add(sphr);
+            ObjectsScene.Add(sphr2);
+            ObjectsScene.Add(sphr3);
 
-            para.Draw();
+            /*para.Draw();
+            para2.Draw();
+            para3.Draw();
+            para4.Draw();
+            para5.Draw();
+            para6.Draw();
+            sphr.Draw();
+            sphr2.Draw();
+            sphr3.Draw();*/
 
-            /* A decommenter a la fin de refactoring
+            // A decommenter a la fin de refactoring
             for (int x_ecran = 0; x_ecran <= Width; x_ecran++) {
                 for (int y_ecran = 0; y_ecran <= Height; y_ecran++)
                 {
@@ -79,7 +90,7 @@ namespace Projet_IMA
                     BitmapEcran.DrawPixel(x_ecran, y_ecran, PixelColor);
                 } 
             }
-            */
+            
 
         }
     }

@@ -107,10 +107,13 @@ namespace Projet_IMA
             foreach (IShape shape in objectsScene)
             {
                 intersection = shape.GetIntersection(positionCamera, directionRayon);
-                if (!intersection.Equals(null) && intersection.Y < mostClosestY )
+                if (intersection != null)
                 {
-                    mostClosestY = intersection.Y;
-                    pixelColor = shape.GetColor();
+                    if (intersection.Y < mostClosestY)
+                    {
+                        mostClosestY = intersection.Y;
+                        pixelColor = shape.GetColor();
+                    }
                 }
             }
             return pixelColor;

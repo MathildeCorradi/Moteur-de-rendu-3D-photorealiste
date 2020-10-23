@@ -41,7 +41,7 @@ namespace Projet_IMA
         /// <param name="shapeColor">La couleur de la sphere</param>
         public Sphere(V3 center, int radius, Couleur shapeColor) : base(shapeColor)
         {
-            center = new V3(center.X, center.Y, center.Z);
+            Center = new V3(center.X, center.Y, center.Z);
             Radius = radius;
             X2D = (int)center.X;
             Y2D = (int)center.Z;
@@ -67,7 +67,23 @@ namespace Projet_IMA
 
         public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
-            throw new NotImplementedException();
+            float a, b, c, delta, t1, t2;
+            V3 v = new V3(0, 0, 0);
+            a = dirRayon * dirRayon;
+            b = 2 * dirRayon * (positionCamera - Center);
+            c = (positionCamera * positionCamera) + (Center * Center) - (Radius* Radius) - 2 * positionCamera * Center;
+            delta = b * b - 4 * a * c;
+            t1 = (-b - (float)Math.Sqrt(delta)) / 2 * a;
+            t2 = (-b + (float)Math.Sqrt(delta)) / 2 * a;
+            if (t1 > 0 && t2 > 0)
+            {
+                return positionCamera + t1 * dirRayon;
+            }
+            else if (t1 <= 0 && t2 > 0)
+            {
+                return positionCamera + t2 * dirRayon;
+            }
+            else return null; // t1 < 0 && t2 <0
         }
 
         /// <summary>
@@ -78,12 +94,11 @@ namespace Projet_IMA
         /// <returns>Un point</returns>
         private V3 FindPoint(float u, float v)
         {
-            return new V3
-            {
-                X = IMA.Cosf(v) * IMA.Cosf(u),
-                Y = IMA.Cosf(v) * IMA.Sinf(u),
-                Z = IMA.Sinf(v)
-            };
+            V3 vect = new V3(0,0,0);
+            vect.X = IMA.Cosf(v) * IMA.Cosf(u);
+            vect.Y = IMA.Cosf(v) * IMA.Sinf(u);
+            vect.Z = IMA.Sinf(v);
+            return vect;
         }
 
         /// <summary>
