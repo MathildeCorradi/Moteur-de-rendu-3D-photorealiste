@@ -204,9 +204,18 @@
         /// <param name="a">Vecteur 1</param>
         /// <param name="b">Vecteur 2</param>
         /// <returns>Le produit scalaire</returns>
-        public static float produitScalaire(ref V3 u, ref V3 v)
+        public static float ProduitScalaire(ref V3 u, ref V3 v)
         {
             return u.X * v.X + u.Y * v.Y + u.Z * v.Z;
+        }
+
+        public static V3 ProduitVectoriel(ref V3 u, ref V3 v)
+        {
+            V3 vector = new V3(0, 0, 0);
+            vector.X = u.Y * v.Z - u.Z * v.Y;
+            vector.Y = u.Z * v.X - u.X * v.Z;
+            vector.Z = u.X * v.Y - u.Y * v.X;
+            return vector;
         }
 
         #endregion
