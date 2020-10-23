@@ -81,15 +81,32 @@ namespace Projet_IMA
         {
             V3 AB = PointB - PointA;
             V3 AC = PointC - PointA;
-            V3 normale = AB ^ AC;
-            float t = ((AC - positionCamera) * normale) / (dirRayon * normale);
-            // if t <= 0 -> KO
+            // V3 normal = AB ^ AC;
+            V3 normal = (AB ^ AC) / (AB ^ AC).Norm();
+            float t = ((PointA - positionCamera) * normal) / (dirRayon * normal);
             if (t <= 0)
             {
                 return null;
             }
             V3 intersection = positionCamera + t * dirRayon;
-            return intersection;
+            V3 AI = intersection - PointA;
+            U = ((AC ^ normal) * AI) / (AB ^ AC).Norm();
+            ComputeV(AB, AC, AI);
+            return (IsValidIntersection(t))? intersection : null;
+        }
+
+        private bool IsValidIntersection(float t)
+        {
+            return
+                U >= 0 && U <= 1
+                && V >= 0 && V <= 1;
+        }
+
+        private void ComputeV(V3 AB, V3 AC, V3 AI)
+        {
+            V3 vector = new V3(0, 0, 0);
+            vector = AI - U * AB;
+            V = vector.X / AC.X;
         }
 
         #endregion

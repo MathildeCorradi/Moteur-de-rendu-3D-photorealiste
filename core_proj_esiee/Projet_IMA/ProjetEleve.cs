@@ -66,9 +66,20 @@ namespace Projet_IMA
             Sphere sphr = new Sphere(500, 100, 150, 70, new Couleur(0.77f, 1f, 0.52f)); // vert pomme
             Sphere sphr2 = new Sphere(500, 200, 150, 150, new Couleur(0.8f, 0f, 0f)); // rouge
             Sphere sphr3 = new Sphere(500, 300, 150, 230, new Couleur(0f, 0f, 0.9f)); // bleu
+
+            var r0 = new Parallelogram(new V3(0, 50, 0), new V3(0, 50, 100), new V3(BitmapEcran.GetWidth(), 50, 0), new Couleur(0.55f, 0.27f, 0.07f));
+            var r1 = new Parallelogram(new V3(100, 10, 10), new V3(100, 250, 250), new V3(350, 250, 400), new Couleur(.77f, 1f, .52f));
+
+            Triangle t0 = new Triangle(new V3(0, 50, 0), new V3(0, 50, 100), new V3(BitmapEcran.GetWidth(), 50, 0), new Couleur(0.55f, 0.27f, 0.07f));
+            Triangle t1 = new Triangle(new V3(100, 10, 10), new V3(100, 250, 250), new V3(350, 250, 400), new Couleur(.77f, 1f, .52f));
+
+            ObjectsScene.Add(t0);
+            ObjectsScene.Add(t1);
+            /*ObjectsScene.Add(r0);
+            ObjectsScene.Add(r1);
             ObjectsScene.Add(sphr);
             ObjectsScene.Add(sphr2);
-            ObjectsScene.Add(sphr3);
+            ObjectsScene.Add(sphr3);*/
 
             /*para.Draw();
             para2.Draw();
