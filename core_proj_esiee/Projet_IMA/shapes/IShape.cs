@@ -10,7 +10,7 @@
         /// Permet d obtenir l intersection d un vecteur
         /// </summary>
         /// <returns>Le point d intersection</returns>
-        V3 GetIntersection();
+        V3 GetIntersection(V3 positionCamera, V3 dirRayon);
 
         /// <summary>
         /// Permet de dessiner la forme

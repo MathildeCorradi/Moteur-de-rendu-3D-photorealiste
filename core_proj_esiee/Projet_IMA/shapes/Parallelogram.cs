@@ -73,7 +73,7 @@ namespace Projet_IMA
             }
         }
 
-        public override V3 GetIntersection()
+        public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
             throw new NotImplementedException();
         }

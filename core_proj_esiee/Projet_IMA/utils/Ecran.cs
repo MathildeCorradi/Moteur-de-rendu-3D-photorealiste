@@ -106,11 +106,11 @@ namespace Projet_IMA
             float mostClosestY = float.MaxValue;
             foreach (IShape shape in objectsScene)
             {
-                intersection = shape.GetIntersection();
+                intersection = shape.GetIntersection(positionCamera, directionRayon);
                 if (!intersection.Equals(null) && intersection.Y < mostClosestY )
                 {
                     mostClosestY = intersection.Y;
-                    pixelColor = shape.GetColor(); // Propriete color pls
+                    pixelColor = shape.GetColor();
                 }
             }
             return pixelColor;

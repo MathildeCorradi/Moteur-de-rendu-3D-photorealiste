@@ -30,7 +30,7 @@
 
         #region methodes
 
-        public abstract V3 GetIntersection();
+        public abstract V3 GetIntersection(V3 positionCamera, V3 dirRayon);
 
         public abstract void Draw();
 

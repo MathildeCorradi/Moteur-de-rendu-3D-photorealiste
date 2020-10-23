@@ -65,7 +65,7 @@ namespace Projet_IMA
         /// <returns>La normale de la sphere</returns>
         public V3 GetNormal(float u, float v) => FindPoint(u, v);
 
-        public override V3 GetIntersection()
+        public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
             throw new NotImplementedException();
         }
