@@ -34,5 +34,11 @@ namespace Projet_IMA
                 }
             }
         }
+
+        public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
+        {
+            V3 intersection = base.GetIntersection(positionCamera, dirRayon);
+            return (intersection == null || U > 1 - V)?  null : intersection;
+        }
     }
 }

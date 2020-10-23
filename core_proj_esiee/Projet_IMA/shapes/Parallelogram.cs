@@ -26,6 +26,10 @@ namespace Projet_IMA
         /// </summary>
         public V3 PointC { get; set; }
 
+        public float U { get; set; }
+
+        public float V { get; set; }
+
         #endregion
 
         #region constructeurs
@@ -75,7 +79,17 @@ namespace Projet_IMA
 
         public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
-            throw new NotImplementedException();
+            V3 AB = PointB - PointA;
+            V3 AC = PointC - PointA;
+            V3 normale = AB ^ AC;
+            float t = ((AC - positionCamera) * normale) / (dirRayon * normale);
+            // if t <= 0 -> KO
+            if (t <= 0)
+            {
+                return null;
+            }
+            V3 intersection = positionCamera + t * dirRayon;
+            return intersection;
         }
 
         #endregion

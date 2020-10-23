@@ -78,12 +78,11 @@ namespace Projet_IMA
         /// <returns>Un point</returns>
         private V3 FindPoint(float u, float v)
         {
-            return new V3
-            {
-                X = IMA.Cosf(v) * IMA.Cosf(u),
-                Y = IMA.Cosf(v) * IMA.Sinf(u),
-                Z = IMA.Sinf(v)
-            };
+            V3 vector = new V3(0, 0, 0);
+            vector.X = IMA.Cosf(v) * IMA.Cosf(u);
+            vector.Y = IMA.Cosf(v) * IMA.Sinf(u);
+            vector.Z = IMA.Sinf(v);
+            return vector;
         }
 
         /// <summary>
