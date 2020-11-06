@@ -71,7 +71,7 @@ namespace Projet_IMA
             V3 v = new V3(0, 0, 0);
             a = dirRayon * dirRayon;
             b = 2 * dirRayon * (positionCamera - Center);
-            c = (positionCamera * positionCamera) + (Center * Center) - (Radius* Radius) - 2 * positionCamera * Center;
+            c = (positionCamera * positionCamera) + (Center * Center) - (Radius * Radius) - 2 * positionCamera * Center;
             delta = b * b - 4 * a * c;
             t1 = (-b - (float)Math.Sqrt(delta)) / 2 * a;
             t2 = (-b + (float)Math.Sqrt(delta)) / 2 * a;
@@ -94,7 +94,7 @@ namespace Projet_IMA
         /// <returns>Un point</returns>
         private V3 FindPoint(float u, float v)
         {
-            V3 vect = new V3(0,0,0);
+            V3 vect = new V3(0, 0, 0);
             vect.X = IMA.Cosf(v) * IMA.Cosf(u);
             vect.Y = IMA.Cosf(v) * IMA.Sinf(u);
             vect.Z = IMA.Sinf(v);
@@ -109,20 +109,8 @@ namespace Projet_IMA
         /// <returns></returns>
         private V3 SpherePoints(float u, float v) => new V3(Radius * FindPoint(u, v) + Center);
 
-        public override void Draw()
-        {
-            for (float u = 0; u <= IMA.DPI; u += 0.005f)
-            {
-                for (float v = -(IMA.PI2); v <= IMA.PI2; v += 0.005f)
-                {
-                    V3 pt = SpherePoints(u, v);
-                    BitmapEcran.DrawPixel((int)pt.X, (int)pt.Z, this.ShapeColor);
-                }
-            }
-        }
+        #endregion
     }
-
-    #endregion
 }
 
 /*Equation intersection :

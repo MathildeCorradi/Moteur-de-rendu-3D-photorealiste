@@ -13,11 +13,6 @@
         V3 GetIntersection(V3 positionCamera, V3 dirRayon);
 
         /// <summary>
-        /// Permet de dessiner la forme
-        /// </summary>
-        void Draw();
-
-        /// <summary>
         /// Permet d obtenir la couleur de la forme
         /// </summary>
         /// <returns>Un objet Couleur</returns>

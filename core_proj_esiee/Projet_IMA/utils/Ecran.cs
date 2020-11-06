@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
-
+using Projet_IMA.utils;
 
 namespace Projet_IMA
 {
@@ -97,6 +97,17 @@ namespace Projet_IMA
                 B.UnlockBits(data);
 
             Program.MyForm.PictureBoxInvalidate();
+        }
+
+        private Couleur Illumination(Lampe lamp, IShape objet, V3 intersection)
+        {
+            Couleur pixelColor = new Couleur(0, 0, 0);
+            pixelColor = objet.GetColor();
+
+            pixelColor = pixelColor * lamp.Couleur; // modèle de réflexion ambiant
+            //V3 normale = intersection; normale d'un point ?
+            //pixelColor = V3.produitScalaire(pixelColor, normale * lamp.Orientation);
+            return pixelColor;
         }
 
         public static Couleur RayCast(V3 positionCamera, V3 directionRayon, List<IShape> objectsScene)

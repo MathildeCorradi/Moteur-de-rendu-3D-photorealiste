@@ -65,18 +65,6 @@ namespace Projet_IMA
             return new V3(PointA + u * AB + v * AC);
         }
 
-        public override void Draw()
-        {
-            for (float u = 0; u <= 1; u += 0.001f)
-            {
-                for (float v = 0; v <= 1; v += 0.001f)
-                {
-                    V3 pt = ParaPoint(u, v);
-                    BitmapEcran.DrawPixel((int)pt.X, (int)pt.Z, ShapeColor);
-                }
-            }
-        }
-
         public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
             V3 AB = PointB - PointA;
