@@ -22,6 +22,7 @@ namespace Projet_IMA
         static private int stride;
         static private BitmapData data;
 
+
         static public Bitmap Init(int largeur, int hauteur)
         {
             Largeur = largeur;
@@ -99,22 +100,25 @@ namespace Projet_IMA
             Program.MyForm.PictureBoxInvalidate();
         }
 
-        private Couleur Illumination(Lampe lamp, IShape objet, V3 intersection)
+        private static Couleur Illumination(Lampe lamp, IShape shape, V3 intersection)
         {
             Couleur pixelColor = new Couleur(0, 0, 0);
-            pixelColor = objet.GetColor();
+            pixelColor = shape.GetColor();
 
             pixelColor = pixelColor * lamp.Couleur; // modèle de réflexion ambiant
-            //V3 normale = intersection; normale d'un point ?
-            //pixelColor = V3.produitScalaire(pixelColor, normale * lamp.Orientation);
+
+            V3 normal = shape.GetNormal(intersection);
+            pixelColor += (normal * lamp.Orientation) * pixelColor;
             return pixelColor;
         }
 
-        public static Couleur RayCast(V3 positionCamera, V3 directionRayon, List<IShape> objectsScene)
+        public static Couleur RayCast(V3 positionCamera, V3 directionRayon, List<IShape> objectsScene, Lampe lamp)
         {
             Couleur pixelColor = new Couleur(0,0,0);
+            IShape mostClosestShape = null;
             V3 intersection = new V3(0,0,0);
             float mostClosestY = float.MaxValue;
+            V3 mostClosestIntersection = null;
             foreach (IShape shape in objectsScene)
             {
                 intersection = shape.GetIntersection(positionCamera, directionRayon);
@@ -123,9 +127,15 @@ namespace Projet_IMA
                     if (intersection.Y < mostClosestY)
                     {
                         mostClosestY = intersection.Y;
+                        mostClosestShape = shape;
+                        mostClosestIntersection = intersection;
                         pixelColor = shape.GetColor();
                     }
                 }
+            }
+            if (mostClosestShape != null)
+            {
+                // pixelColor = Illumination(lamp, mostClosestShape, mostClosestIntersection);
             }
             return pixelColor;
         }

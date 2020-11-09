@@ -37,6 +37,8 @@
             return ShapeColor;
         }
 
+        public abstract V3 GetNormal(V3 intersection = null);
+
         #endregion
     }
 }

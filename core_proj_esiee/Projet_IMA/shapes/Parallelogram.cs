@@ -30,6 +30,8 @@ namespace Projet_IMA
 
         public float V { get; set; }
 
+        private V3 Normal { get; set; }
+
         #endregion
 
         #region constructeurs
@@ -46,6 +48,9 @@ namespace Projet_IMA
             PointA = pointA;
             PointB = pointB;
             PointC = pointC;
+            V3 AB = PointB - PointA;
+            V3 AC = PointC - PointA;
+            Normal = (AB ^ AC) / (AB ^ AC).Norm();
         }
 
         #endregion
@@ -69,16 +74,14 @@ namespace Projet_IMA
         {
             V3 AB = PointB - PointA;
             V3 AC = PointC - PointA;
-            // V3 normal = AB ^ AC;
-            V3 normal = (AB ^ AC) / (AB ^ AC).Norm();
-            float t = ((PointA - positionCamera) * normal) / (dirRayon * normal);
+            float t = ((PointA - positionCamera) * Normal) / (dirRayon * Normal);
             if (t < 0)
             {
                 return null;
             }
             V3 intersection = positionCamera + t * dirRayon;
             V3 AI = intersection - PointA;
-            U = ((AC ^ normal) * AI) / (AB ^ AC).Norm();
+            U = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
             ComputeV(AB, AC, AI);
             return (IsValidIntersection(t))? intersection : null;
         }
@@ -95,6 +98,11 @@ namespace Projet_IMA
             V3 vector = new V3(0, 0, 0);
             vector = AI - U * AB;
             V = vector.X / AC.X;
+        }
+
+        public override V3 GetNormal(V3 intersection = null)
+        {
+            return Normal;
         }
 
         #endregion

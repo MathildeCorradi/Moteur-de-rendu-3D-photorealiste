@@ -20,8 +20,7 @@ namespace Projet_IMA
             Couleur lightColor = new Couleur(1f, 1f, 1f);
             Lampe lamp = new Lampe(lightColor, new V3(1, -1, 1), 1f);
 
-            // Parallelogram ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), new V3(0.1f, 400, 50), Couleur.GROUND);
-            var ground = new Parallelogram(new V3(600, 0, 200), new V3(700, 0, 200), new V3(599, 0, windowEight - 20), Couleur.GROUND);
+            var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), new V3(0.1f, 400, 50), Couleur.GROUND);
             var wallRight = new Parallelogram(new V3(windowWidth, 0, 0), new V3(windowWidth, 0, windowEight), new V3(windowWidth - 50, 400, 0), Couleur.WALL_RIGHT);
             var ceilling = new Parallelogram(new V3(0, 400, windowEight - 50), new V3(windowWidth, 400, windowEight - 50), new V3(0.1f, 0, windowEight), Couleur.CEILLING);
             var wallLeft = new Parallelogram(new V3(50, 400, 0), new V3(50, 400, windowEight), new V3(0, 0, 0), Couleur.WALL_LEFT);
@@ -45,10 +44,11 @@ namespace Projet_IMA
                 {
                     V3 positionPixelScene = new V3(xScreen, 0, yScreen);
                     V3 directionRayon = positionPixelScene - positionCamera;
-                    Couleur PixelColor = BitmapEcran.RayCast(positionCamera, directionRayon, objectsScene);
+                    Couleur PixelColor = BitmapEcran.RayCast(positionCamera, directionRayon, objectsScene, lamp);
                     BitmapEcran.DrawPixel(xScreen, yScreen, PixelColor);
                 }
             }
+
         }
     }
 }

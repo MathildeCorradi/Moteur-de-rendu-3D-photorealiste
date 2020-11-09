@@ -79,7 +79,7 @@ namespace Projet_IMA
         /// <summary>
         /// Permet d inverser les coordonnees d un cercle
         /// </summary>
-        /// <param name="point">Le centre du cercle</param>
+        /// <param name="point">Un point du cercle</param>
         /// <param name="radius">Le rayon du cercle</param>
         /// <param name="u">Angle u</param>
         /// <param name="v">Angle v</param>
@@ -91,17 +91,17 @@ namespace Projet_IMA
                 v = 0;
             }
             else if (point.Z <= -1) {
-                u = -IMA.PI2;
+                u = -PI2;
                 v = 0;
             } else {
                 v = (float) Math.Asin(point.Z);
-                float t = point.X / IMA.Cosf(v);
+                float t = point.X / Cosf(v);
                 if (t <= -1) {
                     u = PI;
                 } else if (t >= 1) { 
                     u = 0;
                 } else {
-                    u = (point.Y < 0)? (float)(2 * IMA.PI - Math.Acos(t)) : (float)Math.Acos(t);
+                    u = (point.Y < 0)? (float)(2 * PI - Math.Acos(t)) : (float)Math.Acos(t);
                 }
             }
         }

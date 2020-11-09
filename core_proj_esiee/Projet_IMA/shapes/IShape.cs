@@ -17,5 +17,7 @@
         /// </summary>
         /// <returns>Un objet Couleur</returns>
         Couleur GetColor();
+
+        V3 GetNormal(V3 intersection = null);
     }
 }

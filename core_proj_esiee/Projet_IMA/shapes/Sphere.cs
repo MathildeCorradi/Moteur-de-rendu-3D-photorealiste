@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Projet_IMA
 {
@@ -29,6 +30,8 @@ namespace Projet_IMA
         /// </summary>
         public int Y2D { get; set; }
 
+        public Dictionary<V3, float[]> Angles { get; set; }
+
         #endregion
 
         #region methodes
@@ -45,6 +48,7 @@ namespace Projet_IMA
             Radius = radius;
             X2D = (int)center.X;
             Y2D = (int)center.Z;
+            Angles = new Dictionary<V3, float[]>();
         }
 
         /// <summary>
@@ -68,7 +72,6 @@ namespace Projet_IMA
         public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
             float a, b, c, delta, t1, t2;
-            V3 v = new V3(0, 0, 0);
             a = dirRayon * dirRayon;
             b = 2 * dirRayon * (positionCamera - Center);
             c = (positionCamera * positionCamera) + (Center * Center) - (Radius * Radius) - 2 * positionCamera * Center;
@@ -78,11 +81,18 @@ namespace Projet_IMA
             t2 = (-b + (float)Math.Sqrt(delta)) / (2 * a);
             if (t1 > 0 && t2 > 0)
             {
-                return positionCamera + t1 * dirRayon;
+                V3 intersectionPoint = positionCamera + t1 * dirRayon;
+                IMA.InvertCoordSpherique(intersectionPoint, Radius, out float u, out float v);
+                float[] angles = new float[] { u, v };
+                Angles.Add(intersectionPoint, angles);
+                return intersectionPoint;
             }
             else if (t1 < 0 && t2 > 0)
             {
-                return positionCamera + t2 * dirRayon;
+                V3 intersectionPoint = positionCamera + t2 * dirRayon;
+                IMA.InvertCoordSpherique(intersectionPoint, Radius, out float u, out float v);
+                Angles.Add(intersectionPoint, new float[] { u, v });
+                return intersectionPoint;
             }
             else return null; // t1 < 0 && t2 <0
         }
@@ -109,6 +119,15 @@ namespace Projet_IMA
         /// <param name="v">L angle v</param>
         /// <returns></returns>
         private V3 SpherePoints(float u, float v) => new V3(Radius * FindPoint(u, v) + Center);
+
+        public override V3 GetNormal(V3 intersection = null)
+        {
+            float u, v;
+            Angles.TryGetValue(intersection, out float[] values);
+            u = values[0];
+            v = values[1];
+            return GetNormal(u, v);
+        }
 
         #endregion
     }
