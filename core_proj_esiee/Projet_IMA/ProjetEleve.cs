@@ -26,8 +26,8 @@ namespace Projet_IMA
             Parallelogram para4 = new Parallelogram(new V3(0, 100, BitmapEcran.GetHeight()), new V3(0, 100, 0), new V3(100, 100, BitmapEcran.GetHeight() - 100), new Couleur(0.2f, 0f, 0.7f));
             Parallelogram para5 = new Parallelogram(new V3(0, 150, 0), new V3(BitmapEcran.GetWidth() / 2, 150, 0), new V3(100, 150, 100), new Couleur(0.55f, 0.27f, 0.07f));
             //Parallelogram para6 = new Parallelogram(new V3(100, 50, 100), new V3(BitmapEcran.GetWidth() - 100, 0, 100), new V3(100, 0, BitmapEcran.GetHeight() - 100), new Couleur(0.05f, 0.7f, 1f));
-            Sphere sphr = new Sphere(550, 20, 150, 20, new Couleur(0.77f, 1f, 0.52f)); // vert pomme
-            Sphere sphr2 = new Sphere(700, 20, 150, 30, new Couleur(0.8f, 0f, 0f)); // rouge
+            Sphere sphr = new Sphere(650, 20, 200, 150, new Couleur(0.77f, 1f, 0.52f)); // vert pomme
+            Sphere sphr2 = new Sphere(700, 20, 200, 150, new Couleur(0.8f, 0f, 0f)); // rouge
             //Sphere sphr3 = new Sphere(500, 300, 150, 230, new Couleur(0f, 0f, 0.9f)); // bleu
 
             var r0 = new Parallelogram(new V3(0, 50, 0), new V3(0, 50, 100), new V3(BitmapEcran.GetWidth(), 50, 0), new Couleur(0.55f, 0.27f, 0.07f));

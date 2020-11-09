@@ -73,13 +73,14 @@ namespace Projet_IMA
             b = 2 * dirRayon * (positionCamera - Center);
             c = (positionCamera * positionCamera) + (Center * Center) - (Radius * Radius) - 2 * positionCamera * Center;
             delta = b * b - 4 * a * c;
-            t1 = (-b - (float)Math.Sqrt(delta)) / 2 * a;
-            t2 = (-b + (float)Math.Sqrt(delta)) / 2 * a;
+            if (delta <= 0) return null;
+            t1 = (-b - (float)Math.Sqrt(delta)) / (2 * a);
+            t2 = (-b + (float)Math.Sqrt(delta)) / (2 * a);
             if (t1 > 0 && t2 > 0)
             {
                 return positionCamera + t1 * dirRayon;
             }
-            else if (t1 <= 0 && t2 > 0)
+            else if (t1 < 0 && t2 > 0)
             {
                 return positionCamera + t2 * dirRayon;
             }
