@@ -8,6 +8,26 @@ namespace Projet_IMA
     /// </summary>
     public struct Couleur
     {
+        #region couleurs statique
+
+        public static Couleur GROUND = new Couleur(.722f, .475f, .337f);
+
+        public static Couleur WALL_RIGHT = new Couleur(1, .682f, .788f);
+
+        public static Couleur CEILLING = new Couleur(1, .788f, .055f);
+
+        public static Couleur WALL_LEFT = new Couleur(.439f, .573f, .745f);
+
+        public static Couleur WALL_BACK = new Couleur(.596f, .847f, .914f);
+
+        public static Couleur SPHERE_LIME = new Couleur(.706f, .898f, .11f);
+
+        public static Couleur SPHERE_BLUE = new Couleur(.247f, .282f, .8f);
+
+        public static Couleur SPHERE_YELLOW = new Couleur(.996f, .945f, 0);
+
+        #endregion
+
         #region attributs
 
         /// <summary>
