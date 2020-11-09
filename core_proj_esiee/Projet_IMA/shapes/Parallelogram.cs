@@ -72,7 +72,7 @@ namespace Projet_IMA
             // V3 normal = AB ^ AC;
             V3 normal = (AB ^ AC) / (AB ^ AC).Norm();
             float t = ((PointA - positionCamera) * normal) / (dirRayon * normal);
-            if (t <= 0)
+            if (t < 0)
             {
                 return null;
             }
