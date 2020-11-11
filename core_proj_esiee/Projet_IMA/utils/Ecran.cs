@@ -107,8 +107,9 @@ namespace Projet_IMA
 
             pixelColor = pixelColor * lamp.Couleur; // modèle de réflexion ambiant
 
-            V3 normal = shape.GetNormal(intersection);
-            pixelColor += (normal * lamp.Orientation) * pixelColor;
+            /*V3 normal = shape.GetNormal(intersection);
+            normal.Normalize();
+            pixelColor = (normal * (-lamp.Orientation)) * pixelColor;*/
             return pixelColor;
         }
 
@@ -129,13 +130,12 @@ namespace Projet_IMA
                         mostClosestY = intersection.Y;
                         mostClosestShape = shape;
                         mostClosestIntersection = intersection;
-                        pixelColor = shape.GetColor();
                     }
                 }
             }
             if (mostClosestShape != null)
             {
-                // pixelColor = Illumination(lamp, mostClosestShape, mostClosestIntersection);
+                pixelColor = Illumination(lamp, mostClosestShape, mostClosestIntersection);
             }
             return pixelColor;
         }

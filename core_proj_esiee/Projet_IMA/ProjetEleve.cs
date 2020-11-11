@@ -19,15 +19,23 @@ namespace Projet_IMA
             V3 positionCamera = new V3(windowWidth / 2, -windowWidth, windowEight / 2);
             Couleur lightColor = new Couleur(1f, 1f, 1f);
             Lampe lamp = new Lampe(lightColor, new V3(1, -1, 1), 1f);
+            lamp.Orientation.Normalize();
 
-            var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), new V3(0.1f, 400, 50), Couleur.GROUND);
-            var wallRight = new Parallelogram(new V3(windowWidth, 0, 0), new V3(windowWidth, 0, windowEight), new V3(windowWidth - 50, 400, 0), Couleur.WALL_RIGHT);
-            var ceilling = new Parallelogram(new V3(0, 400, windowEight - 50), new V3(windowWidth, 400, windowEight - 50), new V3(0.1f, 0, windowEight), Couleur.CEILLING);
-            var wallLeft = new Parallelogram(new V3(50, 400, 0), new V3(50, 400, windowEight), new V3(0, 0, 0), Couleur.WALL_LEFT);
-            var wallBack = new Parallelogram(new V3(0, 400, 0), new V3(windowWidth, 400, 0), new V3(0.1f, 400, windowEight), Couleur.WALL_BACK);
-            var sphr = new Sphere(600, 20, 200, 70, Couleur.SPHERE_BLUE);
+            V3 basGauche = new V3(10,400,0);
+            V3 basDroite = new V3(windowWidth-10,400,0);
+            V3 hauteGauche = new V3(10,400, windowEight);
+            V3 hauteDroite = new V3(windowWidth-10, 400, windowEight);
+
+
+
+            var ground = new Parallelogram(new V3(0, 0, 0), basGauche, new V3(windowWidth, 0, 0), Couleur.GROUND);
+            var ceilling = new Parallelogram(new V3(0, 0, windowEight), new V3(windowWidth, 0, windowEight), hauteGauche, Couleur.CEILLING);
+            var wallBack = new Parallelogram(basGauche, hauteGauche, basDroite, Couleur.WALL_BACK);
+            var wallRight = new Parallelogram(basDroite, hauteDroite, new V3(windowWidth, 0, 0), Couleur.WALL_RIGHT);
+            var wallLeft = new Parallelogram(new V3(0, 0, 0), new V3(0, 0, windowEight), basGauche, Couleur.WALL_LEFT);
+            var sphr = new Sphere(600, 20, 200, 90, Couleur.SPHERE_BLUE);
             var sphr2 = new Sphere(700, 20, 200, 70, Couleur.SPHERE_LIME);
-            var sphr3 = new Sphere(500, 370, 20, 100, Couleur.SPHERE_YELLOW);
+            var sphr3 = new Sphere(500, 300, 20, 100, Couleur.SPHERE_YELLOW);
 
             objectsScene.Add(wallRight);
             objectsScene.Add(ceilling);
