@@ -102,7 +102,7 @@ namespace Projet_IMA
 
         public override V3 GetNormal(V3 intersection = null)
         {
-            return Normal;
+            return Normal; 
         }
 
         #endregion
