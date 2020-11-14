@@ -82,7 +82,8 @@ namespace Projet_IMA
             if (t1 > 0 && t2 > 0)
             {
                 V3 intersectionPoint = positionCamera + t1 * dirRayon;
-                IMA.InvertCoordSpherique(intersectionPoint, Radius, out float u, out float v);
+                V3 pointSphere = findSpherePoint(intersectionPoint);
+                IMA.InvertCoordSpherique(pointSphere, Radius, out float u, out float v);
                 float[] angles = new float[] { u, v };
                 Angles.Add(intersectionPoint, angles);
                 return intersectionPoint;
@@ -90,11 +91,25 @@ namespace Projet_IMA
             else if (t1 < 0 && t2 > 0)
             {
                 V3 intersectionPoint = positionCamera + t2 * dirRayon;
-                IMA.InvertCoordSpherique(intersectionPoint, Radius, out float u, out float v);
-                Angles.Add(intersectionPoint, new float[] { u, v });
+                V3 pointSphere = findSpherePoint(intersectionPoint);
+                IMA.InvertCoordSpherique(pointSphere, Radius, out float u, out float v);
+                float[] angles = new float[] { u, v };
+                Angles.Add(intersectionPoint, angles);
                 return intersectionPoint;
             }
             else return null; // t1 < 0 && t2 <0
+        }
+
+        private V3 findSpherePoint(V3 intersection)
+        {
+            float x, y, z;
+            V3 point;
+            x = intersection.X - Center.X;
+            y = intersection.Y - Center.Y;
+            z = intersection.Z - Center.Z;
+            point = new V3(x, y, z);
+            return point;
+
         }
 
         /// <summary>
