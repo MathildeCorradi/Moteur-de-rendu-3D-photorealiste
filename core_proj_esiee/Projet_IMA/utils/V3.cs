@@ -93,6 +93,11 @@
             Z /= norm;
         }
 
+        public string toString()
+        {
+            return X + " " + Y + " " + Z;
+        }
+
         #endregion
 
         #region operateurs

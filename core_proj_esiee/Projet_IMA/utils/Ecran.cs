@@ -112,7 +112,7 @@ namespace Projet_IMA
             normal.Normalize();
             coeff = normal * lamp.Orientation;
             if (coeff < 0) { coeff = 0; }
-            pixelColor += coeff * (shape.GetColor() * lamp.Couleur);
+            pixelColor += coeff * (shape.GetColor() * lamp.Couleur); // Modèle diffus 
             return pixelColor;
         }
 
