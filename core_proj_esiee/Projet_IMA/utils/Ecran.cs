@@ -100,19 +100,26 @@ namespace Projet_IMA
             Program.MyForm.PictureBoxInvalidate();
         }
 
-        private static Couleur Illumination(Lampe lamp, IShape shape, V3 intersection)
+        private static Couleur Illumination(Lampe lamp, IShape shape, V3 intersection, V3 directionRayon)
         {
             Couleur pixelColor = new Couleur(0, 0, 0);
             Couleur shapeColor = shape.GetColor();
-            float coeff;
+            float coeffDiffus;
 
             pixelColor = shapeColor * new Couleur(0.3f, 0.3f, 0.3f); // modèle de réflexion ambiant
 
             V3 normal = shape.GetNormal(intersection);
             normal.Normalize();
-            coeff = normal * lamp.Orientation;
-            if (coeff < 0) { coeff = 0; }
-            pixelColor += coeff * (shape.GetColor() * lamp.Couleur); // Modèle diffus 
+            coeffDiffus = normal * lamp.Orientation;
+            if (coeffDiffus < 0) { return pixelColor; }
+            pixelColor += coeffDiffus * (shapeColor * lamp.Couleur); // Modèle diffus 
+            
+            
+            V3 rayonReflechi = -lamp.Orientation + 2 * (normal * lamp.Orientation) * normal;
+            directionRayon.Normalize();
+            rayonReflechi.Normalize();
+            float coeffSpeculaire = (float)Math.Pow(rayonReflechi * (-directionRayon), 98);
+            pixelColor += coeffSpeculaire * lamp.Couleur; // Modèle spéculaire
             return pixelColor;
         }
 
@@ -138,7 +145,7 @@ namespace Projet_IMA
             }
             if (mostClosestShape != null)
             {
-                pixelColor = Illumination(lamp, mostClosestShape, mostClosestIntersection);
+                pixelColor = Illumination(lamp, mostClosestShape, mostClosestIntersection, directionRayon);
             }
             return pixelColor;
         }
