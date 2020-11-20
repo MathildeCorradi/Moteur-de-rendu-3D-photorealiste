@@ -30,8 +30,6 @@ namespace Projet_IMA
         /// </summary>
         public int Y2D { get; set; }
 
-        public Dictionary<V3, float[]> Angles { get; set; }
-
         #endregion
 
         #region methodes
@@ -48,7 +46,6 @@ namespace Projet_IMA
             Radius = radius;
             X2D = (int)center.X;
             Y2D = (int)center.Z;
-            Angles = new Dictionary<V3, float[]>();
         }
 
         /// <summary>
@@ -60,14 +57,6 @@ namespace Projet_IMA
         /// <param name="radius"></param>
         /// <param name="shapeColor"></param>
         public Sphere(float x, float y, float z, int radius, Couleur shapeColor) : this(new V3(x, y, z), radius, shapeColor) { }
-
-        /// <summary>
-        /// Calcul la normale de la sphere
-        /// </summary>
-        /// <param name="u">L angle u</param>
-        /// <param name="v">L angle v</param>
-        /// <returns>La normale de la sphere</returns>
-        public V3 GetNormal(float u, float v) => FindPoint(u, v);
 
         public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
@@ -82,34 +71,23 @@ namespace Projet_IMA
             if (t1 > 0 && t2 > 0)
             {
                 V3 intersectionPoint = positionCamera + t1 * dirRayon;
-                V3 pointSphere = findSpherePoint(intersectionPoint);
-                IMA.InvertCoordSpherique(pointSphere, Radius, out float u, out float v);
-                float[] angles = new float[] { u, v };
-                Angles.Add(intersectionPoint, angles);
                 return intersectionPoint;
             }
             else if (t1 < 0 && t2 > 0)
             {
                 V3 intersectionPoint = positionCamera + t2 * dirRayon;
-                V3 pointSphere = findSpherePoint(intersectionPoint);
-                IMA.InvertCoordSpherique(pointSphere, Radius, out float u, out float v);
-                float[] angles = new float[] { u, v };
-                Angles.Add(intersectionPoint, angles);
                 return intersectionPoint;
             }
-            else return null; // t1 < 0 && t2 <0
+            else return null; // t1 < 0 && t2 < 0
         }
 
-        private V3 findSpherePoint(V3 intersection)
+        private V3 FindSpherePoint(V3 intersection)
         {
-            float x, y, z;
-            V3 point;
-            x = intersection.X - Center.X;
-            y = intersection.Y - Center.Y;
-            z = intersection.Z - Center.Z;
-            point = new V3(x, y, z);
-            return point;
-
+            return new V3(
+                intersection.X - Center.X,
+                intersection.Y - Center.Y,
+                intersection.Z - Center.Z
+            );
         }
 
         /// <summary>
@@ -120,11 +98,11 @@ namespace Projet_IMA
         /// <returns>Un point</returns>
         private V3 FindPoint(float u, float v)
         {
-            V3 vect = new V3(0, 0, 0);
-            vect.X = IMA.Cosf(v) * IMA.Cosf(u);
-            vect.Y = IMA.Cosf(v) * IMA.Sinf(u);
-            vect.Z = IMA.Sinf(v);
-            return vect;
+            return new V3(
+                IMA.Cosf(v) * IMA.Cosf(u),
+                IMA.Cosf(v) * IMA.Sinf(u),
+                IMA.Sinf(v)
+            );
         }
 
         /// <summary>
@@ -135,14 +113,25 @@ namespace Projet_IMA
         /// <returns></returns>
         private V3 SpherePoints(float u, float v) => new V3(Radius * FindPoint(u, v) + Center);
 
+        /// <summary>
+        /// Calcul la normale a partir d une intersection
+        /// A partir de cette intersection on va calculer u et v
+        /// </summary>
+        /// <param name="intersection">L intersection</param>
+        /// <returns>La normal par rapport a l intersection</returns>
         public override V3 GetNormal(V3 intersection = null)
         {
-            float u, v;
-            Angles.TryGetValue(intersection, out float[] values);
-            u = values[0];
-            v = values[1];
+            IMA.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
             return GetNormal(u, v);
         }
+
+        /// <summary>
+        /// Calcul la normale de la sphere a partir de u et v
+        /// </summary>
+        /// <param name="u">L angle u</param>
+        /// <param name="v">L angle v</param>
+        /// <returns>La normale de la sphere</returns>
+        public V3 GetNormal(float u, float v) => FindPoint(u, v);
 
         #endregion
     }
