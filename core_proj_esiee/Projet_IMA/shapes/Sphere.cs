@@ -144,7 +144,7 @@ namespace Projet_IMA
             {
                 IMA.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
                 u = u / IMA.DPI;
-                v = v + IMA.PI2;
+                v = (v + IMA.PI2) / (IMA.PI2 + IMA.PI2);
                 couleur = Texture.ReadColor(u, v);
             }
             else
