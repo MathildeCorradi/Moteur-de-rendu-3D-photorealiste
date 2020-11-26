@@ -32,7 +32,7 @@ namespace Projet_IMA
 
         #endregion
 
-        #region methodes
+        #region constructeurs
 
         /// <summary>
         /// Constructeur d une sphere
@@ -40,7 +40,7 @@ namespace Projet_IMA
         /// <param name="center">Le point du centre</param>
         /// <param name="radius">Le rayon de la sphere</param>
         /// <param name="shapeColor">La couleur de la sphere</param>
-        public Sphere(V3 center, int radius, Couleur shapeColor) : base(shapeColor)
+        public Sphere(V3 center, int radius, Couleur shapeColor, Texture texture = null) : base(shapeColor, texture)
         {
             Center = new V3(center.X, center.Y, center.Z);
             Radius = radius;
@@ -56,7 +56,11 @@ namespace Projet_IMA
         /// <param name="z"></param>
         /// <param name="radius"></param>
         /// <param name="shapeColor"></param>
-        public Sphere(float x, float y, float z, int radius, Couleur shapeColor) : this(new V3(x, y, z), radius, shapeColor) { }
+        public Sphere(float x, float y, float z, int radius, Couleur shapeColor, Texture texture = null) : this(new V3(x, y, z), radius, shapeColor, texture) { }
+
+        #endregion
+
+        #region methodes
 
         public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {

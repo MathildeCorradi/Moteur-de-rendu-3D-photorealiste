@@ -8,7 +8,7 @@ namespace Projet_IMA
     /// Les fichiers textures sont dans le repertoire textures
     /// du projet
     /// </summary>
-    class Texture
+    public class Texture
     {
         #region attributs
 

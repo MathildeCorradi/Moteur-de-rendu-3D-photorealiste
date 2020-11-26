@@ -43,7 +43,7 @@ namespace Projet_IMA
         /// <param name="pointB">Le point B</param>
         /// <param name="pointC">Le point C</param>
         /// <param name="shapeColor">La color d objet</param>
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor) : base(shapeColor)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor, Texture texture = null) : base(shapeColor, texture)
         {
             PointA = pointA;
             PointB = pointB;
@@ -83,7 +83,7 @@ namespace Projet_IMA
             V3 AI = intersection - PointA;
             U = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
             V = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
-            return (IsValidIntersection())? intersection : null;
+            return (IsValidIntersection()) ? intersection : null;
         }
 
         private bool IsValidIntersection()
@@ -95,7 +95,7 @@ namespace Projet_IMA
 
         public override V3 GetNormal(V3 intersection = null)
         {
-            return Normal; 
+            return Normal;
         }
 
         #endregion

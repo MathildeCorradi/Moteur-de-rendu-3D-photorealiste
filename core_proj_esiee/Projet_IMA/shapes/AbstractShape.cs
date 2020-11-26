@@ -13,17 +13,20 @@
         /// </summary>
         public Couleur ShapeColor { get; set; }
 
+        public Texture Texture { get; set; }
+
         #endregion
 
         #region constructeurs
 
         /// <summary>
-        /// Constructeur de la 
+        /// Constructeur de la shape
         /// </summary>
         /// <param name="shapeColor"></param>
-        public AbstractShape(Couleur shapeColor)
+        public AbstractShape(Couleur shapeColor, Texture texture)
         {
             ShapeColor = shapeColor;
+            Texture = texture;
         }
 
         #endregion
