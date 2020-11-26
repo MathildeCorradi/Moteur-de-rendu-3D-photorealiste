@@ -139,7 +139,19 @@ namespace Projet_IMA
 
         public override Couleur GetColor(V3 intersection)
         {
-            return ShapeColor;
+            Couleur couleur;
+            if (Texture != null)
+            {
+                IMA.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
+                u = u / IMA.DPI;
+                v = v + IMA.PI2;
+                couleur = Texture.ReadColor(u, v);
+            }
+            else
+            {
+                couleur = ShapeColor;
+            }
+            return couleur;
         }
 
         #endregion

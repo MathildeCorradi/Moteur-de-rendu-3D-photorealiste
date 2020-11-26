@@ -26,7 +26,7 @@ namespace Projet_IMA
             V3 hauteGauche = new V3(0, 400, windowHeight);
             V3 hauteDroite = new V3(windowWidth, 400, windowHeight);
 
-            var sphr = new Sphere(600, 20, 200, 90, Couleur.SPHERE_BLUE);
+            var sphr = new Sphere(600, 20, 200, 90, Couleur.SPHERE_BLUE, new Texture("damier.jpg"));
             var sphr2 = new Sphere(700, 20, 200, 70, Couleur.SPHERE_LIME);
             var sphr3 = new Sphere(500, 300, 20, 100, Couleur.SPHERE_YELLOW);
 
