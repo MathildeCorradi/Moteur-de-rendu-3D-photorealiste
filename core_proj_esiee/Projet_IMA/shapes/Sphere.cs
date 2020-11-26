@@ -137,6 +137,11 @@ namespace Projet_IMA
         /// <returns>La normale de la sphere</returns>
         public V3 GetNormal(float u, float v) => FindPoint(u, v);
 
+        public override Couleur GetColor(V3 intersection)
+        {
+            return ShapeColor;
+        }
+
         #endregion
     }
 }

@@ -30,10 +30,10 @@ namespace Projet_IMA
             var sphr2 = new Sphere(700, 20, 200, 70, Couleur.SPHERE_LIME);
             var sphr3 = new Sphere(500, 300, 20, 100, Couleur.SPHERE_YELLOW);
 
-            var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, Couleur.GROUND);
+            var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, Couleur.GROUND, new Texture("wood.jpg"));
             var ceilling = new Parallelogram(hauteGauche, hauteDroite, new V3(0, 0, windowHeight), Couleur.CEILLING);
             var wallBack = new Parallelogram(basGauche, basDroite, hauteGauche,  Couleur.WALL_BACK);
-            var wallRight = new Parallelogram(basDroite, new V3(windowWidth, 0, 0), hauteDroite, Couleur.WALL_RIGHT);
+            var wallRight = new Parallelogram(basDroite, new V3(windowWidth, 0, 0), hauteDroite, Couleur.WALL_RIGHT, new Texture("gold.jpg"));
             var wallLeft = new Parallelogram(new V3(0, 0, 0), basGauche, new V3(0, 0, windowHeight), Couleur.WALL_LEFT);
 
             objectsScene.Add(wallRight);

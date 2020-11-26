@@ -35,10 +35,7 @@
 
         public abstract V3 GetIntersection(V3 positionCamera, V3 dirRayon);
 
-        public Couleur GetColor()
-        {
-            return ShapeColor;
-        }
+        public abstract Couleur GetColor(V3 intersection);
 
         public abstract V3 GetNormal(V3 intersection = null);
 

@@ -16,7 +16,7 @@
         /// Permet d obtenir la couleur de la forme
         /// </summary>
         /// <returns>Un objet Couleur</returns>
-        Couleur GetColor();
+        Couleur GetColor(V3 intersection);
 
         V3 GetNormal(V3 intersection = null);
     }

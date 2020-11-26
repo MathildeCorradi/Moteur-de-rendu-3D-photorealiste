@@ -11,7 +11,7 @@ namespace Projet_IMA
         {
         }
 
-        public V3 ParaPoint(float u, float v)
+        public V3 paraPoint(float u, float v)
         {
             V3 AB = PointB - PointA;
             V3 AC = PointC - PointA;

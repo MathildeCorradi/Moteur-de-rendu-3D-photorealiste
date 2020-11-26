@@ -103,7 +103,7 @@ namespace Projet_IMA
         private static Couleur Illumination(Lampe lamp, IShape shape, V3 intersection, V3 directionRayon)
         {
             Couleur pixelColor = new Couleur(0, 0, 0);
-            Couleur shapeColor = shape.GetColor();
+            Couleur shapeColor = shape.GetColor(intersection);
             float coeffDiffus;
 
             pixelColor = shapeColor * new Couleur(0.3f, 0.3f, 0.3f); // modèle de réflexion ambiant

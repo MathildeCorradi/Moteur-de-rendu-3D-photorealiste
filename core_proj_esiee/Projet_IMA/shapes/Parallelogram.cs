@@ -98,6 +98,25 @@ namespace Projet_IMA
             return Normal;
         }
 
+        public override Couleur GetColor(V3 intersection)
+        {
+            Couleur couleur;
+            if (Texture != null)
+            {
+                V3 AB = PointB - PointA;
+                V3 AC = PointC - PointA;
+                V3 AI = intersection - PointA;
+                U = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
+                V = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
+                couleur = Texture.ReadColor(U, V);
+            }
+            else
+            {
+                couleur = ShapeColor;
+            }
+            return couleur;
+        }
+
         #endregion
     }
 }
