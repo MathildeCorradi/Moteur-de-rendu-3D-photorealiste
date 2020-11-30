@@ -26,11 +26,7 @@ namespace Projet_IMA
         /// </summary>
         public V3 PointC { get; set; }
 
-        public float U { get; set; }
-
-        public float V { get; set; }
-
-        private V3 Normal { get; set; }
+        protected V3 Normal { get; set; }
 
         #endregion
 
@@ -43,7 +39,17 @@ namespace Projet_IMA
         /// <param name="pointB">Le point B</param>
         /// <param name="pointC">Le point C</param>
         /// <param name="shapeColor">La color d objet</param>
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor, Texture texture = null) : base(shapeColor, texture)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor) : base(shapeColor)
+        {
+            InitPoints(pointA, pointB, pointC);
+        }
+
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture) : base(texture)
+        {
+            InitPoints(pointA, pointB, pointC);
+        }
+
+        private void InitPoints(V3 pointA, V3 pointB, V3 pointC)
         {
             PointA = pointA;
             PointB = pointB;
@@ -81,16 +87,16 @@ namespace Projet_IMA
             }
             V3 intersection = positionCamera + t * dirRayon;
             V3 AI = intersection - PointA;
-            U = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
-            V = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
-            return (IsValidIntersection()) ? intersection : null;
+            float u = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
+            float v = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
+            return (IsValidIntersection(u, v)) ? intersection : null;
         }
 
-        private bool IsValidIntersection()
+        private bool IsValidIntersection(float u, float v)
         {
             return
-                U >= 0 && U <= 1
-                && V >= 0 && V <= 1;
+                u >= 0 && u <= 1
+                && v >= 0 && v <= 1;
         }
 
         public override V3 GetNormal(V3 intersection = null)
@@ -106,9 +112,9 @@ namespace Projet_IMA
                 V3 AB = PointB - PointA;
                 V3 AC = PointC - PointA;
                 V3 AI = intersection - PointA;
-                U = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
-                V = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
-                couleur = Texture.ReadColor(U, V);
+                float u = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
+                float v = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
+                couleur = Texture.ReadColor(u, v);
             }
             else
             {

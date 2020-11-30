@@ -23,9 +23,13 @@
         /// Constructeur de la shape
         /// </summary>
         /// <param name="shapeColor"></param>
-        public AbstractShape(Couleur shapeColor, Texture texture)
+        public AbstractShape(Couleur shapeColor)
         {
             ShapeColor = shapeColor;
+        }
+
+        public AbstractShape(Texture texture)
+        {
             Texture = texture;
         }
 

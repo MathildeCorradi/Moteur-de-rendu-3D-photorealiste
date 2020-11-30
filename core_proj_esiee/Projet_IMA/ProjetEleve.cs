@@ -1,11 +1,5 @@
 ﻿using Projet_IMA.utils;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-
 namespace Projet_IMA
 {
     static class ProjetEleve
@@ -26,14 +20,14 @@ namespace Projet_IMA
             V3 hauteGauche = new V3(0, 400, windowHeight);
             V3 hauteDroite = new V3(windowWidth, 400, windowHeight);
 
-            var sphr = new Sphere(600, 20, 200, 90, Couleur.SPHERE_BLUE, new Texture("gold.jpg"));
-            var sphr2 = new Sphere(700, 20, 200, 70, Couleur.SPHERE_LIME, new Texture("lead.jpg"));
+            var sphr = new Sphere(600, 20, 200, 90, new Texture("gold.jpg"));
+            var sphr2 = new Sphere(700, 20, 200, 70, new Texture("lead.jpg"));
             var sphr3 = new Sphere(500, 300, 20, 100, Couleur.SPHERE_YELLOW);
 
-            var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, Couleur.GROUND, new Texture("carreau.jpg"));
+            var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, new Texture("carreau.jpg"));
             var ceilling = new Parallelogram(hauteGauche, hauteDroite, new V3(0, 0, windowHeight), Couleur.CEILLING);
-            var wallBack = new Parallelogram(basGauche, basDroite, hauteGauche,  Couleur.WALL_BACK);
-            var wallRight = new Parallelogram(basDroite, new V3(windowWidth, 0, 0), hauteDroite, Couleur.WALL_RIGHT, new Texture("gold.jpg"));
+            var wallBack = new Parallelogram(basGauche, basDroite, hauteGauche, Couleur.WALL_BACK);
+            var wallRight = new Parallelogram(basDroite, new V3(windowWidth, 0, 0), hauteDroite, new Texture("gold.jpg"));
             var wallLeft = new Parallelogram(new V3(0, 0, 0), basGauche, new V3(0, 0, windowHeight), Couleur.WALL_LEFT);
 
             objectsScene.Add(wallRight);
@@ -45,6 +39,7 @@ namespace Projet_IMA
             objectsScene.Add(sphr2);
             objectsScene.Add(sphr3);
 
+            // objectsScene.Add(new Triangle(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, new Texture("carreau.jpg")));
 
             for (int xScreen = 0; xScreen <= windowWidth; xScreen++)
             {

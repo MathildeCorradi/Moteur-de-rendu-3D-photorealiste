@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Projet_IMA
+﻿namespace Projet_IMA
 {
     class Triangle : Parallelogram
     {
-        public Triangle(V3 a, V3 b, V3 c, Couleur shapeColor, Texture texture = null) : base(a, b, c, shapeColor, texture)
+        public Triangle(V3 a, V3 b, V3 c, Couleur shapeColor) : base(a, b, c, shapeColor)
+        {
+        }
+
+        public Triangle(V3 a, V3 b, V3 c, Texture texture) : base(a, b, c, texture)
         {
         }
 
@@ -15,14 +14,19 @@ namespace Projet_IMA
         {
             V3 AB = PointB - PointA;
             V3 AC = PointC - PointA;
-            V3 pt = new V3(PointA + u * AB + v * AC);
-            return pt;
+            return new V3(PointA + u * AB + v * AC);
         }
 
         public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
             V3 intersection = base.GetIntersection(positionCamera, dirRayon);
-            return (intersection == null || U > 1 - V) ? null : intersection;
+            if (intersection == null) return null;
+            V3 AI = intersection - PointA;
+            V3 AB = PointB - PointA;
+            V3 AC = PointC - PointA;
+            float u = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
+            float v = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
+            return (u > 1 - v) ? null : intersection;
         }
     }
 }

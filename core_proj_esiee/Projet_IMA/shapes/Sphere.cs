@@ -40,12 +40,14 @@ namespace Projet_IMA
         /// <param name="center">Le point du centre</param>
         /// <param name="radius">Le rayon de la sphere</param>
         /// <param name="shapeColor">La couleur de la sphere</param>
-        public Sphere(V3 center, int radius, Couleur shapeColor, Texture texture = null) : base(shapeColor, texture)
+        public Sphere(V3 center, int radius, Couleur shapeColor) : base(shapeColor)
         {
-            Center = new V3(center.X, center.Y, center.Z);
-            Radius = radius;
-            X2D = (int)center.X;
-            Y2D = (int)center.Z;
+            InitPoints(center, radius);
+        }
+
+        public Sphere(V3 center, int radius, Texture texture) : base(texture)
+        {
+            InitPoints(center, radius);
         }
 
         /// <summary>
@@ -56,7 +58,17 @@ namespace Projet_IMA
         /// <param name="z"></param>
         /// <param name="radius"></param>
         /// <param name="shapeColor"></param>
-        public Sphere(float x, float y, float z, int radius, Couleur shapeColor, Texture texture = null) : this(new V3(x, y, z), radius, shapeColor, texture) { }
+        public Sphere(float x, float y, float z, int radius, Couleur shapeColor) : this(new V3(x, y, z), radius, shapeColor) { }
+
+        public Sphere(float x, float y, float z, int radius, Texture texture) : this(new V3(x, y, z), radius, texture) { }
+
+        private void InitPoints(V3 center, int radius)
+        {
+            Center = new V3(center.X, center.Y, center.Z);
+            Radius = radius;
+            X2D = (int)center.X;
+            Y2D = (int)center.Z;
+        }
 
         #endregion
 
