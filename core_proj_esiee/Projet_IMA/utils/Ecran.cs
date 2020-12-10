@@ -113,7 +113,14 @@ namespace Projet_IMA
             coeffDiffus = normal * lamp.Orientation;
             if (coeffDiffus < 0) { return pixelColor; }
             pixelColor += coeffDiffus * (shapeColor * lamp.Couleur); // Modèle diffus 
-            
+
+            if (shape.hasBump())
+            {
+                V3 normalBump = shape.GetNormalBump(intersection);
+                float coeffDiffusBump = normalBump * lamp.Orientation;
+                Console.WriteLine(coeffDiffusBump);
+                pixelColor += coeffDiffusBump * pixelColor;
+            }
             
             V3 rayonReflechi = -lamp.Orientation + 2 * (normal * lamp.Orientation) * normal;
             directionRayon.Normalize();

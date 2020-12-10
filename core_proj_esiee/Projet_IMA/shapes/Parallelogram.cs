@@ -39,12 +39,12 @@ namespace Projet_IMA
         /// <param name="pointB">Le point B</param>
         /// <param name="pointC">Le point C</param>
         /// <param name="shapeColor">La color d objet</param>
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor) : base(shapeColor)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor, Texture textureBump = null) : base(shapeColor, textureBump)
         {
             InitPoints(pointA, pointB, pointC);
         }
 
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture) : base(texture)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture, Texture textureBump = null) : base(texture, textureBump)
         {
             InitPoints(pointA, pointB, pointC);
         }
@@ -104,6 +104,12 @@ namespace Projet_IMA
             return Normal;
         }
 
+        public override V3 GetNormalBump(V3 intersection = null)
+        {
+            V3 normalBump = new V3(0, 0, 0);
+            return normalBump;
+        }
+
         public override Couleur GetColor(V3 intersection)
         {
             Couleur couleur;
@@ -121,6 +127,15 @@ namespace Projet_IMA
                 couleur = ShapeColor;
             }
             return couleur;
+        }
+
+        public override bool hasBump()
+        {
+            if (TextureBump == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         #endregion

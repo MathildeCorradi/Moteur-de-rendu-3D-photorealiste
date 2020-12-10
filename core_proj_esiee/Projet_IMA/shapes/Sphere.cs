@@ -40,12 +40,12 @@ namespace Projet_IMA
         /// <param name="center">Le point du centre</param>
         /// <param name="radius">Le rayon de la sphere</param>
         /// <param name="shapeColor">La couleur de la sphere</param>
-        public Sphere(V3 center, int radius, Couleur shapeColor) : base(shapeColor)
+        public Sphere(V3 center, int radius, Couleur shapeColor, Texture textureBump = null) : base(shapeColor, textureBump)
         {
             InitPoints(center, radius);
         }
 
-        public Sphere(V3 center, int radius, Texture texture) : base(texture)
+        public Sphere(V3 center, int radius, Texture texture, Texture textureBump = null) : base(texture, textureBump)
         {
             InitPoints(center, radius);
         }
@@ -58,9 +58,9 @@ namespace Projet_IMA
         /// <param name="z"></param>
         /// <param name="radius"></param>
         /// <param name="shapeColor"></param>
-        public Sphere(float x, float y, float z, int radius, Couleur shapeColor) : this(new V3(x, y, z), radius, shapeColor) { }
+        public Sphere(float x, float y, float z, int radius, Couleur shapeColor, Texture textureBump = null) : this(new V3(x, y, z), radius, shapeColor, textureBump) { }
 
-        public Sphere(float x, float y, float z, int radius, Texture texture) : this(new V3(x, y, z), radius, texture) { }
+        public Sphere(float x, float y, float z, int radius, Texture texture, Texture textureBump = null) : this(new V3(x, y, z), radius, texture, textureBump) { }
 
         private void InitPoints(V3 center, int radius)
         {
@@ -121,6 +121,24 @@ namespace Projet_IMA
             );
         }
 
+        private V3 FindPointDerU(float u, float v)
+        {
+            return new V3(
+                IMA.Cosf(v) * (-IMA.Sinf(u)),
+                IMA.Cosf(v) * IMA.Cosf(u),
+                0
+            );
+        }
+
+        private V3 FindPointDerV(float u, float v)
+        {
+            return new V3(
+                (-IMA.Sinf(v)) * IMA.Cosf(u),
+                (-IMA.Sinf(v)) * IMA.Sinf(u),
+                IMA.Cosf(v)
+            );
+        }
+
         /// <summary>
         /// Recupere tout les points par rapport a u et v
         /// </summary>
@@ -128,6 +146,10 @@ namespace Projet_IMA
         /// <param name="v">L angle v</param>
         /// <returns></returns>
         private V3 SpherePoints(float u, float v) => new V3(Radius * FindPoint(u, v) + Center);
+
+        private V3 SpherePointsDeriveU(float u, float v) => new V3(Radius * FindPointDerU(u, v) + Center);
+
+        private V3 SpherePointsDeriveV(float u, float v) => new V3(Radius * FindPointDerV(u, v) + Center);
 
         /// <summary>
         /// Calcul la normale a partir d une intersection
@@ -141,6 +163,19 @@ namespace Projet_IMA
             return GetNormal(u, v);
         }
 
+        public override V3 GetNormalBump(V3 intersection = null)
+        {
+            IMA.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
+            V3 normal = GetNormal(intersection);
+            normal.Normalize();
+            TextureBump.Bump(u,v, out float dhdu, out float dhdv);
+            V3 T2 = FindPointDerU(u,v) ^ (dhdv * normal);
+            V3 T3 = FindPointDerV(u,v) ^ (dhdu * normal);
+
+            V3 normalBump = normal + (1 * (T2+T3));
+            return normalBump;
+        }
+
         /// <summary>
         /// Calcul la normale de la sphere a partir de u et v
         /// </summary>
@@ -148,6 +183,8 @@ namespace Projet_IMA
         /// <param name="v">L angle v</param>
         /// <returns>La normale de la sphere</returns>
         public V3 GetNormal(float u, float v) => FindPoint(u, v);
+
+        
 
         public override Couleur GetColor(V3 intersection)
         {
@@ -164,6 +201,15 @@ namespace Projet_IMA
                 couleur = ShapeColor;
             }
             return couleur;
+        }
+
+        public override bool hasBump()
+        {
+            if (TextureBump == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         #endregion

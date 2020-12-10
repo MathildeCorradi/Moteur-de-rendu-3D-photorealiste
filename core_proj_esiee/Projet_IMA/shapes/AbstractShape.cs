@@ -15,6 +15,8 @@
 
         public Texture Texture { get; set; }
 
+        public Texture TextureBump { get; set; }
+
         #endregion
 
         #region constructeurs
@@ -23,14 +25,16 @@
         /// Constructeur de la shape
         /// </summary>
         /// <param name="shapeColor"></param>
-        public AbstractShape(Couleur shapeColor)
+        public AbstractShape(Couleur shapeColor, Texture textureBump)
         {
             ShapeColor = shapeColor;
+            TextureBump = textureBump;
         }
 
-        public AbstractShape(Texture texture)
+        public AbstractShape(Texture texture, Texture textureBump)
         {
             Texture = texture;
+            TextureBump = textureBump;
         }
 
         #endregion
@@ -42,6 +46,10 @@
         public abstract Couleur GetColor(V3 intersection);
 
         public abstract V3 GetNormal(V3 intersection = null);
+
+        public abstract V3 GetNormalBump(V3 intersection = null);
+
+        public abstract bool hasBump();
 
         #endregion
     }

@@ -19,5 +19,9 @@
         Couleur GetColor(V3 intersection);
 
         V3 GetNormal(V3 intersection = null);
+
+        V3 GetNormalBump(V3 intersection = null);
+
+        bool hasBump();
     }
 }
