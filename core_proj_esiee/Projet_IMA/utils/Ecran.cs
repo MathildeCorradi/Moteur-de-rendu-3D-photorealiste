@@ -107,20 +107,28 @@ namespace Projet_IMA
             float coeffDiffus;
 
             pixelColor = shapeColor * new Couleur(0.3f, 0.3f, 0.3f); // modèle de réflexion ambiant
-
             V3 normal = shape.GetNormal(intersection);
             normal.Normalize();
-            coeffDiffus = normal * lamp.Orientation;
-            if (coeffDiffus < 0) { return pixelColor; }
-            pixelColor += coeffDiffus * (shapeColor * lamp.Couleur); // Modèle diffus 
+
 
             if (shape.hasBump())
             {
                 V3 normalBump = shape.GetNormalBump(intersection);
+                normalBump.Normalize();
                 float coeffDiffusBump = normalBump * lamp.Orientation;
+                if (coeffDiffusBump < 0) { return pixelColor; }
                 Console.WriteLine(coeffDiffusBump);
-                pixelColor += coeffDiffusBump * pixelColor;
+                pixelColor += coeffDiffusBump * (shapeColor * lamp.Couleur);
             }
+            else
+            {
+                coeffDiffus = normal * lamp.Orientation;
+                if (coeffDiffus < 0) { return pixelColor; }
+                pixelColor += coeffDiffus * (shapeColor * lamp.Couleur); // Modèle diffus 
+            }
+
+
+
             
             V3 rayonReflechi = -lamp.Orientation + 2 * (normal * lamp.Orientation) * normal;
             directionRayon.Normalize();

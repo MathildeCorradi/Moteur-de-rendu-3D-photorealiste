@@ -170,9 +170,9 @@ namespace Projet_IMA
             normal.Normalize();
             TextureBump.Bump(u,v, out float dhdu, out float dhdv);
             V3 T2 = FindPointDerU(u,v) ^ (dhdv * normal);
-            V3 T3 = FindPointDerV(u,v) ^ (dhdu * normal);
+            V3 T3 = (dhdu * normal) ^ FindPointDerV(u, v);
 
-            V3 normalBump = normal + (1 * (T2+T3));
+            V3 normalBump = normal + (5 * (T2+T3));
             return normalBump;
         }
 

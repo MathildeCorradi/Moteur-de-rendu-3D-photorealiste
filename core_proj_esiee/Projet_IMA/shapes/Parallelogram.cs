@@ -76,6 +76,18 @@ namespace Projet_IMA
             return new V3(PointA + u * AB + v * AC);
         }
 
+        public V3 ParaPointDerU(float u, float v)
+        {
+            V3 AB = PointB - PointA;
+            return AB;
+        }
+
+        public V3 ParaPointDerV(float u, float v)
+        {
+            V3 AC = PointC - PointA;
+            return AC;
+        }
+
         public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
             V3 AB = PointB - PointA;
@@ -104,11 +116,22 @@ namespace Projet_IMA
             return Normal;
         }
 
-        public override V3 GetNormalBump(V3 intersection = null)
+       public override V3 GetNormalBump(V3 intersection = null)
         {
-            V3 normalBump = new V3(0, 0, 0);
+            V3 AB = PointB - PointA;
+            V3 AC = PointC - PointA;
+            V3 AI = intersection - PointA;
+            float u = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
+            float v = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
+            V3 normal = GetNormal();
+            TextureBump.Bump(u, v, out float dhdu, out float dhdv);
+            V3 T2 = ParaPointDerU(u, v) ^ (dhdv * normal);
+            V3 T3 = (dhdu * normal) ^ ParaPointDerV(u, v);
+
+            V3 normalBump = normal + (5 * (T2 + T3));
             return normalBump;
         }
+
 
         public override Couleur GetColor(V3 intersection)
         {
