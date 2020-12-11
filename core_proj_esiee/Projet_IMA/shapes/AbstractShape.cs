@@ -17,6 +17,8 @@
 
         public Texture TextureBump { get; set; }
 
+        public float IntensiteBump { get; set; }
+
         #endregion
 
         #region constructeurs
@@ -25,16 +27,18 @@
         /// Constructeur de la shape
         /// </summary>
         /// <param name="shapeColor"></param>
-        public AbstractShape(Couleur shapeColor, Texture textureBump)
+        public AbstractShape(Couleur shapeColor, Texture textureBump, float intensiteBump)
         {
             ShapeColor = shapeColor;
             TextureBump = textureBump;
+            IntensiteBump = intensiteBump;
         }
 
-        public AbstractShape(Texture texture, Texture textureBump)
+        public AbstractShape(Texture texture, Texture textureBump, float intensiteBump)
         {
             Texture = texture;
             TextureBump = textureBump;
+            IntensiteBump = intensiteBump;
         }
 
         #endregion

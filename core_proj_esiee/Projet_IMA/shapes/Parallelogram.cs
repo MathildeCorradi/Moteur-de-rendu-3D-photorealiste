@@ -39,12 +39,12 @@ namespace Projet_IMA
         /// <param name="pointB">Le point B</param>
         /// <param name="pointC">Le point C</param>
         /// <param name="shapeColor">La color d objet</param>
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor, Texture textureBump = null) : base(shapeColor, textureBump)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor, Texture textureBump = null, float intensiteBump = 0) : base(shapeColor, textureBump, intensiteBump)
         {
             InitPoints(pointA, pointB, pointC);
         }
 
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture, Texture textureBump = null) : base(texture, textureBump)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture, Texture textureBump = null, float intensiteBump = 0) : base(texture, textureBump, intensiteBump)
         {
             InitPoints(pointA, pointB, pointC);
         }
@@ -128,7 +128,7 @@ namespace Projet_IMA
             V3 T2 = ParaPointDerU(u, v) ^ (dhdv * normal);
             V3 T3 = (dhdu * normal) ^ ParaPointDerV(u, v);
 
-            V3 normalBump = normal + (5 * (T2 + T3));
+            V3 normalBump = normal + (IntensiteBump * (T2 + T3));
             return normalBump;
         }
 
@@ -142,7 +142,7 @@ namespace Projet_IMA
                 V3 AC = PointC - PointA;
                 V3 AI = intersection - PointA;
                 float u = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
-                float v = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
+                float v = -((Normal ^ AB) * AI) / (AC ^ AB).Norm();
                 couleur = Texture.ReadColor(u, v);
             }
             else

@@ -2,11 +2,11 @@
 {
     class Triangle : Parallelogram
     {
-        public Triangle(V3 a, V3 b, V3 c, Couleur shapeColor, Texture textureBump = null) : base(a, b, c, shapeColor, textureBump)
+        public Triangle(V3 a, V3 b, V3 c, Couleur shapeColor, Texture textureBump = null, float intensiteBump = 0) : base(a, b, c, shapeColor, textureBump, intensiteBump)
         {
         }
 
-        public Triangle(V3 a, V3 b, V3 c, Texture texture, Texture textureBump = null) : base(a, b, c, texture, textureBump)
+        public Triangle(V3 a, V3 b, V3 c, Texture texture, Texture textureBump = null, float intensiteBump = 0) : base(a, b, c, texture, textureBump, intensiteBump)
         {
         }
 

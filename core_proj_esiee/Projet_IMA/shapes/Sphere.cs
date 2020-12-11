@@ -40,12 +40,12 @@ namespace Projet_IMA
         /// <param name="center">Le point du centre</param>
         /// <param name="radius">Le rayon de la sphere</param>
         /// <param name="shapeColor">La couleur de la sphere</param>
-        public Sphere(V3 center, int radius, Couleur shapeColor, Texture textureBump = null) : base(shapeColor, textureBump)
+        public Sphere(V3 center, int radius, Couleur shapeColor, Texture textureBump = null, float intensiteBump = 0) : base(shapeColor, textureBump, intensiteBump)
         {
             InitPoints(center, radius);
         }
 
-        public Sphere(V3 center, int radius, Texture texture, Texture textureBump = null) : base(texture, textureBump)
+        public Sphere(V3 center, int radius, Texture texture, Texture textureBump = null, float intensiteBump = 0) : base(texture, textureBump, intensiteBump)
         {
             InitPoints(center, radius);
         }
@@ -58,9 +58,9 @@ namespace Projet_IMA
         /// <param name="z"></param>
         /// <param name="radius"></param>
         /// <param name="shapeColor"></param>
-        public Sphere(float x, float y, float z, int radius, Couleur shapeColor, Texture textureBump = null) : this(new V3(x, y, z), radius, shapeColor, textureBump) { }
+        public Sphere(float x, float y, float z, int radius, Couleur shapeColor, Texture textureBump = null, float intensiteBump = 0) : this(new V3(x, y, z), radius, shapeColor, textureBump, intensiteBump) { }
 
-        public Sphere(float x, float y, float z, int radius, Texture texture, Texture textureBump = null) : this(new V3(x, y, z), radius, texture, textureBump) { }
+        public Sphere(float x, float y, float z, int radius, Texture texture, Texture textureBump = null, float intensiteBump = 0) : this(new V3(x, y, z), radius, texture, textureBump, intensiteBump) { }
 
         private void InitPoints(V3 center, int radius)
         {
@@ -168,11 +168,13 @@ namespace Projet_IMA
             IMA.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
             V3 normal = GetNormal(intersection);
             normal.Normalize();
-            TextureBump.Bump(u,v, out float dhdu, out float dhdv);
+            float uTexture = u / IMA.DPI;
+            float vTexture = -(v + IMA.PI2) / (IMA.PI2 + IMA.PI2);
+            TextureBump.Bump(uTexture,vTexture, out float dhdu, out float dhdv);
             V3 T2 = FindPointDerU(u,v) ^ (dhdv * normal);
             V3 T3 = (dhdu * normal) ^ FindPointDerV(u, v);
 
-            V3 normalBump = normal + (5 * (T2+T3));
+            V3 normalBump = normal + (IntensiteBump * (T2+T3));
             return normalBump;
         }
 
@@ -193,7 +195,7 @@ namespace Projet_IMA
             {
                 IMA.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
                 u = u / IMA.DPI;
-                v = (v + IMA.PI2) / (IMA.PI2 + IMA.PI2);
+                v = -(v + IMA.PI2) / (IMA.PI2 + IMA.PI2);
                 couleur = Texture.ReadColor(u, v);
             }
             else
