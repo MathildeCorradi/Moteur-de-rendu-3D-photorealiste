@@ -117,18 +117,14 @@ namespace Projet_IMA
                 normalBump.Normalize();
                 float coeffDiffusBump = normalBump * lamp.Orientation;
                 if (coeffDiffusBump < 0) { return pixelColor; }
-                Console.WriteLine(coeffDiffusBump);
-                pixelColor += coeffDiffusBump * (shapeColor * lamp.Couleur);
+                pixelColor += coeffDiffusBump * (shapeColor * lamp.Couleur); // Modèle diffus avec dump
             }
             else
             {
                 coeffDiffus = normal * lamp.Orientation;
                 if (coeffDiffus < 0) { return pixelColor; }
-                pixelColor += coeffDiffus * (shapeColor * lamp.Couleur); // Modèle diffus 
+                pixelColor += coeffDiffus * (shapeColor * lamp.Couleur); // Modèle diffus sans dump
             }
-
-
-
             
             V3 rayonReflechi = -lamp.Orientation + 2 * (normal * lamp.Orientation) * normal;
             directionRayon.Normalize();
