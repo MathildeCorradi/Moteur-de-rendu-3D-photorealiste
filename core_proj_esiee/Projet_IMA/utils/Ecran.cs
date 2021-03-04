@@ -100,41 +100,66 @@ namespace Projet_IMA
             Program.MyForm.PictureBoxInvalidate();
         }
 
-        private static Couleur Illumination(Lampe lamp, IShape shape, V3 intersection, V3 directionRayon)
+        private static Couleur Illumination(List<Lampe> lamps, IShape shape, V3 intersection, V3 directionRayon)
         {
             Couleur pixelColor = new Couleur(0, 0, 0);
             Couleur shapeColor = shape.GetColor(intersection);
-            float coeffDiffus;
 
-            pixelColor = shapeColor * new Couleur(0.3f, 0.3f, 0.3f); // modèle de réflexion ambiant
-            V3 normal = shape.GetNormal(intersection);
-            normal.Normalize();
+            pixelColor = shapeColor * new Couleur(0.1f, 0.1f, 0.1f); // modèle de réflexion ambiant
+
+
+
 
 
             if (shape.hasBump())
             {
                 V3 normalBump = shape.GetNormalBump(intersection);
                 normalBump.Normalize();
-                float coeffDiffusBump = normalBump * lamp.Orientation;
-                if (coeffDiffusBump < 0) { return pixelColor; }
-                pixelColor += coeffDiffusBump * (shapeColor * lamp.Couleur); // Modèle diffus avec dump
+                float coeffDiffusBump = normalBump * lamps[0].Orientation;
+                float coeffDiffusBump2 = normalBump * lamps[1].Orientation;
+                if (coeffDiffusBump >= 0)
+                {
+                    pixelColor += coeffDiffusBump * (shapeColor * lamps[0].Couleur); // Modèle diffus avec dump
+
+                    V3 rayonReflechi = -lamps[0].Orientation + 2 * (normalBump * lamps[0].Orientation) * normalBump;
+                    directionRayon.Normalize();
+                    rayonReflechi.Normalize();
+                    float coeffSpeculaire = (float)Math.Pow(rayonReflechi * (-directionRayon), 98);
+                    pixelColor += coeffSpeculaire * lamps[0].Couleur; // Modèle spéculaire
+                }
+                if (coeffDiffusBump2 >= 0)
+                {
+                    pixelColor += coeffDiffusBump2 * (shapeColor * lamps[1].Couleur); // Modèle diffus avec dump
+                }
             }
             else
             {
-                coeffDiffus = normal * lamp.Orientation;
-                if (coeffDiffus < 0) { return pixelColor; }
-                pixelColor += coeffDiffus * (shapeColor * lamp.Couleur); // Modèle diffus sans dump
+                V3 normal = shape.GetNormal(intersection);
+                normal.Normalize();
+                float coeffDiffus = normal * lamps[0].Orientation;
+                float coeffDiffus2 = normal * lamps[1].Orientation;
+                if (coeffDiffus >= 0)
+                {
+                    pixelColor += coeffDiffus * (shapeColor * lamps[0].Couleur); // Modèle diffus sans dump
+
+                    V3 rayonReflechi = -lamps[0].Orientation + 2 * (normal * lamps[0].Orientation) * normal;
+                    directionRayon.Normalize();
+                    rayonReflechi.Normalize();
+                    float coeffSpeculaire = (float)Math.Pow(rayonReflechi * (-directionRayon), 98);
+                    pixelColor += coeffSpeculaire * lamps[0].Couleur; // Modèle spéculaire
+
+                }
+                if (coeffDiffus2 >= 0)
+                {
+                    pixelColor += coeffDiffus2 * (shapeColor * lamps[1].Couleur); // Modèle diffus sans dump
+
+                }
             }
             
-            V3 rayonReflechi = -lamp.Orientation + 2 * (normal * lamp.Orientation) * normal;
-            directionRayon.Normalize();
-            rayonReflechi.Normalize();
-            float coeffSpeculaire = (float)Math.Pow(rayonReflechi * (-directionRayon), 98);
-            pixelColor += coeffSpeculaire * lamp.Couleur; // Modèle spéculaire
             return pixelColor;
         }
 
-        public static Couleur RayCast(V3 positionCamera, V3 directionRayon, List<IShape> objectsScene, Lampe lamp)
+        public static Couleur RayCast(V3 positionCamera, V3 directionRayon, List<IShape> objectsScene, List<Lampe> lamps)
         {
             Couleur pixelColor = new Couleur(0,0,0);
             IShape mostClosestShape = null;
@@ -156,7 +181,7 @@ namespace Projet_IMA
             }
             if (mostClosestShape != null)
             {
-                pixelColor = Illumination(lamp, mostClosestShape, mostClosestIntersection, directionRayon);
+                pixelColor = Illumination(lamps, mostClosestShape, mostClosestIntersection, directionRayon);
             }
             return pixelColor;
         }

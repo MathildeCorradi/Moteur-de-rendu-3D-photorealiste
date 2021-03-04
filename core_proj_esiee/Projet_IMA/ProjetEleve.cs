@@ -11,9 +11,16 @@ namespace Projet_IMA
 
             List<IShape> objectsScene = new List<IShape>();
             V3 positionCamera = new V3(windowWidth / 2, -windowWidth, windowHeight / 2);
-            Couleur lightColor = new Couleur(1f, 1f, 1f);
-            Lampe lamp = new Lampe(lightColor, new V3(1, -1, 1), 1f);
-            lamp.Orientation.Normalize();
+            Couleur keyColor = new Couleur(0.8f, 0.8f, 0.8f);
+            Couleur fillColor = new Couleur(0.2f, 0.0f, 0.2f);
+            Lampe keyLamp = new Lampe(keyColor, new V3(1, -1, 1), 1f);
+            Lampe fillLamp = new Lampe(fillColor, new V3(-1, -1, -1), 1f);
+            keyLamp.Orientation.Normalize();
+            fillLamp.Orientation.Normalize();
+
+            List<Lampe> lamps = new List<Lampe>();
+            lamps.Add(keyLamp);
+            lamps.Add(fillLamp);
 
             V3 basGauche = new V3(0, 400, 0);
             V3 basDroite = new V3(windowWidth, 400, 0);
@@ -23,7 +30,7 @@ namespace Projet_IMA
             var sphr = new Sphere(600, 20, 200, 90, new Texture("gold.jpg"), new Texture("gold_Bump.jpg"), 1);
             var sphr2 = new Sphere(700, 20, 200, 70, new Texture("lead.jpg"));
             var sphr3 = new Sphere(500, 300, 20, 100, Couleur.SPHERE_YELLOW);
-            var sphr4 = new Sphere(200, 300, 300, 280, Couleur.WALL_RIGHT, new Texture("bump4.jpg"), 5);
+            var sphr4 = new Sphere(200, 300, 300, 200, new Couleur(1f,1f,1f), new Texture("bump4.jpg"), 2);
 
             var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, Couleur.GROUND);
             var ceilling = new Parallelogram(hauteGauche, hauteDroite, new V3(0, 0, windowHeight), Couleur.CEILLING);
@@ -49,7 +56,7 @@ namespace Projet_IMA
                 {
                     V3 positionPixelScene = new V3(xScreen, 0, yScreen);
                     V3 directionRayon = positionPixelScene - positionCamera;
-                    Couleur PixelColor = BitmapEcran.RayCast(positionCamera, directionRayon, objectsScene, lamp);
+                    Couleur PixelColor = BitmapEcran.RayCast(positionCamera, directionRayon, objectsScene, lamps);
                     BitmapEcran.DrawPixel(xScreen, yScreen, PixelColor);
                 }
             }
