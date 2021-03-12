@@ -161,6 +161,24 @@ namespace Projet_IMA
             return true;
         }
 
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Parallelogram);
+        }
+
+        public bool Equals(Parallelogram obj)
+        {
+            return obj != null &&
+                obj.PointA == PointA &&
+                obj.PointB == PointB &&
+                obj.PointC == PointC;
+        }
+
+        public override int GetHashCode()
+        {
+            return PointA.GetHashCode() ^ PointB.GetHashCode() ^ PointC.GetHashCode();
+        }
+
         #endregion
     }
 }

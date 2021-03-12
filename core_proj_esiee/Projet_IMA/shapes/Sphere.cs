@@ -214,6 +214,23 @@ namespace Projet_IMA
             return true;
         }
 
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Sphere);
+        }
+
+        public bool Equals(Sphere obj)
+        {
+            return obj != null &&
+                obj.Radius == Radius &&
+                obj.Center == Center;
+        }
+
+        public override int GetHashCode()
+        {
+            return Radius.GetHashCode() ^ Center.GetHashCode();
+        }
+
         #endregion
     }
 }

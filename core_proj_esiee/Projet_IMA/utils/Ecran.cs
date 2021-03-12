@@ -22,6 +22,8 @@ namespace Projet_IMA
         static private int stride;
         static private BitmapData data;
 
+        static private List<IShape> objects;
+
 
         static public Bitmap Init(int largeur, int hauteur)
         {
@@ -117,7 +119,7 @@ namespace Projet_IMA
                 normalBump.Normalize();
                 float coeffDiffusBump = normalBump * lamps[0].Orientation;
                 float coeffDiffusBump2 = normalBump * lamps[1].Orientation;
-                if (coeffDiffusBump >= 0)
+                if (coeffDiffusBump >= 0 && !IsIntersect(intersection, -lamps[0].Orientation, shape))
                 {
                     pixelColor += coeffDiffusBump * (shapeColor * lamps[0].Couleur); // Modèle diffus avec dump
 
@@ -127,7 +129,7 @@ namespace Projet_IMA
                     float coeffSpeculaire = (float)Math.Pow(rayonReflechi * (-directionRayon), 98);
                     pixelColor += coeffSpeculaire * lamps[0].Couleur; // Modèle spéculaire
                 }
-                if (coeffDiffusBump2 >= 0)
+                if (coeffDiffusBump2 >= 0 && !IsIntersect(intersection, -lamps[1].Orientation, shape))
                 {
                     pixelColor += coeffDiffusBump2 * (shapeColor * lamps[1].Couleur); // Modèle diffus avec dump
                 }
@@ -138,7 +140,7 @@ namespace Projet_IMA
                 normal.Normalize();
                 float coeffDiffus = normal * lamps[0].Orientation;
                 float coeffDiffus2 = normal * lamps[1].Orientation;
-                if (coeffDiffus >= 0)
+                if (coeffDiffus >= 0 && !IsIntersect(intersection, -lamps[0].Orientation, shape))
                 {
                     pixelColor += coeffDiffus * (shapeColor * lamps[0].Couleur); // Modèle diffus sans dump
 
@@ -149,7 +151,7 @@ namespace Projet_IMA
                     pixelColor += coeffSpeculaire * lamps[0].Couleur; // Modèle spéculaire
 
                 }
-                if (coeffDiffus2 >= 0)
+                if (coeffDiffus2 >= 0 && !IsIntersect(intersection, -lamps[1].Orientation, shape))
                 {
                     pixelColor += coeffDiffus2 * (shapeColor * lamps[1].Couleur); // Modèle diffus sans dump
 
@@ -159,8 +161,27 @@ namespace Projet_IMA
             return pixelColor;
         }
 
+        private static bool IsIntersect(V3 position, V3 direction, IShape currentShape)
+        {
+            V3 intersection;
+            foreach (IShape shape in objects)
+            {
+                if (currentShape != shape)
+                {
+                    intersection = shape.GetIntersection(position, direction);
+                    if (intersection != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public static Couleur RayCast(V3 positionCamera, V3 directionRayon, List<IShape> objectsScene, List<Lampe> lamps)
         {
+            // @TODO: Bouger ca c est pas propre :o)
+            objects = objectsScene;
             Couleur pixelColor = new Couleur(0,0,0);
             IShape mostClosestShape = null;
             V3 intersection = new V3(0,0,0);
