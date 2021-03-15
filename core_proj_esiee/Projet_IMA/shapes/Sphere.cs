@@ -216,19 +216,17 @@ namespace Projet_IMA
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as Sphere);
-        }
-
-        public bool Equals(Sphere obj)
-        {
-            return obj != null &&
-                obj.Radius == Radius &&
-                obj.Center == Center;
+            return obj is Sphere sphere &&
+                   Radius == sphere.Radius &&
+                   EqualityComparer<V3>.Default.Equals(Center, sphere.Center);
         }
 
         public override int GetHashCode()
         {
-            return Radius.GetHashCode() ^ Center.GetHashCode();
+            int hashCode = 1866836079;
+            hashCode = hashCode * -1521134295 + Radius.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<V3>.Default.GetHashCode(Center);
+            return hashCode;
         }
 
         #endregion

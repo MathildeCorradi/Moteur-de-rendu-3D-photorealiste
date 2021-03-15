@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Projet_IMA
 {
@@ -163,20 +164,19 @@ namespace Projet_IMA
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as Parallelogram);
-        }
-
-        public bool Equals(Parallelogram obj)
-        {
-            return obj != null &&
-                obj.PointA == PointA &&
-                obj.PointB == PointB &&
-                obj.PointC == PointC;
+            return obj is Parallelogram parallelogram &&
+                   EqualityComparer<V3>.Default.Equals(PointA, parallelogram.PointA) &&
+                   EqualityComparer<V3>.Default.Equals(PointB, parallelogram.PointB) &&
+                   EqualityComparer<V3>.Default.Equals(PointC, parallelogram.PointC);
         }
 
         public override int GetHashCode()
         {
-            return PointA.GetHashCode() ^ PointB.GetHashCode() ^ PointC.GetHashCode();
+            int hashCode = 839654199;
+            hashCode = hashCode * -1521134295 + EqualityComparer<V3>.Default.GetHashCode(PointA);
+            hashCode = hashCode * -1521134295 + EqualityComparer<V3>.Default.GetHashCode(PointB);
+            hashCode = hashCode * -1521134295 + EqualityComparer<V3>.Default.GetHashCode(PointC);
+            return hashCode;
         }
 
         #endregion

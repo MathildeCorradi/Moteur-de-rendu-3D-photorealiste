@@ -173,6 +173,10 @@ namespace Projet_IMA
                     {
                         return true;
                     }
+                } else
+                {
+                    if (shape.GetType().ToString() == "Projet_IMA.Parallelogram") continue;
+                    throw new Exception(shape.GetType().ToString());
                 }
             }
             return false;
