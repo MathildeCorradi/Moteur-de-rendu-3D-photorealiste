@@ -119,7 +119,7 @@ namespace Projet_IMA
                 normalBump.Normalize();
                 float coeffDiffusBump = normalBump * lamps[0].Orientation;
                 float coeffDiffusBump2 = normalBump * lamps[1].Orientation;
-                if (coeffDiffusBump >= 0 && !IsIntersect(intersection, -lamps[0].Orientation, shape))
+                if (coeffDiffusBump >= 0 && !IsIntersect(intersection, lamps[0].Orientation, shape))
                 {
                     pixelColor += coeffDiffusBump * (shapeColor * lamps[0].Couleur); // Modèle diffus avec dump
 
@@ -129,7 +129,7 @@ namespace Projet_IMA
                     float coeffSpeculaire = (float)Math.Pow(rayonReflechi * (-directionRayon), 98);
                     pixelColor += coeffSpeculaire * lamps[0].Couleur; // Modèle spéculaire
                 }
-                if (coeffDiffusBump2 >= 0 && !IsIntersect(intersection, -lamps[1].Orientation, shape))
+                if (coeffDiffusBump2 >= 0 && !IsIntersect(intersection, lamps[1].Orientation, shape))
                 {
                     pixelColor += coeffDiffusBump2 * (shapeColor * lamps[1].Couleur); // Modèle diffus avec dump
                 }
@@ -140,7 +140,7 @@ namespace Projet_IMA
                 normal.Normalize();
                 float coeffDiffus = normal * lamps[0].Orientation;
                 float coeffDiffus2 = normal * lamps[1].Orientation;
-                if (coeffDiffus >= 0 && !IsIntersect(intersection, -lamps[0].Orientation, shape))
+                if (coeffDiffus >= 0 && !IsIntersect(intersection, lamps[0].Orientation, shape))
                 {
                     pixelColor += coeffDiffus * (shapeColor * lamps[0].Couleur); // Modèle diffus sans dump
 
@@ -151,7 +151,7 @@ namespace Projet_IMA
                     pixelColor += coeffSpeculaire * lamps[0].Couleur; // Modèle spéculaire
 
                 }
-                if (coeffDiffus2 >= 0 && !IsIntersect(intersection, -lamps[1].Orientation, shape))
+                if (coeffDiffus2 >= 0 && !IsIntersect(intersection, lamps[1].Orientation, shape))
                 {
                     pixelColor += coeffDiffus2 * (shapeColor * lamps[1].Couleur); // Modèle diffus sans dump
 
@@ -176,7 +176,7 @@ namespace Projet_IMA
                 }
                 else
                 {
-                    // if (shape.GetType().ToString() == "Projet_IMA.Sphere") throw new Exception("sphere equals");
+                    //if (shape.GetType().ToString() == "Projet_IMA.Sphere") throw new Exception("sphere equals");
                 }
             }
             return false;
