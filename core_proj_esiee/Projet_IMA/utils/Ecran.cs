@@ -166,17 +166,17 @@ namespace Projet_IMA
             V3 intersection;
             foreach (IShape shape in objects)
             {
-                if (currentShape != shape)
+                if (!currentShape.Equals(shape))
                 {
                     intersection = shape.GetIntersection(position, direction);
                     if (intersection != null)
                     {
                         return true;
                     }
-                } else
+                }
+                else
                 {
-                    if (shape.GetType().ToString() == "Projet_IMA.Parallelogram") continue;
-                    throw new Exception(shape.GetType().ToString());
+                    // if (shape.GetType().ToString() == "Projet_IMA.Sphere") throw new Exception("sphere equals");
                 }
             }
             return false;

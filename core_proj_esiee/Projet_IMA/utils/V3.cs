@@ -214,6 +214,23 @@
             return u.X * v.X + u.Y * v.Y + u.Z * v.Z;
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is V3 v &&
+                   X == v.X &&
+                   Y == v.Y &&
+                   Z == v.Z;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -307843816;
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            hashCode = hashCode * -1521134295 + Z.GetHashCode();
+            return hashCode;
+        }
+
         #endregion
     }
 }
