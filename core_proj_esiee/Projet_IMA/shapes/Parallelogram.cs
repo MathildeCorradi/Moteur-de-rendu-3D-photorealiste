@@ -29,7 +29,7 @@ namespace Projet_IMA
 
         protected V3 Normal { get; set; }
 
-        public bool ligthFlag { get; set; }
+        public bool light { get; set; }
 
         #endregion
 
@@ -45,13 +45,13 @@ namespace Projet_IMA
         public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor, bool lightFlag, Texture textureBump = null, float intensiteBump = 0) : base(shapeColor, textureBump, intensiteBump)
         {
             InitPoints(pointA, pointB, pointC);
-            this.ligthFlag = ligthFlag;
+            this.light = lightFlag;
         }
 
         public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture, bool lightFlag, Texture textureBump = null, float intensiteBump = 0) : base(texture, textureBump, intensiteBump)
         {
             InitPoints(pointA, pointB, pointC);
-            this.ligthFlag = ligthFlag;
+            this.light = light;
         }
 
         private void InitPoints(V3 pointA, V3 pointB, V3 pointC)
@@ -168,8 +168,7 @@ namespace Projet_IMA
 
         public override bool isLightFlag()
         {
-            //Console.WriteLine(ligthFlag);
-            return ligthFlag;
+            return light;
         }
 
 
