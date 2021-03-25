@@ -22,6 +22,8 @@
 
         V3 GetNormalBump(V3 intersection = null);
 
+        bool isLightFlag();
+
         bool hasBump();
     }
 }

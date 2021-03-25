@@ -168,15 +168,13 @@ namespace Projet_IMA
             {
                 if (!currentShape.Equals(shape))
                 {
-                    intersection = shape.GetIntersection(position, direction);
-                    if (intersection != null)
-                    {
-                        return true;
+                    if (!shape.isLightFlag()) { 
+                        intersection = shape.GetIntersection(position, direction);
+                        if (intersection != null)
+                        {
+                            return true;
+                        }
                     }
-                }
-                else
-                {
-                    //if (shape.GetType().ToString() == "Projet_IMA.Sphere") throw new Exception("sphere equals");
                 }
             }
             return false;

@@ -32,11 +32,11 @@ namespace Projet_IMA
             var sphr3 = new Sphere(500, 300, 20, 100, Couleur.SPHERE_YELLOW);
             var sphr4 = new Sphere(200, 300, 300, 200, new Couleur(1f,1f,1f), new Texture("bump4.jpg"), 2);
 
-            var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, Couleur.GROUND);
-            var ceilling = new Parallelogram(hauteGauche, hauteDroite, new V3(0, 0, windowHeight), Couleur.CEILLING);
-            var wallBack = new Parallelogram(basGauche, basDroite, hauteGauche, Couleur.WALL_BACK,  new Texture("bump4.jpg"), 0.01f);
-            var wallRight = new Parallelogram(basDroite, new V3(windowWidth, 0, 0), hauteDroite, Couleur.WALL_RIGHT, new Texture("bump38.jpg"), 0.1f);
-            var wallLeft = new Parallelogram(new V3(0, 0, 0), basGauche, new V3(0, 0, windowHeight), Couleur.WALL_LEFT);
+            var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, Couleur.GROUND, true);
+            var ceilling = new Parallelogram(hauteGauche, hauteDroite, new V3(0, 0, windowHeight), Couleur.CEILLING, true);
+            var wallBack = new Parallelogram(basGauche, basDroite, hauteGauche, Couleur.WALL_BACK, true,  new Texture("bump4.jpg"), 0.01f);
+            var wallRight = new Parallelogram(basDroite, new V3(windowWidth, 0, 0), hauteDroite, Couleur.WALL_RIGHT,true, new Texture("bump38.jpg"), 0.1f);
+            var wallLeft = new Parallelogram(new V3(0, 0, 0), basGauche, new V3(0, 0, windowHeight), Couleur.WALL_LEFT, true);
 
             objectsScene.Add(wallRight);
             objectsScene.Add(ceilling);

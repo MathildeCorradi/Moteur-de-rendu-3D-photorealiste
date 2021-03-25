@@ -55,6 +55,11 @@
 
         public abstract bool hasBump();
 
+        public virtual bool isLightFlag()
+        {
+            return false;
+        }
+
         #endregion
     }
 }

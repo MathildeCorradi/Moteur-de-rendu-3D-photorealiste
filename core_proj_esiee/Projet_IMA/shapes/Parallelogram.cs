@@ -29,6 +29,8 @@ namespace Projet_IMA
 
         protected V3 Normal { get; set; }
 
+        public bool ligthFlag { get; set; }
+
         #endregion
 
         #region constructeurs
@@ -40,14 +42,16 @@ namespace Projet_IMA
         /// <param name="pointB">Le point B</param>
         /// <param name="pointC">Le point C</param>
         /// <param name="shapeColor">La color d objet</param>
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor, Texture textureBump = null, float intensiteBump = 0) : base(shapeColor, textureBump, intensiteBump)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Couleur shapeColor, bool lightFlag, Texture textureBump = null, float intensiteBump = 0) : base(shapeColor, textureBump, intensiteBump)
         {
             InitPoints(pointA, pointB, pointC);
+            this.ligthFlag = ligthFlag;
         }
 
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture, Texture textureBump = null, float intensiteBump = 0) : base(texture, textureBump, intensiteBump)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture, bool lightFlag, Texture textureBump = null, float intensiteBump = 0) : base(texture, textureBump, intensiteBump)
         {
             InitPoints(pointA, pointB, pointC);
+            this.ligthFlag = ligthFlag;
         }
 
         private void InitPoints(V3 pointA, V3 pointB, V3 pointC)
@@ -161,6 +165,13 @@ namespace Projet_IMA
             }
             return true;
         }
+
+        public override bool isLightFlag()
+        {
+            //Console.WriteLine(ligthFlag);
+            return ligthFlag;
+        }
+
 
         public override bool Equals(object obj)
         {
