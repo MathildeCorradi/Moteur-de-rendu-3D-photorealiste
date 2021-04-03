@@ -15,18 +15,18 @@ namespace Projet_IMA
         public Form1()
         {
             InitializeComponent();
-            pictureBox1.Image = BitmapEcran.Init(pictureBox1.Width, pictureBox1.Height);
+            pictureBox1.Image = Screen.Init(pictureBox1.Width, pictureBox1.Height);
         }
 
         public bool Checked()               { return checkBox1.Checked;   }
         public void PictureBoxInvalidate()  { pictureBox1.Invalidate(); }
         public void PictureBoxRefresh()     { pictureBox1.Refresh();    }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ButtonClick(object sender, EventArgs e)
         {
-            BitmapEcran.RefreshScreen(new Couleur(0,0,0));
-            ProjetEleve.Go();
-            BitmapEcran.Show();          
+            Screen.RefreshScreen(new MyColor(0,0,0));
+            ProjetEleve.Display();
+            Screen.Show();          
         }
     }
 }

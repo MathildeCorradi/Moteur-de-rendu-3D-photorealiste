@@ -6,25 +6,25 @@ namespace Projet_IMA
     /// Represente une couleur
     /// C est a dire 3 champs RGB compris entre 0 et 1
     /// </summary>
-    public struct Couleur
+    public struct MyColor
     {
-        #region couleurs statique
+        #region constantes
 
-        public static Couleur GROUND = new Couleur(.722f, .475f, .337f);
+        public static MyColor GROUND = new MyColor(.722f, .475f, .337f);
 
-        public static Couleur WALL_RIGHT = new Couleur(1, .682f, .788f);
+        public static MyColor WALL_RIGHT = new MyColor(1, .682f, .788f);
 
-        public static Couleur CEILLING = new Couleur(1, .788f, .055f);
+        public static MyColor CEILLING = new MyColor(1, .788f, .055f);
 
-        public static Couleur WALL_LEFT = new Couleur(.439f, .573f, .745f);
+        public static MyColor WALL_LEFT = new MyColor(.439f, .573f, .745f);
 
-        public static Couleur WALL_BACK = new Couleur(.596f, .847f, .914f);
+        public static MyColor WALL_BACK = new MyColor(.596f, .847f, .914f);
 
-        public static Couleur SPHERE_LIME = new Couleur(.706f, .898f, .11f);
+        public static MyColor SPHERE_LIME = new MyColor(.706f, .898f, .11f);
 
-        public static Couleur SPHERE_BLUE = new Couleur(.247f, .282f, .8f);
+        public static MyColor SPHERE_BLUE = new MyColor(.247f, .282f, .8f);
 
-        public static Couleur SPHERE_YELLOW = new Couleur(.996f, .945f, 0);
+        public static MyColor SPHERE_YELLOW = new MyColor(.996f, .945f, 0);
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace Projet_IMA
         /// <param name="red">Niveau de rouge</param>
         /// <param name="green">Niveau de vert</param>
         /// <param name="blue">Niveau de bleue</param>
-        public Couleur(float red, float green, float blue)
+        public MyColor(float red, float green, float blue)
         {
             Red = red;
             Green = green;
@@ -66,7 +66,7 @@ namespace Projet_IMA
         /// Permet de copier une couleur
         /// </summary>
         /// <param name="color">La couleur a copier</param>
-        public Couleur(Couleur color)
+        public MyColor(MyColor color)
         {
             Red = color.Red;
             Green = color.Green;
@@ -110,7 +110,7 @@ namespace Projet_IMA
         /// </summary>
         /// <param name="objectTarget">L objet couleur qu on veut utiliser</param>
         /// <param name="color">La couleur qu on souhaite obtenir</param>
-        static public void Transpose(ref Couleur objectTarget, Color color)
+        static public void Transpose(ref MyColor objectTarget, Color color)
         {
             objectTarget.Red = (float)(color.R / 255.0);
             objectTarget.Green = (float)(color.G / 255.0);
@@ -121,11 +121,10 @@ namespace Projet_IMA
         /// Permet d obtenir l objet courrant en structure Color
         /// </summary>
         /// <returns>La Couleur en structure Color</returns>
-        public Color Convertion()
+        public Color Convert()
         {
             Check();
-            byte red, green, blue;
-            To255(out red, out green, out blue);
+            To255(out byte red, out byte green, out byte blue);
             return Color.FromArgb(red, green, blue);
         }
 
@@ -160,9 +159,9 @@ namespace Projet_IMA
         /// <param name="a">Couleur 1</param>
         /// <param name="b">Couleur 2</param>
         /// <returns></returns>
-        public static Couleur operator +(Couleur a, Couleur b)
+        public static MyColor operator +(MyColor a, MyColor b)
         {
-            return new Couleur(a.Red + b.Red, a.Green + b.Green, a.Blue + b.Blue);
+            return new MyColor(a.Red + b.Red, a.Green + b.Green, a.Blue + b.Blue);
         }
 
         /// <summary>
@@ -171,9 +170,9 @@ namespace Projet_IMA
         /// <param name="a">Couleur 1</param>
         /// <param name="b">Couleur 2</param>
         /// <returns></returns>
-        public static Couleur operator -(Couleur a, Couleur b)
+        public static MyColor operator -(MyColor a, MyColor b)
         {
-            return new Couleur(a.Red - b.Red, a.Green - b.Green, a.Blue - b.Blue);
+            return new MyColor(a.Red - b.Red, a.Green - b.Green, a.Blue - b.Blue);
         }
 
         /// <summary>
@@ -181,9 +180,9 @@ namespace Projet_IMA
         /// </summary>
         /// <param name="a">La couleur</param>
         /// <returns></returns>
-        public static Couleur operator -(Couleur a)
+        public static MyColor operator -(MyColor a)
         {
-            return new Couleur(-a.Red, -a.Green, -a.Blue);
+            return new MyColor(-a.Red, -a.Green, -a.Blue);
         }
 
         /// <summary>
@@ -192,9 +191,9 @@ namespace Projet_IMA
         /// <param name="a">Couleur 1</param>
         /// <param name="b">Couleur 2</param>
         /// <returns></returns>
-        public static Couleur operator *(Couleur a, Couleur b)
+        public static MyColor operator *(MyColor a, MyColor b)
         {
-            return new Couleur(a.Red * b.Red, a.Green * b.Green, a.Blue * b.Blue);
+            return new MyColor(a.Red * b.Red, a.Green * b.Green, a.Blue * b.Blue);
         }
 
         /// <summary>
@@ -203,9 +202,9 @@ namespace Projet_IMA
         /// <param name="a">La valeur</param>
         /// <param name="b">La couleur</param>
         /// <returns></returns>
-        public static Couleur operator *(float a, Couleur b)
+        public static MyColor operator *(float a, MyColor b)
         {
-            return new Couleur(a * b.Red, a * b.Green, a * b.Blue);
+            return new MyColor(a * b.Red, a * b.Green, a * b.Blue);
         }
 
         /// <summary>
@@ -214,9 +213,9 @@ namespace Projet_IMA
         /// <param name="b">La couleur</param>
         /// <param name="a">La valeur</param>
         /// <returns></returns>
-        public static Couleur operator /(Couleur b, float a)
+        public static MyColor operator /(MyColor b, float a)
         {
-            return new Couleur(b.Red / a, b.Green / a, b.Blue / a);
+            return new MyColor(b.Red / a, b.Green / a, b.Blue / a);
         }
 
         #endregion

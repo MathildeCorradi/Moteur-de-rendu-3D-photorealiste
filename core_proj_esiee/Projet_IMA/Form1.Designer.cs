@@ -40,9 +40,9 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(179, 55);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Projet Eleves";
+            this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.ButtonClick);
             // 
             // pictureBox1
             // 
@@ -58,9 +58,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(782, 61);
+            this.checkBox1.Location = new System.Drawing.Point(208, 43);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(53, 17);
             this.checkBox1.TabIndex = 4;

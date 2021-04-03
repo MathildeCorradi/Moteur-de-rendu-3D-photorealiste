@@ -11,13 +11,13 @@
         /// <summary>
         /// La couleur de la forme
         /// </summary>
-        public Couleur ShapeColor { get; set; }
+        public MyColor ShapeColor { get; set; }
 
         public Texture Texture { get; set; }
 
-        public Texture TextureBump { get; set; }
+        public Texture BumpTexture { get; set; }
 
-        public float IntensiteBump { get; set; }
+        public float BumpIntensity { get; set; }
 
         #endregion
 
@@ -27,18 +27,18 @@
         /// Constructeur de la shape
         /// </summary>
         /// <param name="shapeColor"></param>
-        public AbstractShape(Couleur shapeColor, Texture textureBump, float intensiteBump)
+        public AbstractShape(MyColor shapeColor, Texture bumpTexture, float bumpIntensity)
         {
             ShapeColor = shapeColor;
-            TextureBump = textureBump;
-            IntensiteBump = intensiteBump;
+            BumpTexture = bumpTexture;
+            BumpIntensity = bumpIntensity;
         }
 
-        public AbstractShape(Texture texture, Texture textureBump, float intensiteBump)
+        public AbstractShape(Texture texture, Texture bumpTexture, float bumpIntensity)
         {
             Texture = texture;
-            TextureBump = textureBump;
-            IntensiteBump = intensiteBump;
+            BumpTexture = bumpTexture;
+            BumpIntensity = bumpIntensity;
         }
 
         #endregion
@@ -47,18 +47,17 @@
 
         public abstract V3 GetIntersection(V3 positionCamera, V3 dirRayon);
 
-        public abstract Couleur GetColor(V3 intersection);
+        public abstract MyColor GetColor(V3 intersection);
+
+        // @TODO: Voir si on peux factoriser les GetNormal
 
         public abstract V3 GetNormal(V3 intersection = null);
 
         public abstract V3 GetNormalBump(V3 intersection = null);
 
-        public abstract bool hasBump();
+        public bool HasBump() => BumpTexture != null;
 
-        public virtual bool isLightFlag()
-        {
-            return false;
-        }
+        public virtual bool IgnoreShadow() => false;
 
         #endregion
     }

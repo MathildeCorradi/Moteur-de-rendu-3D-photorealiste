@@ -26,7 +26,7 @@ namespace Projet_IMA
         /// Tableau a 2 dimensions representant les couleurs
         /// de la textures
         /// </summary>
-        Couleur[,] Color { get; set; }
+        MyColor[,] Color { get; set; }
 
         #endregion
 
@@ -48,7 +48,7 @@ namespace Projet_IMA
             Width = bitmap.Width;
             BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             int stride = bitmapData.Stride;
-            Color = new Couleur[Width, Height];
+            Color = new MyColor[Width, Height];
 
             unsafe
             {
@@ -80,13 +80,13 @@ namespace Projet_IMA
         /// <param name="u"></param>
         /// <param name="v"></param>
         /// <returns>La couleur</returns>
-        public Couleur ReadColor(float u, float v)
+        public MyColor ReadColor(float u, float v)
         {
             return Interpol(Width * u, Height * v);
         }
 
         /// <summary>
-        /// 
+        /// Realise un bump sur une texture
         /// </summary>
         /// <param name="u"></param>
         /// <param name="v"></param>
@@ -111,34 +111,18 @@ namespace Projet_IMA
         /// <param name="Lu"></param>
         /// <param name="Hv"></param>
         /// <returns></returns>
-        private Couleur Interpol(float Lu, float Hv)
+        private MyColor Interpol(float Lu, float Hv)
         {
-            int x = (int)Lu;  // plus grand entier <=
+            int x = (int)Lu;
             int y = (int)Hv;
-
-            //  float cx = Lu - x; // reste
-            //  float cy = Hv - y;
 
             x %= Width;
             y %= Height;
+
             if (x < 0) x += Width;
             if (y < 0) y += Height;
 
             return Color[x, y];
-
-            /*
-            int xpu = (x + 1) % Largeur;
-            int ypu = (y + 1) % Hauteur;
-
-            float ccx = cx * cx;
-            float ccy = cy * cy;
-
-            return
-              C[x, y] * (1 - ccx) * (1 - ccy)
-            + C[xpu, y] * ccx * (1 - ccy)
-            + C[x, ypu] * (1 - ccx) * ccy
-            + C[xpu, ypu] * ccx * ccy;
-            */
         }
 
         #endregion

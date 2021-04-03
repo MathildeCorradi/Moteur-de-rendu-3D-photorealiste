@@ -40,7 +40,7 @@ namespace Projet_IMA
         /// <param name="center">Le point du centre</param>
         /// <param name="radius">Le rayon de la sphere</param>
         /// <param name="shapeColor">La couleur de la sphere</param>
-        public Sphere(V3 center, int radius, Couleur shapeColor, Texture textureBump = null, float intensiteBump = 0) : base(shapeColor, textureBump, intensiteBump)
+        public Sphere(V3 center, int radius, MyColor shapeColor, Texture textureBump = null, float intensiteBump = 0) : base(shapeColor, textureBump, intensiteBump)
         {
             InitPoints(center, radius);
         }
@@ -58,10 +58,25 @@ namespace Projet_IMA
         /// <param name="z"></param>
         /// <param name="radius"></param>
         /// <param name="shapeColor"></param>
-        public Sphere(float x, float y, float z, int radius, Couleur shapeColor, Texture textureBump = null, float intensiteBump = 0) : this(new V3(x, y, z), radius, shapeColor, textureBump, intensiteBump) { }
+        public Sphere(float x, float y, float z, int radius, MyColor shapeColor, Texture textureBump = null, float intensiteBump = 0) : this(new V3(x, y, z), radius, shapeColor, textureBump, intensiteBump) { }
 
+        /// <summary>
+        /// Constructeur d une sphere avec une texture
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <param name="radius"></param>
+        /// <param name="texture"></param>
+        /// <param name="textureBump"></param>
+        /// <param name="intensiteBump"></param>
         public Sphere(float x, float y, float z, int radius, Texture texture, Texture textureBump = null, float intensiteBump = 0) : this(new V3(x, y, z), radius, texture, textureBump, intensiteBump) { }
 
+        /// <summary>
+        /// On initialise notre sphere a partir des infos des constructeurs
+        /// </summary>
+        /// <param name="center"></param>
+        /// <param name="radius"></param>
         private void InitPoints(V3 center, int radius)
         {
             Center = new V3(center.X, center.Y, center.Z);
@@ -74,6 +89,13 @@ namespace Projet_IMA
 
         #region methodes
 
+        /// <summary>
+        /// Calcul de l intersection entre l objet et un rayon lumineux
+        /// On resout une equation du second degres avec delta = b^2 - 4ac 
+        /// </summary>
+        /// <param name="positionCamera"></param>
+        /// <param name="dirRayon"></param>
+        /// <returns></returns>
         public override V3 GetIntersection(V3 positionCamera, V3 dirRayon)
         {
             float a, b, c, delta, t1, t2;
@@ -94,7 +116,11 @@ namespace Projet_IMA
                 V3 intersectionPoint = positionCamera + t2 * dirRayon;
                 return intersectionPoint;
             }
-            else return null; // t1 < 0 && t2 < 0
+            // t1 < 0 && t2 < 0
+            else
+            {
+                return null;
+            }
         }
 
         private V3 FindSpherePoint(V3 intersection)
@@ -115,17 +141,17 @@ namespace Projet_IMA
         private V3 FindPoint(float u, float v)
         {
             return new V3(
-                IMA.Cosf(v) * IMA.Cosf(u),
-                IMA.Cosf(v) * IMA.Sinf(u),
-                IMA.Sinf(v)
+                Tools.Cosf(v) * Tools.Cosf(u),
+                Tools.Cosf(v) * Tools.Sinf(u),
+                Tools.Sinf(v)
             );
         }
 
         private V3 FindPointDerU(float u, float v)
         {
             return new V3(
-                IMA.Cosf(v) * (-IMA.Sinf(u)),
-                IMA.Cosf(v) * IMA.Cosf(u),
+                Tools.Cosf(v) * (-Tools.Sinf(u)),
+                Tools.Cosf(v) * Tools.Cosf(u),
                 0
             );
         }
@@ -133,23 +159,11 @@ namespace Projet_IMA
         private V3 FindPointDerV(float u, float v)
         {
             return new V3(
-                (-IMA.Sinf(v)) * IMA.Cosf(u),
-                (-IMA.Sinf(v)) * IMA.Sinf(u),
-                IMA.Cosf(v)
+                (-Tools.Sinf(v)) * Tools.Cosf(u),
+                (-Tools.Sinf(v)) * Tools.Sinf(u),
+                Tools.Cosf(v)
             );
         }
-
-        /// <summary>
-        /// Recupere tout les points par rapport a u et v
-        /// </summary>
-        /// <param name="u">L angle u</param>
-        /// <param name="v">L angle v</param>
-        /// <returns></returns>
-        private V3 SpherePoints(float u, float v) => new V3(Radius * FindPoint(u, v) + Center);
-
-        private V3 SpherePointsDeriveU(float u, float v) => new V3(Radius * FindPointDerU(u, v) + Center);
-
-        private V3 SpherePointsDeriveV(float u, float v) => new V3(Radius * FindPointDerV(u, v) + Center);
 
         /// <summary>
         /// Calcul la normale a partir d une intersection
@@ -159,22 +173,27 @@ namespace Projet_IMA
         /// <returns>La normal par rapport a l intersection</returns>
         public override V3 GetNormal(V3 intersection = null)
         {
-            IMA.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
+            Tools.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
             return GetNormal(u, v);
         }
 
+        /// <summary>
+        /// Calcul d une normale avec un bump
+        /// </summary>
+        /// <param name="intersection"></param>
+        /// <returns></returns>
         public override V3 GetNormalBump(V3 intersection = null)
         {
-            IMA.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
+            Tools.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
             V3 normal = GetNormal(intersection);
             normal.Normalize();
-            float uTexture = u / IMA.DPI;
-            float vTexture = -(v + IMA.PI2) / (IMA.PI2 + IMA.PI2);
-            TextureBump.Bump(uTexture,vTexture, out float dhdu, out float dhdv);
+            float uTexture = u / Tools.TAU;
+            float vTexture = -(v + Tools.PI2) / (Tools.PI2 + Tools.PI2);
+            BumpTexture.Bump(uTexture,vTexture, out float dhdu, out float dhdv);
             V3 T2 = FindPointDerU(u,v) ^ (dhdv * normal);
             V3 T3 = (dhdu * normal) ^ FindPointDerV(u, v);
 
-            V3 normalBump = normal + (IntensiteBump * (T2+T3));
+            V3 normalBump = normal + (BumpIntensity * (T2+T3));
             return normalBump;
         }
 
@@ -186,16 +205,14 @@ namespace Projet_IMA
         /// <returns>La normale de la sphere</returns>
         public V3 GetNormal(float u, float v) => FindPoint(u, v);
 
-        
-
-        public override Couleur GetColor(V3 intersection)
+        public override MyColor GetColor(V3 intersection)
         {
-            Couleur couleur;
+            MyColor couleur;
             if (Texture != null)
             {
-                IMA.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
-                u = u / IMA.DPI;
-                v = -(v + IMA.PI2) / (IMA.PI2 + IMA.PI2);
+                Tools.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
+                u /= Tools.TAU;
+                v = -(v + Tools.PI2) / (Tools.PI2 + Tools.PI2);
                 couleur = Texture.ReadColor(u, v);
             }
             else
@@ -203,15 +220,6 @@ namespace Projet_IMA
                 couleur = ShapeColor;
             }
             return couleur;
-        }
-
-        public override bool hasBump()
-        {
-            if (TextureBump == null)
-            {
-                return false;
-            }
-            return true;
         }
 
         public override bool Equals(object obj)
@@ -233,13 +241,14 @@ namespace Projet_IMA
     }
 }
 
-/*Equation intersection :
+/*
+ * Equation intersection :
  * (OR + t * DR - C)² = r²
  * OR² + OR * t * DR - OR * C + OR * t * DR + t² * DR² - t * DR * C - OR * C - t * DR * C + C² = r²
  * DR² * t² + 2 * t * OR * DR - 2 * t * DR * C  + OR² - 2 * OR * C + C² - r² = 0
  * DR² * t2 + 2 * DR * (OR - C) * t + OR² - 2 * OR * C + C² - r² = 0
  *
- *Equation sous la forme ax² + bx + c =0 avec 
+ * Equation sous la forme ax² + bx + c = 0 avec 
  * a = DR² (DR : direction rayon)
  * b = 2 * DR * (OR - C)  (OR : origine rayon, C : centre sphere)
  * c = OR² + C² - r² - 2 * OR * C (r :  rayon cercle)

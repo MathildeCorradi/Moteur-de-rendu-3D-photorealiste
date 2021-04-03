@@ -68,17 +68,7 @@
         /// <returns>La norme du vecteur</returns>
         public float Norm()
         {
-            return IMA.Sqrtf(X * X + Y * Y + Z * Z);
-        }
-
-        /// <summary>
-        /// Calcul la norme du vecteur
-        /// Pas sur que ce soit ca a voir
-        /// </summary>
-        /// <returns>La norme du vecteur ?</returns>
-        public float NormWithoutSquare()
-        {
-            return X * X + Y * Y + Z * Z;
+            return Tools.Sqrtf(X * X + Y * Y + Z * Z);
         }
 
         /// <summary>
@@ -93,125 +83,9 @@
             Z /= norm;
         }
 
-        public string toString()
+        public override string ToString()
         {
             return X + " " + Y + " " + Z;
-        }
-
-        #endregion
-
-        #region operateurs
-
-        /// <summary>
-        /// Addition de deux vecteurs
-        /// </summary>
-        /// <param name="a">Vecteur 1</param>
-        /// <param name="b">Vecteur 2</param>
-        /// <returns>Le nouveau vecteur</returns>
-        public static V3 operator +(V3 a, V3 b)
-        {
-            V3 v = new V3(0, 0, 0);
-            v.X = a.X + b.X;
-            v.Y = a.Y + b.Y;
-            v.Z = a.Z + b.Z;
-            return v;
-        }
-
-        /// <summary>
-        /// Soustraction de deux vecteurs
-        /// </summary>
-        /// <param name="a">Vecteur 1</param>
-        /// <param name="b">Vecteur 2</param>
-        /// <returns>Le nouveau vecteur</returns>
-        public static V3 operator -(V3 a, V3 b)
-        {
-            V3 v = new V3(0, 0, 0);
-            v.X = a.X - b.X;
-            v.Y = a.Y - b.Y;
-            v.Z = a.Z - b.Z;
-            return v;
-        }
-
-        /// <summary>
-        /// Inverse
-        /// </summary>
-        /// <param name="a">Le vecteur</param>
-        /// <returns>Le vecteur inverse</returns>
-        public static V3 operator -(V3 a)
-        {
-            V3 v = new V3(0, 0, 0);
-            v.X = -a.X;
-            v.Y = -a.Y;
-            v.Z = -a.Z;
-            return v;
-        }
-
-        /// <summary>
-        /// Produit vectoriel
-        /// </summary>
-        /// <param name="a">Vecteur 1</param>
-        /// <param name="b">Vecteur 2</param>
-        /// <returns>Le nouveau vecteur</returns>
-        public static V3 operator ^(V3 a, V3 b)
-        {
-            V3 v = new V3(0, 0, 0);
-            v.X = a.Y * b.Z - a.Z * b.Y;
-            v.Y = a.Z * b.X - a.X * b.Z;
-            v.Z = a.X * b.Y - a.Y * b.X;
-            return v;
-        }
-
-        /// <summary>
-        /// Produit scalaire
-        /// </summary>
-        /// <param name="a">Vecteur 1</param>
-        /// <param name="b">Vecteur 2</param>
-        /// <returns>Le nouveau vecteur</returns>
-        public static float operator *(V3 a, V3 b)
-        {
-            return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
-        }
-
-
-        /// <summary>
-        /// Multiplication d un vecteur selon un scalaire
-        /// </summary>
-        /// <param name="a">La valeur</param>
-        /// <param name="b">Le vecteur</param>
-        /// <returns></returns>
-        public static V3 operator *(float a, V3 b)
-        {
-            V3 v = new V3(0, 0, 0);
-            v.X = b.X * a;
-            v.Y = b.Y * a;
-            v.Z = b.Z * a;
-            return v;
-        }
-
-        /// <summary>
-        /// Division d un vecteur selon un scalaire
-        /// </summary>
-        /// <param name="b">Le vecteur</param>
-        /// <param name="a">La valeur</param>
-        /// <returns>Le nouveau vecteur</returns>
-        public static V3 operator /(V3 b, float a)
-        {
-            V3 v = new V3(0, 0, 0);
-            v.X = b.X / a;
-            v.Y = b.Y / a;
-            v.Z = b.Z / a;
-            return v;
-        }
-
-        /// <summary>
-        /// Calcul le produit scalaire entre 2 vecteurs
-        /// </summary>
-        /// <param name="a">Vecteur 1</param>
-        /// <param name="b">Vecteur 2</param>
-        /// <returns>Le produit scalaire</returns>
-        public static float produitScalaire(ref V3 u, ref V3 v)
-        {
-            return u.X * v.X + u.Y * v.Y + u.Z * v.Z;
         }
 
         public override bool Equals(object obj)
@@ -230,6 +104,98 @@
             hashCode = hashCode * -1521134295 + Z.GetHashCode();
             return hashCode;
         }
+
+        #endregion
+
+        #region operateurs
+
+        /// <summary>
+        /// Addition de deux vecteurs
+        /// </summary>
+        /// <param name="a">Vecteur 1</param>
+        /// <param name="b">Vecteur 2</param>
+        /// <returns>Le nouveau vecteur</returns>
+        public static V3 operator +(V3 a, V3 b) => new V3(0, 0, 0)
+        {
+            X = a.X + b.X,
+            Y = a.Y + b.Y,
+            Z = a.Z + b.Z
+        };
+
+        /// <summary>
+        /// Soustraction de deux vecteurs
+        /// </summary>
+        /// <param name="a">Vecteur 1</param>
+        /// <param name="b">Vecteur 2</param>
+        /// <returns>Le nouveau vecteur</returns>
+        public static V3 operator -(V3 a, V3 b) => new V3(0, 0, 0)
+        {
+            X = a.X - b.X,
+            Y = a.Y - b.Y,
+            Z = a.Z - b.Z
+        };
+
+        /// <summary>
+        /// Inverse
+        /// </summary>
+        /// <param name="a">Le vecteur</param>
+        /// <returns>Le vecteur inverse</returns>
+        public static V3 operator -(V3 a) => new V3(0, 0, 0)
+        {
+            X = -a.X,
+            Y = -a.Y,
+            Z = -a.Z
+        };
+
+        /// <summary>
+        /// Produit vectoriel
+        /// </summary>
+        /// <param name="a">Vecteur 1</param>
+        /// <param name="b">Vecteur 2</param>
+        /// <returns>Le nouveau vecteur</returns>
+        public static V3 operator ^(V3 a, V3 b) => new V3(0, 0, 0)
+        {
+            X = a.Y * b.Z - a.Z * b.Y,
+            Y = a.Z * b.X - a.X * b.Z,
+            Z = a.X * b.Y - a.Y * b.X
+        };
+
+        /// <summary>
+        /// Produit scalaire
+        /// </summary>
+        /// <param name="a">Vecteur 1</param>
+        /// <param name="b">Vecteur 2</param>
+        /// <returns>Le nouveau vecteur</returns>
+        public static float operator *(V3 a, V3 b)
+        {
+            return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+        }
+
+        /// <summary>
+        /// Multiplication d un vecteur selon un scalaire
+        /// </summary>
+        /// <param name="a">La valeur</param>
+        /// <param name="b">Le vecteur</param>
+        /// <returns></returns>
+        public static V3 operator *(float a, V3 b) => new V3(0, 0, 0)
+        {
+            X = b.X * a,
+            Y = b.Y * a,
+            Z = b.Z * a
+        };
+
+        /// <summary>
+        /// Division d un vecteur selon un scalaire
+        /// </summary>
+        /// <param name="b">Le vecteur</param>
+        /// <param name="a">La valeur</param>
+        /// <returns>Le nouveau vecteur</returns>
+        public static V3 operator /(V3 b, float a) => new V3(0, 0, 0)
+        {
+            X = b.X / a,
+            Y = b.Y / a,
+            Z = b.Z / a
+        };
 
         #endregion
     }

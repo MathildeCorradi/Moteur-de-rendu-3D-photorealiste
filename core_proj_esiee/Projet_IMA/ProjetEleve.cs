@@ -4,63 +4,70 @@ namespace Projet_IMA
 {
     static class ProjetEleve
     {
-        public static void Go()
+        #region constants
+
+        private static readonly float WindowHeight = Screen.GetHeight();
+        private static readonly float WindowWidth = Screen.GetWidth();
+
+        #endregion
+
+        #region positions
+
+        private static readonly V3 BasGauche = new V3(0, 400, 0);
+        private static readonly V3 BasDroite = new V3(WindowWidth, 400, 0);
+        private static readonly V3 HautGauche = new V3(0, 400, WindowHeight);
+        private static readonly V3 HautDroite = new V3(WindowWidth, 400, WindowHeight);
+
+        #endregion
+
+        #region disposition scene
+
+        private static List<IShape> GetSceneObjects() => new List<IShape>
         {
-            float windowHeight = BitmapEcran.GetHeight();
-            float windowWidth = BitmapEcran.GetWidth();
+            new Sphere(600, 20, 200, 90, new Texture("gold.jpg"), new Texture("gold_Bump.jpg"), 1),
+            new Sphere(700, 20, 200, 70, new Texture("lead.jpg")),
+            new Sphere(500, 300, 20, 100, MyColor.SPHERE_YELLOW),
+            new Sphere(200, 300, 300, 200, new MyColor(1f,1f,1f), new Texture("bump4.jpg"), 2),
 
-            List<IShape> objectsScene = new List<IShape>();
-            V3 positionCamera = new V3(windowWidth / 2, -windowWidth, windowHeight / 2);
-            Couleur keyColor = new Couleur(0.8f, 0.8f, 0.8f);
-            Couleur fillColor = new Couleur(0.2f, 0.0f, 0.2f);
-            Lampe keyLamp = new Lampe(keyColor, new V3(1, -1, 1), 1f);
-            Lampe fillLamp = new Lampe(fillColor, new V3(-1, -1, -1), 1f);
-            keyLamp.Orientation.Normalize();
-            fillLamp.Orientation.Normalize();
+            new Parallelogram(new V3(0, 0, 0), new V3(WindowWidth, 0, 0), BasGauche, MyColor.GROUND, true),
+            new Parallelogram(HautGauche, HautDroite, new V3(0, 0, WindowHeight), MyColor.CEILLING, true),
+            new Parallelogram(BasGauche, BasDroite, HautGauche, MyColor.WALL_BACK, true, new Texture("bump4.jpg"), 0.01f),
+            new Parallelogram(BasDroite, new V3(WindowWidth, 0, 0), HautDroite, MyColor.WALL_RIGHT, true, new Texture("bump38.jpg"), 0.1f),
+            new Parallelogram(new V3(0, 0, 0), BasGauche, new V3(0, 0, WindowHeight), MyColor.WALL_LEFT, true),
 
-            List<Lampe> lamps = new List<Lampe>();
-            lamps.Add(keyLamp);
-            lamps.Add(fillLamp);
+            new Triangle(new V3(1, 1, 1), new V3(WindowWidth, 1, 1), BasGauche, new Texture("carreau.jpg"), true),
+        };
 
-            V3 basGauche = new V3(0, 400, 0);
-            V3 basDroite = new V3(windowWidth, 400, 0);
-            V3 hauteGauche = new V3(0, 400, windowHeight);
-            V3 hauteDroite = new V3(windowWidth, 400, windowHeight);
-
-            var sphr = new Sphere(600, 20, 200, 90, new Texture("gold.jpg"), new Texture("gold_Bump.jpg"), 1);
-            var sphr2 = new Sphere(700, 20, 200, 70, new Texture("lead.jpg"));
-            var sphr3 = new Sphere(500, 300, 20, 100, Couleur.SPHERE_YELLOW);
-            var sphr4 = new Sphere(200, 300, 300, 200, new Couleur(1f,1f,1f), new Texture("bump4.jpg"), 2);
-
-            var ground = new Parallelogram(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, Couleur.GROUND, true);
-            var ceilling = new Parallelogram(hauteGauche, hauteDroite, new V3(0, 0, windowHeight), Couleur.CEILLING, true);
-            var wallBack = new Parallelogram(basGauche, basDroite, hauteGauche, Couleur.WALL_BACK, true,  new Texture("bump4.jpg"), 0.01f);
-            var wallRight = new Parallelogram(basDroite, new V3(windowWidth, 0, 0), hauteDroite, Couleur.WALL_RIGHT,true, new Texture("bump38.jpg"), 0.1f);
-            var wallLeft = new Parallelogram(new V3(0, 0, 0), basGauche, new V3(0, 0, windowHeight), Couleur.WALL_LEFT, true);
-
-            objectsScene.Add(wallRight);
-            objectsScene.Add(ceilling);
-            objectsScene.Add(wallLeft);
-            objectsScene.Add(wallBack);
-            objectsScene.Add(ground);
-            objectsScene.Add(sphr);
-            objectsScene.Add(sphr2);
-            objectsScene.Add(sphr3);
-            objectsScene.Add(sphr4);
-
-            // objectsScene.Add(new Triangle(new V3(0, 0, 0), new V3(windowWidth, 0, 0), basGauche, new Texture("carreau.jpg")));
-
-            for (int xScreen = 0; xScreen <= windowWidth; xScreen++)
+        private static List<Light> GetSceneLights()
+        {
+            // For the final scene put colors in MyColor file and convert this method to lambda expression
+            MyColor keyColor = new MyColor(0.8f, 0.8f, 0.8f);
+            MyColor fillColor = new MyColor(0.2f, 0.0f, 0.2f);
+            return new List<Light>
             {
-                for (int yScreen = 0; yScreen <= windowHeight; yScreen++)
+                (new Light(keyColor, new V3(1, -1, 1), 1f)),
+                new Light(fillColor, new V3(-1, -1, -1), 1f),
+            };
+        }
+
+        #endregion
+
+        public static void Display()
+        {
+            var camera = new V3(WindowWidth / 2, -WindowWidth, WindowHeight / 2);
+            var sceneObjects = GetSceneObjects();
+            var sceneLights = GetSceneLights();
+
+            for (int xScreen = 0; xScreen <= WindowWidth; xScreen++)
+            {
+                for (int yScreen = 0; yScreen <= WindowHeight; yScreen++)
                 {
-                    V3 positionPixelScene = new V3(xScreen, 0, yScreen);
-                    V3 directionRayon = positionPixelScene - positionCamera;
-                    Couleur PixelColor = BitmapEcran.RayCast(positionCamera, directionRayon, objectsScene, lamps);
-                    BitmapEcran.DrawPixel(xScreen, yScreen, PixelColor);
+                    V3 currentPixelPosition = new V3(xScreen, 0, yScreen);
+                    V3 rayDirection = currentPixelPosition - camera;
+                    MyColor PixelColor = Screen.RayCast(camera, rayDirection, sceneObjects, sceneLights);
+                    Screen.DrawPixel(xScreen, yScreen, PixelColor);
                 }
             }
-
         }
     }
 }

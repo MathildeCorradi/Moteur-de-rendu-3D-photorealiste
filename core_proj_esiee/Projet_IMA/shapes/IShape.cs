@@ -16,14 +16,27 @@
         /// Permet d obtenir la couleur de la forme
         /// </summary>
         /// <returns>Un objet Couleur</returns>
-        Couleur GetColor(V3 intersection);
+        MyColor GetColor(V3 intersection);
 
         V3 GetNormal(V3 intersection = null);
 
         V3 GetNormalBump(V3 intersection = null);
 
-        bool isLightFlag();
+        /// <summary>
+        /// Permet d ignorer l objet lors de l illumination et
+        /// donc ne pas prendre en compte son ombre
+        /// </summary>
+        /// <returns>
+        /// Vrai s il on l ignore sinon faux
+        /// </returns>
+        bool IgnoreShadow();
 
-        bool hasBump();
+        /// <summary>
+        /// Verifie si l objet possede un bump
+        /// </summary>
+        /// <returns>
+        /// Vrai s il possede un bump sinon fauxx
+        /// </returns>
+        bool HasBump();
     }
 }
