@@ -49,12 +49,7 @@
 
         public abstract MyColor GetColor(V3 intersection);
 
-        // @TODO: Voir si on peux factoriser les GetNormal
-
         public abstract V3 GetNormal(V3 intersection = null);
-
-        public abstract V3 GetNormalBump(V3 intersection = null);
-
         public bool HasBump() => BumpTexture != null;
 
         public virtual bool IgnoreShadow() => false;

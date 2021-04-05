@@ -138,32 +138,23 @@ namespace Projet_IMA
         /// <param name="u">L angle u</param>
         /// <param name="v">L angle v</param>
         /// <returns>Un point</returns>
-        private V3 FindPoint(float u, float v)
-        {
-            return new V3(
-                Tools.Cosf(v) * Tools.Cosf(u),
-                Tools.Cosf(v) * Tools.Sinf(u),
-                Tools.Sinf(v)
-            );
-        }
+        private V3 FindPoint(float u, float v) => new V3(
+            Tools.Cosf(v) * Tools.Cosf(u),
+            Tools.Cosf(v) * Tools.Sinf(u),
+            Tools.Sinf(v)
+        );
 
-        private V3 FindPointDerU(float u, float v)
-        {
-            return new V3(
-                Tools.Cosf(v) * (-Tools.Sinf(u)),
-                Tools.Cosf(v) * Tools.Cosf(u),
-                0
-            );
-        }
+        private V3 FindPointDerU(float u, float v) => new V3(
+            Tools.Cosf(v) * (-Tools.Sinf(u)),
+            Tools.Cosf(v) * Tools.Cosf(u),
+            0
+        );
 
-        private V3 FindPointDerV(float u, float v)
-        {
-            return new V3(
-                (-Tools.Sinf(v)) * Tools.Cosf(u),
-                (-Tools.Sinf(v)) * Tools.Sinf(u),
-                Tools.Cosf(v)
-            );
-        }
+        private V3 FindPointDerV(float u, float v) => new V3(
+            (-Tools.Sinf(v)) * Tools.Cosf(u),
+            (-Tools.Sinf(v)) * Tools.Sinf(u),
+            Tools.Cosf(v)
+        );
 
         /// <summary>
         /// Calcul la normale a partir d une intersection
@@ -174,27 +165,20 @@ namespace Projet_IMA
         public override V3 GetNormal(V3 intersection = null)
         {
             Tools.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
-            return GetNormal(u, v);
-        }
-
-        /// <summary>
-        /// Calcul d une normale avec un bump
-        /// </summary>
-        /// <param name="intersection"></param>
-        /// <returns></returns>
-        public override V3 GetNormalBump(V3 intersection = null)
-        {
-            Tools.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
-            V3 normal = GetNormal(intersection);
+            V3 normal = GetNormal(u, v);
             normal.Normalize();
+
+            if (!HasBump())
+            {
+                return normal;
+            }
             float uTexture = u / Tools.TAU;
             float vTexture = -(v + Tools.PI2) / (Tools.PI2 + Tools.PI2);
-            BumpTexture.Bump(uTexture,vTexture, out float dhdu, out float dhdv);
-            V3 T2 = FindPointDerU(u,v) ^ (dhdv * normal);
+            BumpTexture.Bump(uTexture, vTexture, out float dhdu, out float dhdv);
+            V3 T2 = FindPointDerU(u, v) ^ (dhdv * normal);
             V3 T3 = (dhdu * normal) ^ FindPointDerV(u, v);
 
-            V3 normalBump = normal + (BumpIntensity * (T2+T3));
-            return normalBump;
+            return normal + (BumpIntensity * (T2 + T3));
         }
 
         /// <summary>

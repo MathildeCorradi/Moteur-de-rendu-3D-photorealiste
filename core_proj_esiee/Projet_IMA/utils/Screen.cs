@@ -66,7 +66,7 @@ namespace Projet_IMA
 
         static public void RefreshScreen(MyColor c)
         {
-            if (Program.MyForm.Checked())
+            if (Program.MyForm.FastMode())
             {
                 DisplayMode = DisplayMode.SLOW_MODE;
                 Graphics g = Graphics.FromImage(B);
@@ -102,57 +102,29 @@ namespace Projet_IMA
             Program.MyForm.PictureBoxInvalidate();
         }
 
-        private static MyColor Illumination(List<Light> lamps, IShape shape, V3 intersection, V3 directionRayon)
+        private static MyColor Illumination(List<Light> lights, IShape shape, V3 intersection, V3 rayDirection)
         {
-            MyColor pixelColor = new MyColor(0, 0, 0);
-            MyColor shapeColor = shape.GetColor(intersection);
-            pixelColor = shapeColor * new MyColor(0.1f, 0.1f, 0.1f); // modèle de réflexion ambiant
+            var shapeColor = shape.GetColor(intersection);
+            var pixelColor = shapeColor * new MyColor(.1f, .1f, .1f); // Modele de réflexion ambiant
 
-            if (shape.HasBump())
+            V3 normal = shape.GetNormal(intersection);
+            float coeffDiffuseLight1 = normal * lights[0].Orientation;
+            float coeffDiffuseLight2 = normal * lights[1].Orientation;
+            if (coeffDiffuseLight1 >= 0 && !IsIntersect(intersection, lights[0].Orientation, shape))
             {
-                V3 normalBump = shape.GetNormalBump(intersection);
-                normalBump.Normalize();
-                float coeffDiffusBump = normalBump * lamps[0].Orientation;
-                float coeffDiffusBump2 = normalBump * lamps[1].Orientation;
-                if (coeffDiffusBump >= 0 && !IsIntersect(intersection, lamps[0].Orientation, shape))
-                {
-                    pixelColor += coeffDiffusBump * (shapeColor * lamps[0].Color); // Modèle diffus avec dump
-
-                    V3 rayonReflechi = -lamps[0].Orientation + 2 * (normalBump * lamps[0].Orientation) * normalBump;
-                    directionRayon.Normalize();
-                    rayonReflechi.Normalize();
-                    float coeffSpeculaire = (float)Math.Pow(rayonReflechi * (-directionRayon), 98);
-                    pixelColor += coeffSpeculaire * lamps[0].Color; // Modèle spéculaire
-                }
-                if (coeffDiffusBump2 >= 0 && !IsIntersect(intersection, lamps[1].Orientation, shape))
-                {
-                    pixelColor += coeffDiffusBump2 * (shapeColor * lamps[1].Color); // Modèle diffus avec dump
-                }
+                pixelColor += coeffDiffuseLight1 * (shapeColor * lights[0].Color); // Modele diffus
+                V3 rayReflected = -lights[0].Orientation + 2 * (normal * lights[0].Orientation) * normal;
+                rayDirection.Normalize();
+                rayReflected.Normalize();
+                float coeffSpecular = (float)Math.Pow(rayReflected * (-rayDirection), 98);
+                pixelColor += coeffSpecular * lights[0].Color; // Modele speculaire
             }
-            else
+            // TODO: voir difference de comportement selon key et fill pour pouvoir mettre X lumieres
+            if (coeffDiffuseLight2 >= 0 && !IsIntersect(intersection, lights[1].Orientation, shape))
             {
-                V3 normal = shape.GetNormal(intersection);
-                normal.Normalize();
-                float coeffDiffus = normal * lamps[0].Orientation;
-                float coeffDiffus2 = normal * lamps[1].Orientation;
-                if (coeffDiffus >= 0 && !IsIntersect(intersection, lamps[0].Orientation, shape))
-                {
-                    pixelColor += coeffDiffus * (shapeColor * lamps[0].Color); // Modèle diffus sans dump
-
-                    V3 rayonReflechi = -lamps[0].Orientation + 2 * (normal * lamps[0].Orientation) * normal;
-                    directionRayon.Normalize();
-                    rayonReflechi.Normalize();
-                    float coeffSpeculaire = (float)Math.Pow(rayonReflechi * (-directionRayon), 98);
-                    pixelColor += coeffSpeculaire * lamps[0].Color; // Modèle spéculaire
-
-                }
-                if (coeffDiffus2 >= 0 && !IsIntersect(intersection, lamps[1].Orientation, shape))
-                {
-                    pixelColor += coeffDiffus2 * (shapeColor * lamps[1].Color); // Modèle diffus sans dump
-
-                }
+                pixelColor += coeffDiffuseLight2 * (shapeColor * lights[1].Color); // Modele diffus
             }
-            
+
             return pixelColor;
         }
 
@@ -181,7 +153,7 @@ namespace Projet_IMA
             objects = objectsScene;
             MyColor pixelColor = new MyColor(0,0,0);
             IShape mostClosestShape = null;
-            V3 intersection = new V3(0,0,0);
+            V3 intersection;
             float mostClosestY = float.MaxValue;
             V3 mostClosestIntersection = null;
             foreach (IShape shape in objectsScene)

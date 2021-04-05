@@ -45,7 +45,7 @@ namespace Projet_IMA
             MyColor fillColor = new MyColor(0.2f, 0.0f, 0.2f);
             return new List<Light>
             {
-                (new Light(keyColor, new V3(1, -1, 1), 1f)),
+                new Light(keyColor, new V3(1, -1, 1), 1f),
                 new Light(fillColor, new V3(-1, -1, -1), 1f),
             };
         }

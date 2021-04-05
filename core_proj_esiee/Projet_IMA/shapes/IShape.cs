@@ -19,9 +19,7 @@
         MyColor GetColor(V3 intersection);
 
         V3 GetNormal(V3 intersection = null);
-
-        V3 GetNormalBump(V3 intersection = null);
-
+        
         /// <summary>
         /// Permet d ignorer l objet lors de l illumination et
         /// donc ne pas prendre en compte son ombre

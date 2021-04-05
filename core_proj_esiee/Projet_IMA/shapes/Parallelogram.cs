@@ -94,18 +94,19 @@ namespace Projet_IMA
 
         public override V3 GetNormal(V3 intersection = null)
         {
-            return Normal;
-        }
+            V3 normal = Normal;
+            normal.Normalize();
+            if (!HasBump())
+            {
+                return normal;
+            }
 
-        public override V3 GetNormalBump(V3 intersection = null)
-        {
             V3 AB = PointB - PointA;
             V3 AC = PointC - PointA;
             V3 AI = intersection - PointA;
             float u = ((AC ^ Normal) * AI) / (AB ^ AC).Norm();
             float v = ((Normal ^ AB) * AI) / (AC ^ AB).Norm();
-            V3 normal = GetNormal();
-            
+
             BumpTexture.Bump(u, v, out float dhdu, out float dhdv);
             V3 T2 = AB ^ (dhdv * normal);
             V3 T3 = (dhdu * normal) ^ AC;
@@ -113,7 +114,6 @@ namespace Projet_IMA
             V3 normalBump = normal + (BumpIntensity * (T2 + T3));
             return normalBump;
         }
-
 
         public override MyColor GetColor(V3 intersection)
         {
