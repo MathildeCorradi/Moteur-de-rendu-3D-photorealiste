@@ -6,7 +6,7 @@ using Projet_IMA.utils;
 
 namespace Projet_IMA
 {
-    enum DisplayMode { SLOW_MODE, FULL_SPEED};
+    enum DisplayMode { SLOW_MODE, FULL_SPEED };
 
     class Screen
     {
@@ -15,7 +15,7 @@ namespace Projet_IMA
         /// </summary>
         const int refreshRate = 1000;
         static int currentRate = 0;
-        
+
         static private Bitmap B;
         static private DisplayMode DisplayMode;
         static private int Largeur;
@@ -33,7 +33,7 @@ namespace Projet_IMA
             B = new Bitmap(largeur, hauteur);
             return B;
         }
- 
+
         static void DrawFastPixel(int x, int y, MyColor c)
         {
             unsafe
@@ -42,7 +42,7 @@ namespace Projet_IMA
                 c.To255(out byte RR, out byte VV, out byte BB);
 
                 byte* ptr = (byte*)data.Scan0;
-                ptr[(x * 3) + y * stride    ] = BB;
+                ptr[(x * 3) + y * stride] = BB;
                 ptr[(x * 3) + y * stride + 1] = VV;
                 ptr[(x * 3) + y * stride + 2] = RR;
             }
@@ -52,21 +52,21 @@ namespace Projet_IMA
         {
             Color cc = c.Convert();
             B.SetPixel(x, y, cc);
-            
+
             Program.MyForm.PictureBoxInvalidate();
             currentRate++;
             if (currentRate > refreshRate)  // force l'affichage à l'écran tous les 1000pix
             {
-               Program.MyForm.PictureBoxRefresh();
-               currentRate = 0;
+                Program.MyForm.PictureBoxRefresh();
+                currentRate = 0;
             }
-         }
+        }
 
         /// /////////////////   public methods ///////////////////////
 
         static public void RefreshScreen(MyColor c)
         {
-            if (Program.MyForm.FastMode())
+            if (!Program.MyForm.FastMode())
             {
                 DisplayMode = DisplayMode.SLOW_MODE;
                 Graphics g = Graphics.FromImage(B);
@@ -83,7 +83,7 @@ namespace Projet_IMA
                         DrawFastPixel(x, y, c);
             }
         }
-        
+
         public static void DrawPixel(int x, int y, MyColor c)
         {
             int x_ecran = x;
@@ -93,7 +93,7 @@ namespace Projet_IMA
                 if (DisplayMode == DisplayMode.SLOW_MODE) DrawSlowPixel(x_ecran, y_ecran, c);
                 else DrawFastPixel(x_ecran, y_ecran, c);
         }
-        
+
         static public void Show()
         {
             if (DisplayMode == DisplayMode.FULL_SPEED)
@@ -135,7 +135,8 @@ namespace Projet_IMA
             {
                 if (!currentShape.Equals(shape))
                 {
-                    if (!shape.IgnoreShadow()) { 
+                    if (!shape.IgnoreShadow())
+                    {
                         intersection = shape.GetIntersection(position, direction);
                         if (intersection != null)
                         {
@@ -151,7 +152,7 @@ namespace Projet_IMA
         {
             // @TODO: Bouger ca c est pas propre :o)
             objects = objectsScene;
-            MyColor pixelColor = new MyColor(0,0,0);
+            MyColor pixelColor = new MyColor(0, 0, 0);
             IShape mostClosestShape = null;
             V3 intersection;
             float mostClosestY = float.MaxValue;

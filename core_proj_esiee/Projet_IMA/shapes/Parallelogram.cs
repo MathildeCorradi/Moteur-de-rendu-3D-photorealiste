@@ -95,9 +95,9 @@ namespace Projet_IMA
         public override V3 GetNormal(V3 intersection = null)
         {
             V3 normal = Normal;
-            normal.Normalize();
             if (!HasBump())
             {
+                normal.Normalize();
                 return normal;
             }
 
@@ -112,6 +112,7 @@ namespace Projet_IMA
             V3 T3 = (dhdu * normal) ^ AC;
 
             V3 normalBump = normal + (BumpIntensity * (T2 + T3));
+            normalBump.Normalize();
             return normalBump;
         }
 
