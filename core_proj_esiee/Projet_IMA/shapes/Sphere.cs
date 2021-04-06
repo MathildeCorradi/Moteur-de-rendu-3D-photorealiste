@@ -166,19 +166,21 @@ namespace Projet_IMA
         {
             Tools.InvertCoordSpherique(FindSpherePoint(intersection), Radius, out float u, out float v);
             V3 normal = GetNormal(u, v);
-            normal.Normalize();
 
             if (!HasBump())
             {
+                normal.Normalize();
                 return normal;
             }
+
             float uTexture = u / Tools.TAU;
             float vTexture = -(v + Tools.PI2) / (Tools.PI2 + Tools.PI2);
             BumpTexture.Bump(uTexture, vTexture, out float dhdu, out float dhdv);
             V3 T2 = FindPointDerU(u, v) ^ (dhdv * normal);
             V3 T3 = (dhdu * normal) ^ FindPointDerV(u, v);
-
-            return normal + (BumpIntensity * (T2 + T3));
+            V3 normalBump = normal + (BumpIntensity * (T2 + T3));
+            normalBump.Normalize();
+            return normalBump;
         }
 
         /// <summary>

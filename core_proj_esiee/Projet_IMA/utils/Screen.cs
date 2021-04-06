@@ -23,9 +23,6 @@ namespace Projet_IMA
         static private int stride;
         static private BitmapData data;
 
-        static private List<IShape> objects;
-
-
         static public Bitmap Init(int largeur, int hauteur)
         {
             Largeur = largeur;
@@ -61,8 +58,6 @@ namespace Projet_IMA
                 currentRate = 0;
             }
         }
-
-        /// /////////////////   public methods ///////////////////////
 
         static public void RefreshScreen(MyColor c)
         {
@@ -102,15 +97,15 @@ namespace Projet_IMA
             Program.MyForm.PictureBoxInvalidate();
         }
 
-        private static MyColor Illumination(List<Light> lights, IShape shape, V3 intersection, V3 rayDirection)
+        private static MyColor Illumination(List<Light> lights, List<IShape> sceneObjects, IShape currentObject, V3 intersection, V3 rayDirection)
         {
-            var shapeColor = shape.GetColor(intersection);
+            var shapeColor = currentObject.GetColor(intersection);
             var pixelColor = shapeColor * new MyColor(.1f, .1f, .1f); // Modele de réflexion ambiant
 
-            V3 normal = shape.GetNormal(intersection);
+            V3 normal = currentObject.GetNormal(intersection);
             float coeffDiffuseLight1 = normal * lights[0].Orientation;
             float coeffDiffuseLight2 = normal * lights[1].Orientation;
-            if (coeffDiffuseLight1 >= 0 && !IsIntersect(intersection, lights[0].Orientation, shape))
+            if (coeffDiffuseLight1 >= 0 && !IsIntersect(intersection, lights[0].Orientation, sceneObjects, currentObject))
             {
                 pixelColor += coeffDiffuseLight1 * (shapeColor * lights[0].Color); // Modele diffus
                 V3 rayReflected = -lights[0].Orientation + 2 * (normal * lights[0].Orientation) * normal;
@@ -120,7 +115,7 @@ namespace Projet_IMA
                 pixelColor += coeffSpecular * lights[0].Color; // Modele speculaire
             }
             // TODO: voir difference de comportement selon key et fill pour pouvoir mettre X lumieres
-            if (coeffDiffuseLight2 >= 0 && !IsIntersect(intersection, lights[1].Orientation, shape))
+            if (coeffDiffuseLight2 >= 0 && !IsIntersect(intersection, lights[1].Orientation, sceneObjects, currentObject))
             {
                 pixelColor += coeffDiffuseLight2 * (shapeColor * lights[1].Color); // Modele diffus
             }
@@ -128,51 +123,46 @@ namespace Projet_IMA
             return pixelColor;
         }
 
-        private static bool IsIntersect(V3 position, V3 direction, IShape currentShape)
+        private static bool IsIntersect(V3 position, V3 direction, List<IShape> sceneObjects, IShape currentShape)
         {
             V3 intersection;
-            foreach (IShape shape in objects)
+            for (int i = 0; i < sceneObjects.Count; ++i)
             {
-                if (!currentShape.Equals(shape))
+                if (!sceneObjects[i].IgnoreShadow() && !currentShape.Equals(sceneObjects[i]))
                 {
-                    if (!shape.IgnoreShadow())
+                    intersection = sceneObjects[i].GetIntersection(position, direction);
+                    if (intersection != null)
                     {
-                        intersection = shape.GetIntersection(position, direction);
-                        if (intersection != null)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
             return false;
         }
 
-        public static MyColor RayCast(V3 positionCamera, V3 directionRayon, List<IShape> objectsScene, List<Light> lamps)
+        public static MyColor RayCast(V3 positionCamera, V3 rayDirection, List<IShape> sceneObjects, List<Light> lights)
         {
-            // @TODO: Bouger ca c est pas propre :o)
-            objects = objectsScene;
             MyColor pixelColor = new MyColor(0, 0, 0);
             IShape mostClosestShape = null;
             V3 intersection;
             float mostClosestY = float.MaxValue;
             V3 mostClosestIntersection = null;
-            foreach (IShape shape in objectsScene)
+            for (int i = 0; i < sceneObjects.Count; ++i)
             {
-                intersection = shape.GetIntersection(positionCamera, directionRayon);
+                intersection = sceneObjects[i].GetIntersection(positionCamera, rayDirection);
                 if (intersection != null)
                 {
                     if (intersection.Y < mostClosestY)
                     {
                         mostClosestY = intersection.Y;
-                        mostClosestShape = shape;
+                        mostClosestShape = sceneObjects[i];
                         mostClosestIntersection = intersection;
                     }
                 }
             }
             if (mostClosestShape != null)
             {
-                pixelColor = Illumination(lamps, mostClosestShape, mostClosestIntersection, directionRayon);
+                pixelColor = Illumination(lights, sceneObjects, mostClosestShape, mostClosestIntersection, rayDirection);
             }
             return pixelColor;
         }

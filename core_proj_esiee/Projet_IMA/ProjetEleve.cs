@@ -35,7 +35,7 @@ namespace Projet_IMA
             new Parallelogram(BasDroite, new V3(WindowWidth, 0, 0), HautDroite, MyColor.WALL_RIGHT, true, new Texture("bump38.jpg"), 0.1f),
             new Parallelogram(new V3(0, 0, 0), BasGauche, new V3(0, 0, WindowHeight), MyColor.WALL_LEFT, true),
 
-            new Triangle(new V3(1, 1, 1), new V3(WindowWidth, 1, 1), BasGauche, new Texture("carreau.jpg"), true),
+            // new Triangle(new V3(1, 1, 1), new V3(WindowWidth, 1, 1), BasGauche, new Texture("carreau.jpg"), true),
         };
 
         private static List<Light> GetSceneLights()
