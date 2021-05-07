@@ -106,16 +106,18 @@ namespace Projet_IMA
             float coeffDiffuseLight1 = normal * lights[0].Orientation;
             float coeffDiffuseLight2 = normal * lights[1].Orientation;
             V3 rayReflected = -lights[0].Orientation + 2 * (normal * lights[0].Orientation) * normal; //Rayon réfléchi
+            rayReflected.Normalize();
+            V3 rayReflected2 = -lights[1].Orientation + 2 * (normal * lights[1].Orientation) * normal; //Rayon réfléchi
+            rayReflected2.Normalize();
             if (coeffDiffuseLight1 >= 0 && !IsIntersect(intersection, lights[0].Orientation, sceneObjects, currentObject))
             {
                 pixelColor += coeffDiffuseLight1 * (shapeColor * lights[0].Color); // Modele diffus key lamp
                 rayDirection.Normalize();
-                rayReflected.Normalize();
                 float coeffSpecular = (float)Math.Pow(rayReflected * (-rayDirection), 98);
                 pixelColor += coeffSpecular * lights[0].Color; // Modele speculaire
             }
 
-            if (coeffDiffuseLight2 >= 0 && !IsIntersect(intersection, lights[1].Orientation, sceneObjects, currentObject))
+            if (coeffDiffuseLight2 >= 0  && !IsIntersect(intersection, lights[1].Orientation, sceneObjects, currentObject))
             {
                pixelColor += coeffDiffuseLight2 * (shapeColor * lights[1].Color); // Modele diffus fill lamp
             }
