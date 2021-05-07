@@ -97,7 +97,7 @@ namespace Projet_IMA
             Program.MyForm.PictureBoxInvalidate();
         }
 
-        private static MyColor Illumination(List<Light> lights, List<IShape> sceneObjects, IShape currentObject, V3 intersection, V3 rayDirection)
+        private static MyColor Illumination(List<Light> lights, List<IShape> sceneObjects, IShape currentObject, V3 intersection, V3 rayDirection, int reflexionNumber)
         {
             var shapeColor = currentObject.GetColor(intersection);
             var pixelColor = shapeColor * new MyColor(.1f, .1f, .1f); // Modele de réflexion ambiant
@@ -120,9 +120,9 @@ namespace Projet_IMA
                pixelColor += coeffDiffuseLight2 * (shapeColor * lights[1].Color); // Modele diffus fill lamp
             }
             
-            if (currentObject.GetCoefReflexion() != 0)
+            if (currentObject.GetCoefReflexion() != 0 && reflexionNumber > 0)
             {
-                pixelColor += currentObject.GetCoefReflexion() * RayCast(intersection, rayReflected, sceneObjects, lights, currentObject);
+                pixelColor += currentObject.GetCoefReflexion() * RayCast(intersection, rayReflected, sceneObjects, lights, reflexionNumber - 1, currentObject);
             }
 
             return pixelColor;
@@ -172,7 +172,7 @@ namespace Projet_IMA
             return pixelColor;
         }*/
 
-        public static MyColor RayCast(V3 positionCamera, V3 rayDirection, List<IShape> sceneObjects, List<Light> lights, IShape currentObject = null)
+        public static MyColor RayCast(V3 positionCamera, V3 rayDirection, List<IShape> sceneObjects, List<Light> lights, int reflexionNumber, IShape currentObject = null)
         {
             MyColor pixelColor = new MyColor(0, 0, 0);
             IShape mostClosestShape = null;
@@ -199,7 +199,7 @@ namespace Projet_IMA
             }
             if (mostClosestShape != null)
             {
-                pixelColor = Illumination(lights, sceneObjects, mostClosestShape, mostClosestIntersection, rayDirection);
+                pixelColor = Illumination(lights, sceneObjects, mostClosestShape, mostClosestIntersection, rayDirection, reflexionNumber);
             }
             return pixelColor;
         }
