@@ -27,13 +27,14 @@ namespace Projet_IMA
             new Sphere(600, 20, 200, 90, new Texture("gold.jpg"), new Texture("gold_Bump.jpg"), 1),
             new Sphere(700, 20, 200, 70, new Texture("lead.jpg")),
             new Sphere(500, 300, 20, 100, MyColor.SPHERE_YELLOW),
-            new Sphere(200, 300, 300, 200, new MyColor(1f,1f,1f), new Texture("bump4.jpg"), 2),
+            new Sphere(200, 300, 300, 200, new MyColor(0.5f,0.5f,0.5f), null, 0, 1f),
 
-            new Parallelogram(new V3(0, 0, 0), new V3(WindowWidth, 0, 0), BasGauche, MyColor.GROUND, true),
-            new Parallelogram(HautGauche, HautDroite, new V3(0, 0, WindowHeight), MyColor.CEILLING, true),
-            new Parallelogram(BasGauche, BasDroite, HautGauche, MyColor.WALL_BACK, true, new Texture("bump4.jpg"), 0.01f),
-            new Parallelogram(BasDroite, new V3(WindowWidth, 0, 0), HautDroite, MyColor.WALL_RIGHT, true, new Texture("bump38.jpg"), 0.1f),
-            new Parallelogram(new V3(0, 0, 0), BasGauche, new V3(0, 0, WindowHeight), MyColor.WALL_LEFT, true),
+            new Parallelogram(new V3(0, -WindowWidth-1, 0), new V3(WindowWidth, -WindowWidth-1, 0), new V3(0, -WindowWidth-1, WindowHeight), new MyColor(0f,0f,1f), true),
+            new Parallelogram(new V3(0, -WindowWidth-1, 0), new V3(WindowWidth, -WindowWidth-1, 0), BasGauche, MyColor.GROUND, true, null, 0, 0f), //Sol
+            new Parallelogram(HautGauche, HautDroite, new V3(0, -WindowWidth-1, WindowHeight), MyColor.CEILLING, true), //Planfond
+            new Parallelogram(BasGauche, BasDroite, HautGauche, MyColor.WALL_BACK, true, new Texture("bump4.jpg"), 0.01f), //Mur derrière
+            new Parallelogram(BasDroite, new V3(WindowWidth, -WindowWidth-1, 0), HautDroite, MyColor.WALL_RIGHT, true), //mur droit
+            new Parallelogram(new V3(0, -WindowWidth-1, 0), BasGauche, new V3(0, -WindowWidth-1, WindowHeight), MyColor.WALL_LEFT, true), //mur gauche
 
             // new Triangle(new V3(1, 1, 1), new V3(WindowWidth, 1, 1), BasGauche, new Texture("carreau.jpg"), true),
         };
@@ -42,7 +43,7 @@ namespace Projet_IMA
         {
             // For the final scene put colors in MyColor file and convert this method to lambda expression
             MyColor keyColor = new MyColor(0.8f, 0.8f, 0.8f);
-            MyColor fillColor = new MyColor(0.2f, 0.0f, 0.2f);
+            MyColor fillColor = new MyColor(0.2f, 0.2f, 0.2f);
             return new List<Light>
             {
                 new Light(keyColor, new V3(1, -1, 1), 1f),

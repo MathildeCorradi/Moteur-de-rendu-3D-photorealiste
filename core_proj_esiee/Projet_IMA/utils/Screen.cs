@@ -105,19 +105,24 @@ namespace Projet_IMA
             V3 normal = currentObject.GetNormal(intersection);
             float coeffDiffuseLight1 = normal * lights[0].Orientation;
             float coeffDiffuseLight2 = normal * lights[1].Orientation;
+            V3 rayReflected = -lights[0].Orientation + 2 * (normal * lights[0].Orientation) * normal; //Rayon réfléchi
             if (coeffDiffuseLight1 >= 0 && !IsIntersect(intersection, lights[0].Orientation, sceneObjects, currentObject))
             {
-                pixelColor += coeffDiffuseLight1 * (shapeColor * lights[0].Color); // Modele diffus
-                V3 rayReflected = -lights[0].Orientation + 2 * (normal * lights[0].Orientation) * normal;
+                pixelColor += coeffDiffuseLight1 * (shapeColor * lights[0].Color); // Modele diffus key lamp
                 rayDirection.Normalize();
                 rayReflected.Normalize();
                 float coeffSpecular = (float)Math.Pow(rayReflected * (-rayDirection), 98);
                 pixelColor += coeffSpecular * lights[0].Color; // Modele speculaire
             }
-            // TODO: voir difference de comportement selon key et fill pour pouvoir mettre X lumieres
+
             if (coeffDiffuseLight2 >= 0 && !IsIntersect(intersection, lights[1].Orientation, sceneObjects, currentObject))
             {
-                pixelColor += coeffDiffuseLight2 * (shapeColor * lights[1].Color); // Modele diffus
+               pixelColor += coeffDiffuseLight2 * (shapeColor * lights[1].Color); // Modele diffus fill lamp
+            }
+            
+            if (currentObject.GetCoefReflexion() != 0)
+            {
+                pixelColor += currentObject.GetCoefReflexion() * RayCast(intersection, rayReflected, sceneObjects, lights, currentObject);
             }
 
             return pixelColor;
@@ -140,7 +145,7 @@ namespace Projet_IMA
             return false;
         }
 
-        public static MyColor RayCast(V3 positionCamera, V3 rayDirection, List<IShape> sceneObjects, List<Light> lights)
+        /*public static MyColor RayCast(V3 positionCamera, V3 rayDirection, List<IShape> sceneObjects, List<Light> lights)
         {
             MyColor pixelColor = new MyColor(0, 0, 0);
             IShape mostClosestShape = null;
@@ -151,12 +156,44 @@ namespace Projet_IMA
             {
                 intersection = sceneObjects[i].GetIntersection(positionCamera, rayDirection);
                 if (intersection != null)
-                {
+                { 
                     if (intersection.Y < mostClosestY)
                     {
                         mostClosestY = intersection.Y;
                         mostClosestShape = sceneObjects[i];
                         mostClosestIntersection = intersection;
+                    }
+                }
+            }
+            if (mostClosestShape != null)
+            {
+                pixelColor = Illumination(lights, sceneObjects, mostClosestShape, mostClosestIntersection, rayDirection);
+            }
+            return pixelColor;
+        }*/
+
+        public static MyColor RayCast(V3 positionCamera, V3 rayDirection, List<IShape> sceneObjects, List<Light> lights, IShape currentObject = null)
+        {
+            MyColor pixelColor = new MyColor(0, 0, 0);
+            IShape mostClosestShape = null;
+            V3 intersection;
+            double distanceEucli = float.MaxValue;
+            V3 mostClosestIntersection = null;
+            double distance;
+            for (int i = 0; i < sceneObjects.Count; ++i)
+            {
+                if (!(currentObject != null && currentObject.Equals(sceneObjects[i])))
+                {
+                    intersection = sceneObjects[i].GetIntersection(positionCamera, rayDirection);
+                    if (intersection != null)
+                    {
+                        distance = Math.Sqrt(Math.Pow(intersection.X - positionCamera.X,2) + Math.Pow(intersection.Y - positionCamera.Y, 2) + Math.Pow(intersection.Z - positionCamera.Z, 2));
+                        if (distance < distanceEucli)
+                        {
+                            distanceEucli = distance;
+                            mostClosestShape = sceneObjects[i];
+                            mostClosestIntersection = intersection;
+                        }
                     }
                 }
             }

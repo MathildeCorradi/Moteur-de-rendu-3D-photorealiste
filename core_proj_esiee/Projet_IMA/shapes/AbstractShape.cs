@@ -19,6 +19,10 @@
 
         public float BumpIntensity { get; set; }
 
+        public float CoefRefraction { get; set; }
+
+        public float CoefReflexion { get; set; }
+
         #endregion
 
         #region constructeurs
@@ -27,18 +31,22 @@
         /// Constructeur de la shape
         /// </summary>
         /// <param name="shapeColor"></param>
-        public AbstractShape(MyColor shapeColor, Texture bumpTexture, float bumpIntensity)
+        public AbstractShape(MyColor shapeColor, Texture bumpTexture, float bumpIntensity, float coefReflexion, float coefRefraction)
         {
             ShapeColor = shapeColor;
             BumpTexture = bumpTexture;
             BumpIntensity = bumpIntensity;
+            CoefRefraction = coefRefraction;
+            CoefReflexion = coefReflexion;
         }
 
-        public AbstractShape(Texture texture, Texture bumpTexture, float bumpIntensity)
+        public AbstractShape(Texture texture, Texture bumpTexture, float bumpIntensity, float coefReflexion, float coefRefraction)
         {
             Texture = texture;
             BumpTexture = bumpTexture;
             BumpIntensity = bumpIntensity;
+            CoefRefraction = coefRefraction;
+            CoefReflexion = coefReflexion;
         }
 
         #endregion
@@ -48,6 +56,11 @@
         public abstract V3 GetIntersection(V3 positionCamera, V3 dirRayon);
 
         public abstract MyColor GetColor(V3 intersection);
+
+        public float GetCoefReflexion()
+        {
+            return CoefReflexion;
+        }
 
         public abstract V3 GetNormal(V3 intersection = null);
         public bool HasBump() => BumpTexture != null;

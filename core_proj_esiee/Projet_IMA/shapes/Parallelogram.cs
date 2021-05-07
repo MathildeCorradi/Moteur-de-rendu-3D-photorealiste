@@ -48,13 +48,13 @@ namespace Projet_IMA
         /// <param name="pointB">Le point B</param>
         /// <param name="pointC">Le point C</param>
         /// <param name="shapeColor">La color d objet</param>
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, MyColor shapeColor, bool ignoreShadow, Texture textureBump = null, float intensiteBump = 0) : base(shapeColor, textureBump, intensiteBump)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, MyColor shapeColor, bool ignoreShadow, Texture textureBump = null, float intensiteBump = 0, float coefReflexion = 0, float coefRefraction = 0) : base(shapeColor, textureBump, intensiteBump, coefReflexion, coefRefraction)
         {
             InitPoints(pointA, pointB, pointC);
             this.ignoreShadow = ignoreShadow;
         }
 
-        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture, bool ignoreShadow, Texture textureBump = null, float intensiteBump = 0) : base(texture, textureBump, intensiteBump)
+        public Parallelogram(V3 pointA, V3 pointB, V3 pointC, Texture texture, bool ignoreShadow, Texture textureBump = null, float intensiteBump = 0, float coefReflexion = 0, float coefRefraction = 0) : base(texture, textureBump, intensiteBump, coefReflexion, coefRefraction)
         {
             InitPoints(pointA, pointB, pointC);
             this.ignoreShadow = ignoreShadow;

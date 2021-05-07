@@ -18,6 +18,12 @@
         /// <returns>Un objet Couleur</returns>
         MyColor GetColor(V3 intersection);
 
+        /// <summary>
+        /// Permet d obtenir le coefficient de reflexion de la forme
+        /// </summary>
+        /// <returns>Le coefficient de reflexion</returns>
+        float GetCoefReflexion();
+
         V3 GetNormal(V3 intersection = null);
         
         /// <summary>
