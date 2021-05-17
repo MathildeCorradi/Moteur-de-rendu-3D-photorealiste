@@ -105,15 +105,13 @@ namespace Projet_IMA
             V3 normal = currentObject.GetNormal(intersection);
             float coeffDiffuseLight1 = normal * lights[0].Orientation;
             float coeffDiffuseLight2 = normal * lights[1].Orientation;
-            V3 rayReflected = -lights[0].Orientation + 2 * (normal * lights[0].Orientation) * normal; //Rayon réfléchi
-            rayReflected.Normalize();
-            V3 rayReflected2 = -lights[1].Orientation + 2 * (normal * lights[1].Orientation) * normal; //Rayon réfléchi
-            rayReflected2.Normalize();
             if (coeffDiffuseLight1 >= 0 && !IsIntersect(intersection, lights[0].Orientation, sceneObjects, currentObject))
             {
                 pixelColor += coeffDiffuseLight1 * (shapeColor * lights[0].Color); // Modele diffus key lamp
                 rayDirection.Normalize();
-                float coeffSpecular = (float)Math.Pow(rayReflected * (-rayDirection), 98);
+                V3 rayReflected = -lights[0].Orientation + 2 * (normal * lights[0].Orientation) * normal; //Rayon réfléchi
+                rayReflected.Normalize();
+                float coeffSpecular = (float)Math.Pow(rayReflected * (-rayDirection), 70);
                 pixelColor += coeffSpecular * lights[0].Color; // Modele speculaire
             }
 
@@ -124,7 +122,9 @@ namespace Projet_IMA
             
             if (currentObject.GetCoefReflexion() != 0 && reflexionNumber > 0)
             {
-                pixelColor += currentObject.GetCoefReflexion() * RayCast(intersection, rayReflected, sceneObjects, lights, reflexionNumber - 1, currentObject);
+                V3 rayReflectedCamera = rayDirection + 2 * (normal * -rayDirection) * normal; //Rayon réfléchi MAIS DEPUIS LA CAMERA !!!!!
+                rayReflectedCamera.Normalize();
+                pixelColor += currentObject.GetCoefReflexion() * RayCast(intersection, rayReflectedCamera, sceneObjects, lights, reflexionNumber - 1, currentObject);
             }
 
             return pixelColor;
