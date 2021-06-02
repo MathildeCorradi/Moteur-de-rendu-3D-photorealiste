@@ -24,6 +24,10 @@
         /// <returns>Le coefficient de reflexion</returns>
         float GetCoefReflexion();
 
+        float GetCoefRefraction();
+
+        float GetIndiceFresnel();
+
         V3 GetNormal(V3 intersection = null);
         
         /// <summary>

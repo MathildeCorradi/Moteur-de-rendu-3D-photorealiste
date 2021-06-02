@@ -23,6 +23,8 @@
 
         public float CoefReflexion { get; set; }
 
+        public float IndiceFresnel { get; set; }
+
         #endregion
 
         #region constructeurs
@@ -31,22 +33,24 @@
         /// Constructeur de la shape
         /// </summary>
         /// <param name="shapeColor"></param>
-        public AbstractShape(MyColor shapeColor, Texture bumpTexture, float bumpIntensity, float coefReflexion, float coefRefraction)
+        public AbstractShape(MyColor shapeColor, Texture bumpTexture, float bumpIntensity, float coefReflexion, float coefRefraction, float indiceFresnel )
         {
             ShapeColor = shapeColor;
             BumpTexture = bumpTexture;
             BumpIntensity = bumpIntensity;
             CoefRefraction = coefRefraction;
             CoefReflexion = coefReflexion;
+            IndiceFresnel = indiceFresnel; 
         }
 
-        public AbstractShape(Texture texture, Texture bumpTexture, float bumpIntensity, float coefReflexion, float coefRefraction)
+        public AbstractShape(Texture texture, Texture bumpTexture, float bumpIntensity, float coefReflexion, float coefRefraction, float indiceFresnel)
         {
             Texture = texture;
             BumpTexture = bumpTexture;
             BumpIntensity = bumpIntensity;
             CoefRefraction = coefRefraction;
             CoefReflexion = coefReflexion;
+            IndiceFresnel = indiceFresnel;
         }
 
         #endregion
@@ -60,6 +64,16 @@
         public float GetCoefReflexion()
         {
             return CoefReflexion;
+        }
+
+        public float GetCoefRefraction()
+        {
+            return CoefRefraction;
+        }
+
+        public float GetIndiceFresnel()
+        {
+            return IndiceFresnel;
         }
 
         public abstract V3 GetNormal(V3 intersection = null);
