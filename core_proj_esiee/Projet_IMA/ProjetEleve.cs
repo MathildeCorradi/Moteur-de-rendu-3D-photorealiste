@@ -16,10 +16,10 @@ namespace Projet_IMA
 
         #region positions
 
-        private static readonly V3 BasGauche = new V3(0, 400, 0);
-        private static readonly V3 BasDroite = new V3(WindowWidth, 400, 0);
-        private static readonly V3 HautGauche = new V3(0, 400, WindowHeight);
-        private static readonly V3 HautDroite = new V3(WindowWidth, 400, WindowHeight);
+        private static readonly V3 BasGauche = new V3(0, 400+200, 0);
+        private static readonly V3 BasDroite = new V3(WindowWidth, 400+200, 0);
+        private static readonly V3 HautGauche = new V3(0, 400+200, WindowHeight);
+        private static readonly V3 HautDroite = new V3(WindowWidth, 400+200, WindowHeight);
 
         #endregion
 
@@ -30,15 +30,16 @@ namespace Projet_IMA
             //new Sphere(600, 20, 200, 90, new Texture("gold.jpg"), new Texture("gold_Bump.jpg"), 1),
             //new Sphere(700, 20, 200, 70, new Texture("lead.jpg")),
             //new Sphere(500, 300, 20, 100, MyColor.SPHERE_YELLOW),
-            new Sphere(200, 300, 200, 200, new MyColor(0.5f,0.5f,0.5f), null, 0, 1f),
-             new Sphere(800, 300, 200, 200, new MyColor(0.5f,0.5f,0.5f), null, 0, 1f),
+            new Sphere(200, 300, 200, 200, new MyColor(0.8f,0.5f,0.5f), null, 0, 1f),
+            new Sphere(800, 300, 200, 50, new MyColor(0.5f,0.5f,0.8f), null, 0, 1f),
+            new Sphere(500, 400, 300, 100, new MyColor(0.5f,0f,0f), new Texture("metal.jpg"), 3f, 0.1f),
 
-            new Parallelogram(new V3(0, -WindowWidth-1, 0), new V3(WindowWidth, -WindowWidth-1, 0), new V3(0, -WindowWidth-1, WindowHeight), new MyColor(0f,0f,1f), true),
-            new Parallelogram(new V3(0, -WindowWidth-1, 0), new V3(WindowWidth, -WindowWidth-1, 0), BasGauche, MyColor.GROUND, true, null, 0, 0f), //Sol
-            new Parallelogram(HautGauche, HautDroite, new V3(0, -WindowWidth-1, WindowHeight), MyColor.CEILLING, true), //Planfond
-            new Parallelogram(BasGauche, BasDroite, HautGauche, MyColor.WALL_BACK, true, new Texture("bump4.jpg"), 0.01f), //Mur derrière
-            new Parallelogram(BasDroite, new V3(WindowWidth, -WindowWidth-1, 0), HautDroite, MyColor.WALL_RIGHT, true), //mur droit
-            new Parallelogram(new V3(0, -WindowWidth-1, 0), BasGauche, new V3(0, -WindowWidth-1, WindowHeight), MyColor.WALL_LEFT, true), //mur gauche
+            new Parallelogram(new V3(0, -WindowWidth-1, 0), new V3(WindowWidth, -WindowWidth-1, 0), new V3(0, -WindowWidth-1, WindowHeight), new MyColor(.5f,.5f,.5f), true),
+            new Parallelogram(new V3(0, -WindowWidth-1, 0), new V3(WindowWidth, -WindowWidth-1, 0), BasGauche, new Texture("tiles4.jpg"), true, new Texture("tiles5.jpg"), 0.001f, 0.3f, 0), //Sol
+            new Parallelogram(HautGauche, HautDroite, new V3(0, -WindowWidth-1, WindowHeight), MyColor.CEILLING, true, null, 0, 0.1f), //Plafond
+            new Parallelogram(BasGauche, BasDroite, HautGauche, new Texture("luxury2.png"), true, null, 0, 0.06f, 0), //Mur derrière
+            new Parallelogram(BasDroite, new V3(WindowWidth, -WindowWidth-1, 0), HautDroite, MyColor.WALL_RIGHT, true, new Texture("wall2.jpg"), 0.001f, 0.1f, 0), //mur droit
+            new Parallelogram(new V3(0, -WindowWidth-1, 0), BasGauche, new V3(0, -WindowWidth-1, WindowHeight), MyColor.WALL_LEFT, true, new Texture("wall2.jpg"), 0.001f, 0.1f, 0) //mur gauche
 
             // new Triangle(new V3(1, 1, 1), new V3(WindowWidth, 1, 1), BasGauche, new Texture("carreau.jpg"), true),
         };
@@ -47,7 +48,7 @@ namespace Projet_IMA
         {
             // For the final scene put colors in MyColor file and convert this method to lambda expression
             MyColor keyColor = new MyColor(0.8f, 0.8f, 0.8f);
-            MyColor fillColor = new MyColor(0.2f, 0.2f, 0.2f);
+            MyColor fillColor = new MyColor(0.4f, 0.4f, 0.4f);
             return new List<Light>
             {
                 new Light(keyColor, new V3(1, -1, 1), 1f),

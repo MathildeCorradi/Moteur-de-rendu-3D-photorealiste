@@ -12,13 +12,13 @@ namespace Projet_IMA
 
         public static MyColor GROUND = new MyColor(.722f, .475f, .337f);
 
-        public static MyColor WALL_RIGHT = new MyColor(1, .682f, .788f);
+        public static MyColor WALL_RIGHT = new MyColor(1f, .1f, .1f);
 
-        public static MyColor CEILLING = new MyColor(1, .788f, .055f);
+        public static MyColor CEILLING = new MyColor(1, 1, 1);
 
-        public static MyColor WALL_LEFT = new MyColor(.439f, .573f, .745f);
+        public static MyColor WALL_LEFT = new MyColor(.819f, .702f, 1f);
 
-        public static MyColor WALL_BACK = new MyColor(.596f, .847f, .914f);
+        public static MyColor WALL_BACK = new MyColor(.96f, .96f, .937f);
 
         public static MyColor SPHERE_LIME = new MyColor(.706f, .898f, .11f);
 
