@@ -27,22 +27,20 @@ namespace Projet_IMA
 
         private static List<IShape> GetSceneObjects() => new List<IShape>
         {
-            //new Sphere(600, 20, 200, 90, new Texture("gold.jpg"), new Texture("gold_Bump.jpg"), 1),
-            //new Sphere(700, 20, 200, 70, new Texture("lead.jpg")),
-            //new Sphere(500, 300, 20, 100, MyColor.SPHERE_YELLOW),
             new Sphere(200, 300, 200, 200, new MyColor(0.8f,0.5f,0.5f), null, 0, 1f),
             new Sphere(800, 300, 200, 50, new MyColor(0.5f,0.5f,0.8f), null, 0, .6f),
-            new Sphere(500, 400, 300, 100, new MyColor(1f, .6f, .8f), new Texture("bump4.jpg"), 5f, 0.1f),
-            new Sphere(700, 500, 200, 70, new MyColor(1f, 1f, 1f), null, 0, 0, 0.001f, Fresnel.WATER),
+            new Sphere(500, 200, 300, 100, new MyColor(1f, .6f, .8f), new Texture("bump4.jpg"), 5f),
+            new Sphere(850, 0, 450, 70, new MyColor(0.79f, 0.51f, 0.47f), null, 0, 0, 1, Fresnel.DIAMOND),
+            new Sphere(600, -20, 80, 80, new MyColor(0.3f, 0.5f, 0.6f), new Texture("metal.jpg"), 1.5f, 0.7f),
 
-            new Parallelogram(new V3(0, -WindowWidth-1, 0), new V3(WindowWidth, -WindowWidth-1, 0), new V3(0, -WindowWidth-1, WindowHeight), new MyColor(.5f,.5f,.5f), true),
-            new Parallelogram(new V3(0, -WindowWidth-1, 0), new V3(WindowWidth, -WindowWidth-1, 0), BasGauche, new Texture("tiles4.jpg"), true, new Texture("tiles5.jpg"), 0.001f, 0.3f, 0), //Sol
-            new Parallelogram(HautGauche, HautDroite, new V3(0, -WindowWidth-1, WindowHeight), MyColor.CEILLING, true, null, 0, 0.1f), //Plafond
+            new Parallelogram(new V3(0, -WindowWidth-2, 0), new V3(WindowWidth, -WindowWidth-2, 0), new V3(0, -WindowWidth-2, WindowHeight), new MyColor(.5f,.5f,.5f), true),
+            new Parallelogram(new V3(0, -WindowWidth-2, 0), new V3(WindowWidth, -WindowWidth-2, 0), BasGauche, new Texture("tiles4.jpg"), true, new Texture("tiles5.jpg"), 0.001f, 0.3f, 0), //Sol
+            new Parallelogram(HautGauche, HautDroite, new V3(0, -WindowWidth-2, WindowHeight), MyColor.CEILLING, true, null, 0, 0.1f), //Plafond
             new Parallelogram(BasGauche, BasDroite, HautGauche, new Texture("luxury2.png"), true, null, 0, 0.06f, 0), //Mur derrière
-            new Parallelogram(BasDroite, new V3(WindowWidth, -WindowWidth-1, 0), HautDroite, MyColor.WALL_RIGHT, true, new Texture("stone3.jpg"), 0.002f, 0.1f, 0), //mur droit
-            new Parallelogram(new V3(0, -WindowWidth-1, 0), BasGauche, new V3(0, -WindowWidth-1, WindowHeight), MyColor.WALL_LEFT, true, new Texture("wall2.jpg"), 0.001f, 0.1f, 0) //mur gauche
-
-            // new Triangle(new V3(1, 1, 1), new V3(WindowWidth, 1, 1), BasGauche, new Texture("carreau.jpg"), true),
+            new Parallelogram(BasDroite, new V3(WindowWidth, -WindowWidth-2, 0), HautDroite, MyColor.WALL_RIGHT, true, new Texture("stone3.jpg"), 0.002f, 0.1f, 0), //mur droit
+            new Parallelogram(new V3(0, -WindowWidth-2, 0), BasGauche, new V3(0, -WindowWidth-2, WindowHeight), MyColor.WALL_LEFT, true, new Texture("wall2.jpg"), 0.001f, 0.1f, 0), //mur gauche
+            
+            new Parallelogram(new V3(150, -WindowWidth-1, 150), new V3(WindowWidth-150, -WindowWidth-1, 150), new V3(150, -WindowWidth-1, WindowHeight-150), new MyColor(.5f,.5f,.5f), true, null, 0, 1),
         };
 
         private static List<Light> GetSceneLights()
