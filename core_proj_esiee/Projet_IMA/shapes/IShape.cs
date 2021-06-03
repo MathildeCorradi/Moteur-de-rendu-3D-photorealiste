@@ -29,7 +29,7 @@
         float GetIndiceFresnel();
 
         V3 GetNormal(V3 intersection = null);
-        
+
         /// <summary>
         /// Permet d ignorer l objet lors de l illumination et
         /// donc ne pas prendre en compte son ombre

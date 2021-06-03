@@ -33,14 +33,14 @@
         /// Constructeur de la shape
         /// </summary>
         /// <param name="shapeColor"></param>
-        public AbstractShape(MyColor shapeColor, Texture bumpTexture, float bumpIntensity, float coefReflexion, float coefRefraction, float indiceFresnel )
+        public AbstractShape(MyColor shapeColor, Texture bumpTexture, float bumpIntensity, float coefReflexion, float coefRefraction, float indiceFresnel)
         {
             ShapeColor = shapeColor;
             BumpTexture = bumpTexture;
             BumpIntensity = bumpIntensity;
             CoefRefraction = coefRefraction;
             CoefReflexion = coefReflexion;
-            IndiceFresnel = indiceFresnel; 
+            IndiceFresnel = indiceFresnel;
         }
 
         public AbstractShape(Texture texture, Texture bumpTexture, float bumpIntensity, float coefReflexion, float coefRefraction, float indiceFresnel)

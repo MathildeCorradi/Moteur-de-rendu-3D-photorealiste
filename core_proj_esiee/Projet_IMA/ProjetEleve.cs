@@ -16,10 +16,10 @@ namespace Projet_IMA
 
         #region positions
 
-        private static readonly V3 BasGauche = new V3(0, 400+200, 0);
-        private static readonly V3 BasDroite = new V3(WindowWidth, 400+200, 0);
-        private static readonly V3 HautGauche = new V3(0, 400+200, WindowHeight);
-        private static readonly V3 HautDroite = new V3(WindowWidth, 400+200, WindowHeight);
+        private static readonly V3 BasGauche = new V3(0, 400 + 200, 0);
+        private static readonly V3 BasDroite = new V3(WindowWidth, 400 + 200, 0);
+        private static readonly V3 HautGauche = new V3(0, 400 + 200, WindowHeight);
+        private static readonly V3 HautDroite = new V3(WindowWidth, 400 + 200, WindowHeight);
 
         #endregion
 
@@ -43,17 +43,11 @@ namespace Projet_IMA
             new Parallelogram(new V3(150, -WindowWidth-1, 150), new V3(WindowWidth-150, -WindowWidth-1, 150), new V3(150, -WindowWidth-1, WindowHeight-150), new MyColor(.5f,.5f,.5f), true, null, 0, 1),
         };
 
-        private static List<Light> GetSceneLights()
+        private static List<Light> GetSceneLights() => new List<Light>
         {
-            // For the final scene put colors in MyColor file and convert this method to lambda expression
-            MyColor keyColor = new MyColor(0.8f, 0.8f, 0.8f);
-            MyColor fillColor = new MyColor(0.4f, 0.4f, 0.4f);
-            return new List<Light>
-            {
-                new Light(keyColor, new V3(1, -1, 1), 1f),
-                new Light(fillColor, new V3(-1, -1, -1), 1f),
-            };
-        }
+            new Light(new MyColor(0.8f, 0.8f, 0.8f), new V3(1, -1, 1), 1f),
+            new Light(new MyColor(0.4f, 0.4f, 0.4f), new V3(-1, -1, -1), 1f),
+        };
 
         #endregion
 

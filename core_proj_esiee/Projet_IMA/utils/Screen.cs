@@ -100,7 +100,7 @@ namespace Projet_IMA
 
         private static float SinToCos(float i)
         {
-            float cos = (float)Math.Sqrt(1-Math.Pow(Math.Sin(i),2));
+            float cos = (float)Math.Sqrt(1 - Math.Pow(Math.Sin(i), 2));
             return cos;
         }
 
@@ -122,36 +122,35 @@ namespace Projet_IMA
                 float coeffSpecular = (float)Math.Pow(rayReflected * (-rayDirection), 70);
                 pixelColor += coeffSpecular * lights[0].Color; // Modele speculaire
             }
-            //Console.WriteLine("color after diffus1 : " + pixelColor.Red + " " + pixelColor.Blue + " " + pixelColor.Green);
 
-            if (coeffDiffuseLight2 >= 0  && !IsIntersect(intersection, lights[1].Orientation, sceneObjects, currentObject))
+            if (coeffDiffuseLight2 >= 0 && !IsIntersect(intersection, lights[1].Orientation, sceneObjects, currentObject))
             {
-               pixelColor += coeffDiffuseLight2 * (shapeColor * lights[1].Color); // Modele diffus fill lamp
+                pixelColor += coeffDiffuseLight2 * (shapeColor * lights[1].Color); // Modele diffus fill lamp
             }
-            
+
             if (currentObject.GetCoefReflexion() > 0 && reflexionNumber > 0)
             {
                 V3 rayReflectedCamera = rayDirection + 2 * (normal * -rayDirection) * normal; //Rayon réfléchi MAIS DEPUIS LA CAMERA !!!!!
                 rayReflectedCamera.Normalize();
-                pixelColor += currentObject.GetCoefReflexion() * RayCast(intersection, rayReflectedCamera, sceneObjects, lights, reflexionNumber - 1,  refractionNumber,currentObject);
+                pixelColor += currentObject.GetCoefReflexion() * RayCast(intersection, rayReflectedCamera, sceneObjects, lights, reflexionNumber - 1, refractionNumber, currentObject);
             }
 
-            
+
 
             if (currentObject.GetCoefRefraction() > 0 && refractionNumber > 0)
             {
                 float angle = lights[0].Orientation * normal;
                 //if (angle > 0)
                 //{
-                    float sin2 = ((lights[0].Orientation ^ normal).Norm() * Fresnel.AIR) / currentObject.GetIndiceFresnel();
-                    if (sin2 > 0 && sin2 < 1)
-                    {
-                        V3 tangente = lights[0].Orientation - (normal * (lights[0].Orientation)) * normal;
-                        V3 rayRefraction = sin2 * (-tangente) + SinToCos(sin2) * (-normal);
-                        rayRefraction.Normalize();
-                        pixelColor += currentObject.GetCoefRefraction() * RayCast(intersection, rayRefraction, sceneObjects, lights, reflexionNumber, refractionNumber - 1, currentObject);
-                    }
-               // }
+                float sin2 = ((lights[0].Orientation ^ normal).Norm() * Fresnel.AIR) / currentObject.GetIndiceFresnel();
+                if (sin2 > 0 && sin2 < 1)
+                {
+                    V3 tangente = lights[0].Orientation - (normal * (lights[0].Orientation)) * normal;
+                    V3 rayRefraction = sin2 * (-tangente) + SinToCos(sin2) * (-normal);
+                    rayRefraction.Normalize();
+                    pixelColor += currentObject.GetCoefRefraction() * RayCast(intersection, rayRefraction, sceneObjects, lights, reflexionNumber, refractionNumber - 1, currentObject);
+                }
+                // }
 
             }
             return pixelColor;
@@ -174,34 +173,7 @@ namespace Projet_IMA
             return false;
         }
 
-        /*public static MyColor RayCast(V3 positionCamera, V3 rayDirection, List<IShape> sceneObjects, List<Light> lights)
-        {
-            MyColor pixelColor = new MyColor(0, 0, 0);
-            IShape mostClosestShape = null;
-            V3 intersection;
-            float mostClosestY = float.MaxValue;
-            V3 mostClosestIntersection = null;
-            for (int i = 0; i < sceneObjects.Count; ++i)
-            {
-                intersection = sceneObjects[i].GetIntersection(positionCamera, rayDirection);
-                if (intersection != null)
-                { 
-                    if (intersection.Y < mostClosestY)
-                    {
-                        mostClosestY = intersection.Y;
-                        mostClosestShape = sceneObjects[i];
-                        mostClosestIntersection = intersection;
-                    }
-                }
-            }
-            if (mostClosestShape != null)
-            {
-                pixelColor = Illumination(lights, sceneObjects, mostClosestShape, mostClosestIntersection, rayDirection);
-            }
-            return pixelColor;
-        }*/
-
-        public static MyColor RayCast(V3 positionCamera, V3 rayDirection, List<IShape> sceneObjects, List<Light> lights, int reflexionNumber, int refractionNumber,IShape currentObject = null)
+        public static MyColor RayCast(V3 positionCamera, V3 rayDirection, List<IShape> sceneObjects, List<Light> lights, int reflexionNumber, int refractionNumber, IShape currentObject = null)
         {
             MyColor pixelColor = new MyColor(0, 0, 0);
             IShape mostClosestShape = null;
@@ -216,7 +188,7 @@ namespace Projet_IMA
                     intersection = sceneObjects[i].GetIntersection(positionCamera, rayDirection);
                     if (intersection != null)
                     {
-                        distance = Math.Sqrt(Math.Pow(intersection.X - positionCamera.X,2) + Math.Pow(intersection.Y - positionCamera.Y, 2) + Math.Pow(intersection.Z - positionCamera.Z, 2));
+                        distance = Math.Sqrt(Math.Pow(intersection.X - positionCamera.X, 2) + Math.Pow(intersection.Y - positionCamera.Y, 2) + Math.Pow(intersection.Z - positionCamera.Z, 2));
                         if (distance < distanceEucli)
                         {
                             distanceEucli = distance;

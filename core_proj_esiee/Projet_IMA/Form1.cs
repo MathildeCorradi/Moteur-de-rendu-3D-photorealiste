@@ -29,7 +29,7 @@ namespace Projet_IMA
         private void ButtonFastClick(object sender, EventArgs e)
         {
             _fast = true;
-            Screen.RefreshScreen(new MyColor(0,0,0));
+            Screen.RefreshScreen(new MyColor(0, 0, 0));
             ProjetEleve.Display();
             Screen.Show();
         }
