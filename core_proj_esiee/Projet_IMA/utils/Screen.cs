@@ -122,7 +122,7 @@ namespace Projet_IMA
                 float coeffSpecular = (float)Math.Pow(rayReflected * (-rayDirection), 70);
                 pixelColor += coeffSpecular * lights[0].Color; // Modele speculaire
             }
-            Console.WriteLine("color after diffus1 : " + pixelColor.Red + " " + pixelColor.Blue + " " + pixelColor.Green);
+            //Console.WriteLine("color after diffus1 : " + pixelColor.Red + " " + pixelColor.Blue + " " + pixelColor.Green);
 
             if (coeffDiffuseLight2 >= 0  && !IsIntersect(intersection, lights[1].Orientation, sceneObjects, currentObject))
             {
